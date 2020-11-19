@@ -184,6 +184,7 @@ class _LoginPageState extends State<LoginPage> {
                                       Fluttertoast.showToast(
                                           msg: "login successful");
                                       print("login successful");
+                                      print(_passwordController.text);
                                       Navigator.pop(context);
                                     }
                                   } catch (e) {
@@ -195,12 +196,12 @@ class _LoginPageState extends State<LoginPage> {
                                 padding: const EdgeInsets.all(0.0),
                                 child: Ink(
                                   decoration: BoxDecoration(
-                                    // gradient: LinearGradient(
-                                    //     // colors: [
-                                    //     //   Colors.orange[500],
-                                    //     //   Colors.orange[200],
-                                    //     // ],
-                                    //     ),
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Colors.orange[500],
+                                        Colors.orange[200],
+                                      ],
+                                    ),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(80.0)),
                                   ),

@@ -14,7 +14,7 @@ class HomeState extends State<AdminHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff392850),
+      backgroundColor: Colors.orange[300],
       body: Column(
         children: <Widget>[
           SizedBox(
@@ -29,11 +29,11 @@ class HomeState extends State<AdminHome> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Johny s Family",
+                      "Admin Dashboard",
                       style: GoogleFonts.openSans(
                           textStyle: TextStyle(
                               color: Colors.white,
-                              fontSize: 18,
+                              fontSize: 22,
                               fontWeight: FontWeight.bold)),
                     ),
                     SizedBox(
@@ -44,7 +44,7 @@ class HomeState extends State<AdminHome> {
                       style: GoogleFonts.openSans(
                           textStyle: TextStyle(
                               color: Color(0xffa29aac),
-                              fontSize: 14,
+                              fontSize: 18,
                               fontWeight: FontWeight.w600)),
                     ),
                   ],
@@ -52,8 +52,8 @@ class HomeState extends State<AdminHome> {
                 IconButton(
                   alignment: Alignment.topCenter,
                   icon: Image.asset(
-                    "images/notification.png",
-                    width: 24,
+                    "images/admin.png",
+                    width: 64,
                   ),
                   onPressed: () {},
                 )

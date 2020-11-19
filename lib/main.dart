@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fl_fire_auth/createpost.dart';
 import 'Start.dart';
 import 'package:flutter/cupertino.dart';
 import 'admin_home.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Newsfeed app',
       theme: ThemeData(
         primarySwatch: Colors.orange,
@@ -49,7 +51,7 @@ class MainScreen extends StatelessWidget {
                   final userDoc = snapshot.data;
                   final user = userDoc.data();
                   if (user['role'] == 'admin') {
-                    return AdminHome();
+                    return createpost();
                   } else {
                     return Home();
                   }

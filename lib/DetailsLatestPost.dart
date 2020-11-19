@@ -17,7 +17,7 @@ class _LatestPostDetailsState extends State<LatestPostDetails> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Latest Post Details"),
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.orange[300],
       ),
       backgroundColor: Colors.orange,
       body: ListView(

@@ -201,12 +201,12 @@ class _SignupPageState extends State<SignupPage> {
                           padding: const EdgeInsets.all(0.0),
                           child: Ink(
                             decoration: BoxDecoration(
-                              // gradient: LinearGradient(
-                              //     // colors: [
-                              //     //   Color.fromRGBO(40, 25, 7, 1),
-                              //     //   Colors.brown,
-                              //     // ],
-                              //     ),
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color.fromRGBO(40, 25, 7, 1),
+                                  Colors.brown,
+                                ],
+                              ),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(80.0)),
                             ),
