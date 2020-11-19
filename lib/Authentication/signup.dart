@@ -5,6 +5,8 @@ import '../FadeAnimation.dart';
 import 'social.dart';
 import '../Home.dart';
 
+bool isHiddenPassword = true;
+
 class SignupPage extends StatefulWidget {
   @override
   _SignupPageState createState() => _SignupPageState();
@@ -145,13 +147,23 @@ class _SignupPageState extends State<SignupPage> {
                                 },
 
                                 controller: _passwordController,
-                                obscureText: true,
+                                obscureText: isHiddenPassword,
                                 // onSaved: (input) => _password = input,
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
                                     prefixIcon:
                                         Icon(Icons.lock, color: Colors.grey),
                                     hintText: "Password",
+                                    suffixIcon: IconButton(
+                                      icon: Icon(isHiddenPassword
+                                          ? Icons.visibility
+                                          : Icons.visibility_off),
+                                      onPressed: () {
+                                        setState(() {
+                                          isHiddenPassword = !isHiddenPassword;
+                                        });
+                                      },
+                                    ),
                                     hintStyle: TextStyle(color: Colors.grey)),
                               ),
                             ),

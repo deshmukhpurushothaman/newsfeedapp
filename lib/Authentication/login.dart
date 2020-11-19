@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 import 'signup.dart';
 import 'social.dart';
 import '../Home.dart';
+import 'ForgotScreen.dart';
 import '../FadeAnimation.dart';
+
+bool isHiddenPassword = true;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -139,12 +142,23 @@ class _LoginPageState extends State<LoginPage> {
                                   padding: EdgeInsets.all(7.0),
                                   child: TextField(
                                     controller: _passwordController,
-                                    obscureText: true,
+                                    obscureText: isHiddenPassword,
                                     decoration: InputDecoration(
                                         border: InputBorder.none,
                                         prefixIcon: Icon(Icons.lock,
                                             color: Colors.grey[400]),
                                         hintText: "Password",
+                                        suffixIcon: IconButton(
+                                          icon: Icon(isHiddenPassword
+                                              ? Icons.visibility
+                                              : Icons.visibility_off),
+                                          onPressed: () {
+                                            setState(() {
+                                              isHiddenPassword =
+                                                  !isHiddenPassword;
+                                            });
+                                          },
+                                        ),
                                         hintStyle:
                                             TextStyle(color: Colors.grey[400])),
                                   ),
@@ -156,10 +170,19 @@ class _LoginPageState extends State<LoginPage> {
                       FadeAnimation(
                           2.5,
                           Container(
-                            padding: EdgeInsets.only(left: 160.0),
-                            child: Text("Forgot Password?",
-                                style: TextStyle(color: Colors.orange[400])),
-                          )),
+                              padding: EdgeInsets.only(left: 160.0),
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              ForgotScreen()));
+                                },
+                                child: Text("Forgot Password?",
+                                    style:
+                                        TextStyle(color: Colors.orange[400])),
+                              ))),
                       SizedBox(height: 20),
                       FadeAnimation(
                           2,
