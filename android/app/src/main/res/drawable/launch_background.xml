@@ -6,6 +6,11 @@
     <item
         android:gravity="center"
         android:drawable="@drawable/logo"
+<<<<<<< HEAD
+        android:width="500dp"
+        android:height="500dp"/>
+=======
         android:width="300dp"
         android:height="300dp"/>
+>>>>>>> 3ba44afe3a5a7d1494af53f272a251c341561cd2
 </layer-list>
