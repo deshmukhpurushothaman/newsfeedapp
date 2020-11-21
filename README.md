@@ -1,6 +1,10 @@
 # newsfeedapp
 
+<<<<<<< HEAD
 A new Flutter project.
+=======
+A new Flutter application.
+>>>>>>> 569caf9b395404e4b9a2cc26e31b54570cb75aeb
 
 ## Getting Started
 
