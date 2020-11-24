@@ -1,3 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:fl_fire_auth/Admin/createpost.dart';
+
 import 'Authentication/auth_helper.dart';
 //import 'dart:html';
 import 'package:flutter/material.dart';
@@ -9,10 +12,11 @@ import 'Controller/LocalNews.dart';
 import 'Controller/SportsNews.dart';
 import 'Controller/PoliticsNews.dart';
 import 'DetailsLatestPost.dart';
+import 'createpost.dart';
 import 'dart:async';
 
 class Home extends StatefulWidget {
-  Home({Key key}) : super(key: key);
+  //Home({Key key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
@@ -231,7 +235,7 @@ class _HomeState extends State<Home> {
           //Third Container
           Container(
             margin: EdgeInsets.all(10.0),
-            height: 200.0,
+            height: 300.0,
             child: Column(
               children: [
                 Container(
@@ -352,6 +356,44 @@ class _HomeState extends State<Home> {
                               },
                               child: Text(
                                 "Politics News",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 19.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      //Sign Out
+                    ],
+                  ),
+                ),
+                new SizedBox(
+                  height: 8.0,
+                ),
+                Container(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          height: 75.0,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFffd280),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                    new MaterialPageRoute(
+                                        builder: (context) => createpost()));
+                              },
+                              child: Text(
+                                "Need to Create a Post?",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 19.0,

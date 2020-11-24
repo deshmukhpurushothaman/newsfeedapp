@@ -141,19 +141,19 @@ class _createlatestpostState extends State<createlatestpost> {
                   accountEmail: null,
                   decoration: new BoxDecoration(color: Colors.orangeAccent),
                 ),
-                // new ListTile(
-                //   title: new Text(
-                //     "Users",
-                //     style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
-                //   ),
-                //   onTap: () {
-                //     Navigator.of(context).pop();
-                //     Navigator.of(context).push(new MaterialPageRoute(
-                //         builder: (context) => UsersPage()));
-                //   },
-                //   leading: new Icon(Icons.person,
-                //       color: Colors.grey[800], size: 20.0),
-                // ),
+                new ListTile(
+                  title: new Text(
+                    "Users",
+                    style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(new MaterialPageRoute(
+                        builder: (context) => UsersPage()));
+                  },
+                  leading: new Icon(Icons.person,
+                      color: Colors.grey[800], size: 20.0),
+                ),
                 new ListTile(
                   title: new Text(
                     "Logout",

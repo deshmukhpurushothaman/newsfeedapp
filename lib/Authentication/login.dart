@@ -209,6 +209,9 @@ class _LoginPageState extends State<LoginPage> {
                                       print("login successful");
                                       print(_passwordController.text);
                                       Navigator.pop(context);
+                                      Navigator.of(context).push(
+                                          new MaterialPageRoute(
+                                              builder: (context) => Home()));
                                     }
                                   } catch (e) {
                                     print(e);
