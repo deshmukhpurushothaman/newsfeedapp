@@ -54,9 +54,9 @@ class _SportsNewsState extends State<SportsNews> {
               child: ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
-                  return Slidable(
+                  return new Dismissible(
                     key: ValueKey(index),
-                    actionPane: SlidableDrawerActionPane(),
+                    //actionPane: SlidableDrawerActionPane(),
                     // actions: [
                     //   IconSlideAction(
                     //     caption: 'Archive',
@@ -64,17 +64,25 @@ class _SportsNewsState extends State<SportsNews> {
                     //     icon: Icons.archive,
                     //   ),
                     // ],
-                    secondaryActions: [
-                      IconSlideAction(
-                        caption: 'Delete',
-                        color: Colors.blueGrey,
-                        icon: Icons.delete,
-                      ),
-                    ],
-
-                    dismissal: SlidableDismissal(
-                      child: SlidableDrawerDismissal(),
-                    ),
+                    // secondaryActions: [
+                    //   IconSlideAction(
+                    //     caption: 'Delete',
+                    //     color: Colors.blueGrey,
+                    //     icon: Icons.delete,
+                    //   ),
+                    // ],
+                    onDismissed: (DismissDirection) {
+                      //snapshot.data.delete(index);
+                      print("Entered");
+                      FirebaseFirestore.instance
+                          .collection("SportsAllNews")
+                          .doc(snapshot.data[index].documentID)
+                          .delete();
+                      print("Successful");
+                    },
+                    // dismissal: SlidableDismissal(
+                    //   child: SlidableDrawerDismissal(),
+                    // ),
                     child: Container(
                       height: 170.0,
                       decoration: BoxDecoration(
@@ -168,41 +176,6 @@ class _SportsNewsState extends State<SportsNews> {
                                                   const EdgeInsets.all(8.0),
                                               child: Text(
                                                 "View Details",
-                                                style: TextStyle(
-                                                  fontSize: 20.0,
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      //Second Container(Delete Post)
-                                      InkWell(
-                                        onTap: () {
-                                          Navigator.of(context).push(
-                                              new MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      SportsNews_PostDetails(
-                                                          snapshot
-                                                              .data[index])));
-                                        },
-                                        child: Container(
-                                          margin: EdgeInsets.only(
-                                            right: 10.0,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(15.0),
-                                            color: Colors.red,
-                                          ),
-                                          child: Align(
-                                            alignment: Alignment.center,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                "Delete",
                                                 style: TextStyle(
                                                   fontSize: 20.0,
                                                   color: Colors.black,

@@ -64,13 +64,13 @@ class _InternationalNewsState extends State<InternationalNews> {
                     //     icon: Icons.archive,
                     //   ),
                     // ],
-                    secondaryActions: [
-                      IconSlideAction(
-                        caption: 'Delete',
-                        color: Colors.blueGrey,
-                        icon: Icons.delete,
-                      ),
-                    ],
+                    // secondaryActions: [
+                    //   IconSlideAction(
+                    //     caption: 'Delete',
+                    //     color: Colors.blueGrey,
+                    //     icon: Icons.delete,
+                    //   ),
+                    // ],
 
                     dismissal: SlidableDismissal(
                       child: SlidableDrawerDismissal(),

@@ -1,3 +1,7 @@
+//import 'dart:html';
+
+//import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -64,13 +68,23 @@ class _PoliticsNewsState extends State<PoliticsNews> {
                     //     icon: Icons.archive,
                     //   ),
                     // ],
-                    secondaryActions: [
-                      IconSlideAction(
-                        caption: 'Delete',
-                        color: Colors.blueGrey,
-                        icon: Icons.delete,
-                      ),
-                    ],
+                    // onDismissed: (DismissDirection) {
+                    //   //snapshot.data.delete(index);
+                    //   print("Entered");
+                    //   FirebaseFirestore.instance
+                    //       .collection("PoliticsAllNews")
+                    //       .doc(snapshot.data[index].documentID)
+                    //       .delete();
+                    //   print("Successful");
+                    // },
+
+                    // secondaryActions: [
+                    //   IconSlideAction(
+                    //     caption: 'Delete',
+                    //     color: Colors.blueGrey,
+                    //     icon: Icons.delete,
+                    //   ),
+                    // ],
 
                     dismissal: SlidableDismissal(
                       child: SlidableDrawerDismissal(),

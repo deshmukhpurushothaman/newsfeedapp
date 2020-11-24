@@ -64,13 +64,13 @@ class _LocalNewsState extends State<LocalNews> {
                     //     icon: Icons.archive,
                     //   ),
                     // ],
-                    secondaryActions: [
-                      IconSlideAction(
-                        caption: 'Delete',
-                        color: Colors.blueGrey,
-                        icon: Icons.delete,
-                      ),
-                    ],
+                    // secondaryActions: [
+                    //   IconSlideAction(
+                    //     caption: 'Delete',
+                    //     color: Colors.blueGrey,
+                    //     icon: Icons.delete,
+                    //   ),
+                    // ],
 
                     dismissal: SlidableDismissal(
                       child: SlidableDrawerDismissal(),

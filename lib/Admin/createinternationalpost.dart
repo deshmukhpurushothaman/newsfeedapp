@@ -277,19 +277,18 @@ class _createinternationalpostState extends State<createinternationalpost> {
                         return;
                       } else {
                         // ignore: deprecated_member_use
-                        Firestore.instance
-                            .collection(_categoryVal)
-                            // ignore: deprecated_member_use
-                            .document()
-                            // ignore: deprecated_member_use
-                            .setData({
-                          "content": _postcontentController.text,
-                          "title": _titleController.text,
-                          "image": imageurl
-                        });
+                        // Firestore.instance
+                        //     .collection(_categoryVal)
+                        //     // ignore: deprecated_member_use
+                        //     .document()
+                        //     // ignore: deprecated_member_use
+                        //     .setData({
+                        //   "content": _postcontentController.text,
+                        //   "title": _titleController.text,
+                        //   "image": imageurl
+                        // });
 
-                        Fluttertoast.showToast(
-                            msg: _categoryVal + " Posted Successfully!!");
+                        Fluttertoast.showToast(msg: " All fields are required");
                         return;
                       }
                     }
