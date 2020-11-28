@@ -1,5 +1,8 @@
+import 'package:fl_fire_auth/Admin/createlatestpost.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'updatelatestpost.dart';
 import 'dart:async';
 
 class LatestPostDetails extends StatefulWidget {
@@ -81,6 +84,81 @@ class _LatestPostDetailsState extends State<LatestPostDetails> {
                   style: TextStyle(
                     fontSize: 15.0,
                     color: Colors.black,
+                  ),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      //First Container
+                      InkWell(
+                        onTap: () {
+                          FirebaseFirestore.instance
+                              .collection("LatestPost")
+                              .doc(widget.snapshot.documentID)
+                              .delete();
+                          print("Successful");
+                          Fluttertoast.showToast(
+                              msg:
+                                  "Deleted Successfully!!! Refresh the page to see the changes.");
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(
+                            right: 10.0,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15.0),
+                            color: Color(0xFFfff6e6),
+                          ),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "Delete",
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      //Second Container(Delete Post)
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(new MaterialPageRoute(
+                              builder: (context) =>
+                                  updatelatestpost(widget.snapshot)));
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(
+                            right: 10.0,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15.0),
+                            color: Color(0xFFfff6e6),
+                          ),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "Update",
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

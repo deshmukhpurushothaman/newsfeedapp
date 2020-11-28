@@ -32,6 +32,14 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: new AppBar(
+        title: new Text(
+          "Admins",
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.orange,
+        iconTheme: new IconThemeData(color: Colors.black),
+      ),
       backgroundColor: Colors.orange,
       body: FutureBuilder(
         future: getAllPost(),
@@ -85,7 +93,7 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
                     //   child: SlidableDrawerDismissal(),
                     // ),
                     child: Container(
-                      height: 170.0,
+                      height: 100.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
                         color: Color(0xFFffd280),
@@ -107,11 +115,13 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
                           new SizedBox(
                             width: 5.0,
                           ),
+
                           Expanded(
                             flex: 2,
                             child: Column(
                               children: [
                                 //First Container
+
                                 Container(
                                   child: Column(
                                     crossAxisAlignment:
@@ -139,11 +149,9 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
                                     ],
                                   ),
                                 ),
-
                                 SizedBox(
                                   height: 20.0,
                                 ),
-
                                 Container(
                                   child: Row(
                                     mainAxisAlignment:

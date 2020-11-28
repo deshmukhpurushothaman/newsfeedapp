@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'AdminUsers.dart';
 
 class Admindetails extends StatefulWidget {
   DocumentSnapshot snapshot;
@@ -12,6 +13,7 @@ class Admindetails extends StatefulWidget {
 
 class _AdmindetailsState extends State<Admindetails> {
   String _role;
+  String dbRole;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class _AdmindetailsState extends State<Admindetails> {
             SizedBox(height: 10),
             RichText(
               text: TextSpan(
-                  text: '(International news Admin)',
+                  text: "Role: " + widget.snapshot['role'],
                   style: TextStyle(
                       fontSize: 23.0,
                       //fontWeight: FontWeight.bold,
@@ -59,6 +61,7 @@ class _AdmindetailsState extends State<Admindetails> {
                 style: TextStyle(color: Colors.orange),
                 items: [
                   "User",
+                  "Admin",
                   "Super Admin",
                   "Latest News Admin",
                   "International News admin",
@@ -101,16 +104,62 @@ class _AdmindetailsState extends State<Admindetails> {
                       ),
                       borderRadius: BorderRadius.all(Radius.circular(80.0)),
                     ),
-                    child: Container(
-                      constraints: const BoxConstraints(
-                          minWidth: 88.0,
-                          minHeight: 36.0), // min sizes for Material buttons
-                      alignment: Alignment.center,
-                      child: Text("Update",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17)),
+                    child: InkWell(
+                      onTap: () => {
+                        if (_role == "User")
+                          {
+                            dbRole = "0",
+                          }
+                        else if (_role == "Super Admin")
+                          {
+                            dbRole = "2",
+                          }
+                        else if (_role == "Latest News Admin")
+                          {
+                            dbRole = "3",
+                          }
+                        else if (_role == "International News admin")
+                          {
+                            dbRole = "4",
+                          }
+                        else if (_role == "Politic News admin")
+                          {
+                            dbRole = "5",
+                          }
+                        else if (_role == "Sports News admin")
+                          {
+                            dbRole = "6",
+                          }
+                        else
+                          {
+                            dbRole = "7",
+                          },
+                        print("Condition Done" + dbRole),
+                        FirebaseFirestore.instance
+                            .collection("users")
+                            //.where("email", isEqualTo: widget.snapshot['email'])
+                            // ignore: deprecated_member_use
+                            .document(widget.snapshot.id)
+
+                            // ignore: deprecated_member_use
+                            .updateData({
+                          "role": dbRole,
+                        }),
+                        print("Successful"),
+                        Navigator.of(context).push(new MaterialPageRoute(
+                            builder: (context) => AdminUsersPage())),
+                      },
+                      child: Container(
+                        constraints: const BoxConstraints(
+                            minWidth: 88.0,
+                            minHeight: 36.0), // min sizes for Material buttons
+                        alignment: Alignment.center,
+                        child: Text("Update",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17)),
+                      ),
                     ),
                   ),
                 ),

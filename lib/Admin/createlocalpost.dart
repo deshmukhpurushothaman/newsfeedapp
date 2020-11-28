@@ -1,18 +1,15 @@
-//import 'dart:html';
 import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../Authentication/auth_helper.dart';
+import 'LocalNews/LocalAllNews.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'users.dart';
-
-File image;
-String filename;
+import '../Authentication/auth_helper.dart';
 
 class createlocalpost extends StatefulWidget {
   @override
@@ -25,14 +22,30 @@ class _createlocalpostState extends State<createlocalpost> {
 
   String _categoryVal;
   String _postType;
-  bool isSwitched = false;
   String imageurl;
+  File image;
+  String filename;
+  bool _isloading = false;
+  double _progress;
 
   @override
   void initState() {
     super.initState();
     _titleController = TextEditingController(text: "");
     _postcontentController = TextEditingController(text: "");
+  }
+
+  getImage(source) async {
+    var selectedimage = await ImagePicker.pickImage(
+      source: source,
+    );
+    File croppedFile =
+        await ImageCropper.cropImage(sourcePath: selectedimage.path);
+
+    setState(() {
+      image = croppedFile;
+      filename = basename(image.path);
+    });
   }
 
   Future _getImage() async {
@@ -45,53 +58,63 @@ class _createlocalpostState extends State<createlocalpost> {
     });
   }
 
+  progress(loading) {
+    if (loading) {
+      return Column(
+        children: <Widget>[
+          LinearProgressIndicator(
+            value: _progress,
+            backgroundColor: Colors.red,
+          ),
+          Text('${(_progress * 100).toStringAsFixed(2)} %'),
+        ],
+      );
+    } else {
+      return Text('Nothing');
+    }
+  }
+
   Future<String> uploadImage() async {
     FirebaseStorage storage = FirebaseStorage.instance;
     Reference ref = storage.ref().child(filename);
 
     UploadTask uploadTask = ref.putFile(image);
-    // uploadTask.then((res) {
-    //   var url = res.ref.getDownloadURL();
-    //   print("Download: $url");
 
-    //   return url;
-    // });
+    uploadTask.events.listen((event) {
+      setState(() {
+        _isloading = true;
+        _progress = event.snapshot.bytesTransferred.toDouble() /
+            event.snapshot.totalByteCount.toDouble();
+        print(_progress);
+      });
+    });
 
     TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {
       var x = 2;
-      // return ( x);
     });
 
     final String url = (await taskSnapshot.ref.getDownloadURL());
     print('URL Is $url');
 
-    // var downUrl = await (await uploadTask.whenComplete(() => {
-    //   ref.getDownloadURL();
-    // }));
-
-    // var url = downUrl.toString();
-    // print("Download: $url");
     imageurl = url;
     Fluttertoast.showToast(msg: imageurl);
     return url;
-
-    // StorageReference reference = FirebaseStorage.instance.ref().child(filename);
-    // reference.putFile(image);
-
-    // return "";
   }
 
   Widget uploadArea() {
     return Column(
       children: <Widget>[
         Image.file(image, width: double.infinity),
-        RaisedButton(
-          color: Colors.orange,
-          child: Text("Upload"),
+        //Padding(padding: EdgeInsets.all(8)),
+        FlatButton.icon(
           onPressed: () {
             uploadImage();
+            print(filename);
           },
+          icon: Icon(Icons.cloud_upload),
+          label: Text("Upload"),
         ),
+        SizedBox(height: 20.0),
       ],
     );
   }
@@ -122,7 +145,7 @@ class _createlocalpostState extends State<createlocalpost> {
     return Scaffold(
         appBar: new AppBar(
           title: new Text(
-            "Create Local Post",
+            "Create Post",
             style: TextStyle(color: Colors.grey[800]),
           ),
           backgroundColor: Colors.orange,
@@ -140,6 +163,19 @@ class _createlocalpostState extends State<createlocalpost> {
                   ),
                   accountEmail: null,
                   decoration: new BoxDecoration(color: Colors.orangeAccent),
+                ),
+                new ListTile(
+                  title: new Text(
+                    "Local News",
+                    style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(new MaterialPageRoute(
+                        builder: (context) => LocalNews()));
+                  },
+                  leading: new Icon(Icons.person,
+                      color: Colors.grey[800], size: 20.0),
                 ),
                 new ListTile(
                   title: new Text(
@@ -176,63 +212,54 @@ class _createlocalpostState extends State<createlocalpost> {
             SizedBox(height: 5.0),
             _Titletextfield(),
             SizedBox(height: 10.0),
-            SwitchListTile(
-              value: isSwitched,
-              activeColor: Colors.orange,
-              secondary: new Icon(Icons.post_add),
-              title: new Text("Local Post"),
-              onChanged: (value) {
-                print("Value: $value");
-                setState(() {
-                  isSwitched = value;
-                });
+            DropdownButton(
+              hint: _categoryVal == null
+                  ? Text('Post category')
+                  : Text(
+                      _categoryVal,
+                      style: TextStyle(color: Colors.black),
+                    ),
+              isExpanded: true,
+              iconSize: 30.0,
+              style: TextStyle(color: Colors.orange),
+              items: ["LocalAllNews"].map(
+                (val) {
+                  return DropdownMenuItem<String>(
+                    value: val,
+                    child: Text(val),
+                  );
+                },
+              ).toList(),
+              onChanged: (val) {
+                setState(
+                  () {
+                    _categoryVal = val;
+                  },
+                );
               },
             ),
-            SizedBox(height: 10.0),
-            // DropdownButton(
-            //   hint: _categoryVal == null
-            //       ? Text('Post category')
-            //       : Text(
-            //           _categoryVal,
-            //           style: TextStyle(color: Colors.black),
-            //         ),
-            //   isExpanded: true,
-            //   iconSize: 30.0,
-            //   style: TextStyle(color: Colors.orange),
-            //   items: [
-            //     "InternationalAllNews",
-            //     "localAllNews",
-            //     "SportsAllNews",
-            //     "LocalAllNews"
-            //   ].map(
-            //     (val) {
-            //       return DropdownMenuItem<String>(
-            //         value: val,
-            //         child: Text(val),
-            //       );
-            //     },
-            //   ).toList(),
-            //   onChanged: (val) {
-            //     setState(
-            //       () {
-            //         _categoryVal = val;
-            //       },
-            //     );
-            //   },
-            // ),
             SizedBox(height: 10.0),
             _contenttextfield(),
             Container(
               padding: EdgeInsets.all(20.0),
               child: Column(
                 children: [
-                  image == null ? Text("Select an image") : uploadArea(),
-                  RaisedButton(
-                    padding: EdgeInsets.all(10.0),
-                    color: Colors.orange[200],
-                    child: Icon(Icons.image),
-                    onPressed: _getImage,
-                  ),
+                  image == null ? Text("No image selected") : uploadArea(),
+                  Container(
+                    child: Row(
+                      children: [
+                        FlatButton.icon(
+                            onPressed: () => getImage(ImageSource.camera),
+                            padding: EdgeInsets.only(right: 110),
+                            icon: Icon(Icons.camera),
+                            label: Text('Camera')),
+                        FlatButton.icon(
+                            onPressed: () => getImage(ImageSource.gallery),
+                            icon: Icon(Icons.photo_library),
+                            label: Text('Gallery')),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
@@ -258,38 +285,21 @@ class _createlocalpostState extends State<createlocalpost> {
                     } else {
                       print(_postcontentController.text);
 
-                      if (isSwitched == true) {
-                        // ignore: deprecated_member_use
-                        Firestore.instance
-                            .collection("LocalAllNews")
-                            // ignore: deprecated_member_use
-                            .document()
-                            // ignore: deprecated_member_use
-                            .setData({
-                          "content": _postcontentController.text,
-                          "title": _titleController.text,
-                          "image": imageurl
-                        });
+                      // ignore: deprecated_member_use
+                      Firestore.instance
+                          .collection(_categoryVal)
+                          // ignore: deprecated_member_use
+                          .document()
+                          // ignore: deprecated_member_use
+                          .setData({
+                        "content": _postcontentController.text,
+                        "title": _titleController.text,
+                        "image": imageurl
+                      });
 
-                        Fluttertoast.showToast(
-                            msg: "Latestpost Posted Successfully!!");
-                        return;
-                      } else {
-                        // ignore: deprecated_member_use
-                        // Firestore.instance
-                        //     .collection(_categoryVal)
-                        //     // ignore: deprecated_member_use
-                        //     .document()
-                        //     // ignore: deprecated_member_use
-                        //     .setData({
-                        //   "content": _postcontentController.text,
-                        //   "title": _titleController.text,
-                        //   "image": imageurl
-                        // });
-
-                        Fluttertoast.showToast(msg: " All fields are required");
-                        return;
-                      }
+                      Fluttertoast.showToast(
+                          msg: _categoryVal + " Posted Successfully!!");
+                      return;
                     }
                   },
                   shape: RoundedRectangleBorder(

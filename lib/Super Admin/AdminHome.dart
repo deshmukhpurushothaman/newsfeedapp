@@ -1,3 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fl_fire_auth/Admin/usersposts.dart';
+import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/InternationalNews/DeletedInternationalAllNews.dart';
+import 'View/LatestNews/AdminLatestAllNews.dart';
 import '../Authentication/auth_helper.dart';
 //import 'dart:html';
 import 'package:flutter/material.dart';
@@ -9,6 +13,10 @@ import 'Controller/AdminLocalNews.dart';
 import 'Controller/AdminSportsNews.dart';
 import 'Controller/AdminPoliticsNews.dart';
 import 'AdminDetailsLatestPost.dart';
+import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/LocalNews/DeletedLocalAllNews.dart';
+import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/PoliticsNews/DeletedPoliticsAllNews.dart';
+import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/SportsNews/DeletedSportsAllNews.dart';
+import 'Deleted News/LatestNews/DeletedLatestAllNews.dart';
 import 'dart:async';
 import './users.dart';
 import './AdminUsers.dart';
@@ -22,11 +30,13 @@ class AdminHome extends StatefulWidget {
 
 class _AdminHomeState extends State<AdminHome> {
   // ignore: cancel_subscriptions
+
   StreamSubscription<QuerySnapshot> subscription;
 
   List<DocumentSnapshot> snapshot;
   CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('LatestPost');
+  //final User user = FirebaseAuth.instance.currentUser;
 
   void initState() {
     subscription = collectionReference.snapshots().listen((datasnap) {
@@ -36,6 +46,7 @@ class _AdminHomeState extends State<AdminHome> {
       });
     });
     super.initState();
+    //print("User loggedin " + user.email);
   }
 
   Widget build(BuildContext context) {
@@ -60,6 +71,19 @@ class _AdminHomeState extends State<AdminHome> {
                 ),
                 accountEmail: null,
                 decoration: new BoxDecoration(color: Colors.orange),
+              ),
+              new ListTile(
+                title: new Text(
+                  "Latest News",
+                  style: TextStyle(fontSize: 20.0, color: Colors.black),
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (context) => LatestNews()));
+                },
+                leading:
+                    new Icon(Icons.next_week, color: Colors.black, size: 20.0),
               ),
               new ListTile(
                 title: new Text(
@@ -113,6 +137,19 @@ class _AdminHomeState extends State<AdminHome> {
               ),
               new ListTile(
                 title: new Text(
+                  "User News",
+                  style: TextStyle(fontSize: 20.0, color: Colors.black),
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(
+                      new MaterialPageRoute(builder: (context) => UserPosts()));
+                },
+                leading:
+                    new Icon(Icons.next_week, color: Colors.black, size: 20.0),
+              ),
+              new ListTile(
+                title: new Text(
                   "Users",
                   style: TextStyle(fontSize: 20.0, color: Colors.black),
                 ),
@@ -136,6 +173,71 @@ class _AdminHomeState extends State<AdminHome> {
                 },
                 leading: new Icon(Icons.admin_panel_settings,
                     color: Colors.black, size: 20.0),
+              ),
+              new ListTile(
+                title: new Text(
+                  "Deleted Latest News",
+                  style: TextStyle(fontSize: 20.0, color: Colors.black),
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (context) => DeletedLatestNews()));
+                },
+                leading:
+                    new Icon(Icons.delete, color: Colors.black, size: 20.0),
+              ),
+              new ListTile(
+                title: new Text(
+                  "Deleted International News",
+                  style: TextStyle(fontSize: 20.0, color: Colors.black),
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (context) => DeletedInternationalNews()));
+                },
+                leading:
+                    new Icon(Icons.delete, color: Colors.black, size: 20.0),
+              ),
+              new ListTile(
+                title: new Text(
+                  "Deleted Local News",
+                  style: TextStyle(fontSize: 20.0, color: Colors.black),
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (context) => DeletedLocalNews()));
+                },
+                leading:
+                    new Icon(Icons.delete, color: Colors.black, size: 20.0),
+              ),
+              new ListTile(
+                title: new Text(
+                  "Deleted Politics News",
+                  style: TextStyle(fontSize: 20.0, color: Colors.black),
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (context) => DeletedPoliticsNews()));
+                },
+                leading:
+                    new Icon(Icons.delete, color: Colors.black, size: 20.0),
+              ),
+              new ListTile(
+                title: new Text(
+                  "Deleted Sports News",
+                  style: TextStyle(fontSize: 20.0, color: Colors.black),
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (context) => DeletedSportsNews()));
+                },
+                leading:
+                    new Icon(Icons.delete, color: Colors.black, size: 20.0),
               ),
               new ListTile(
                 title: new Text(

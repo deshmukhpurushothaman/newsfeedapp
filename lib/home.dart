@@ -29,6 +29,8 @@ class _HomeState extends State<Home> {
   List<DocumentSnapshot> snapshot;
   CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('LatestPost');
+  // ignore: deprecated_member_use
+  //final FirebaseUser user = FirebaseAuth.instance.currentUser;
 
   void initState() {
     subscription = collectionReference.snapshots().listen((datasnap) {
@@ -38,6 +40,7 @@ class _HomeState extends State<Home> {
       });
     });
     super.initState();
+    //print("User Loggedin " + user.email);
   }
 
   Widget build(BuildContext context) {

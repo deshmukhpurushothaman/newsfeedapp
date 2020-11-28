@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'AdminPoliticsNews_Postdetails.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'updatepoliticspost.dart';
 import 'dart:async';
 
 class PoliticsNews extends StatefulWidget {
@@ -54,9 +56,9 @@ class _PoliticsNewsState extends State<PoliticsNews> {
               child: ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
-                  return new Dismissible(
+                  return Slidable(
                     key: ValueKey(index),
-                    //actionPane: SlidableDrawerActionPane(),
+                    actionPane: SlidableDrawerActionPane(),
                     // actions: [
                     //   IconSlideAction(
                     //     caption: 'Archive',
@@ -71,15 +73,48 @@ class _PoliticsNewsState extends State<PoliticsNews> {
                     //     icon: Icons.delete,
                     //   ),
                     // ],
-                    onDismissed: (DismissDirection) {
-                      //snapshot.data.delete(index);
-                      print("Entered");
-                      FirebaseFirestore.instance
-                          .collection("PoliticsAllNews")
-                          .doc(snapshot.data[index].documentID)
-                          .delete();
-                      print("Successful");
-                    },
+                    secondaryActions: [
+                      IconSlideAction(
+                        caption: 'Delete',
+                        color: Colors.blueGrey,
+                        icon: Icons.delete,
+                        onTap: () => {
+                          print("Entered"),
+                          //Copy to new Deleted Collection
+                          FirebaseFirestore.instance
+                              .collection("DeletedPoliticsNews")
+                              // ignore: deprecated_member_use
+                              .document()
+                              // ignore: deprecated_member_use
+                              .setData({
+                            "content": snapshot.data[index].data()['content'],
+                            "title": snapshot.data[index].data()['title'],
+                            "image": snapshot.data[index].data()['image'],
+                            "categoryval": "PoliticsAllNews",
+                          }),
+                          print("Successful"),
+
+                          //Delete
+                          FirebaseFirestore.instance
+                              .collection("PoliticsAllNews")
+                              .doc(snapshot.data[index].documentID)
+                              .delete(),
+                          print("Successful"),
+                          Fluttertoast.showToast(
+                              msg:
+                                  "Deleted Successfully!!! Refresh the page to see the changes."),
+                        },
+                      ),
+                    ],
+                    // onDismissed: (DismissDirection) {
+                    //   //snapshot.data.delete(index);
+                    //   print("Entered");
+                    //   FirebaseFirestore.instance
+                    //       .collection("PoliticsAllNews")
+                    //       .doc(snapshot.data[index].documentID)
+                    //       .delete();
+                    //   print("Successful");
+                    // },
 
                     // dismissal: SlidableDismissal(
                     //   child: SlidableDrawerDismissal(),
@@ -177,6 +212,40 @@ class _PoliticsNewsState extends State<PoliticsNews> {
                                                   const EdgeInsets.all(8.0),
                                               child: Text(
                                                 "View Details",
+                                                style: TextStyle(
+                                                  fontSize: 20.0,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                              new MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      updatepoliticspost(
+                                                          snapshot
+                                                              .data[index])));
+                                        },
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                            right: 10.0,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                            color: Color(0xFFfff6e6),
+                                          ),
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                "Update",
                                                 style: TextStyle(
                                                   fontSize: 20.0,
                                                   color: Colors.black,

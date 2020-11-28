@@ -59,6 +59,7 @@ class MainScreen extends StatelessWidget {
                   if (user['role'] == '1') {
                     return createpost();
                   } else if (user['role'] == '2') {
+                    print("Super admin");
                     return AdminHome();
                   } else if (user['role'] == '3') {
                     return createlatestpost();
