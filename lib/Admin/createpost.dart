@@ -15,6 +15,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'users.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class createpost extends StatefulWidget {
   @override
@@ -32,7 +33,7 @@ class _createpostState extends State<createpost> {
   String filename;
   bool _isloading = false;
   double _progress;
-
+  final User user = FirebaseAuth.instance.currentUser;
   @override
   void initState() {
     super.initState();
@@ -162,11 +163,8 @@ class _createpostState extends State<createpost> {
             child: new ListView(
               children: <Widget>[
                 new UserAccountsDrawerHeader(
-                  accountName: new Text(
-                    "News Portal App (Admin)",
-                    style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
-                  ),
-                  accountEmail: null,
+                  accountName: null,
+                  accountEmail: new Text("Signed in as " + user.email),
                   decoration: new BoxDecoration(color: Colors.orangeAccent),
                 ),
                 new ListTile(

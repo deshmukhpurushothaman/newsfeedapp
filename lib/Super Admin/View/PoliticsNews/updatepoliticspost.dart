@@ -37,6 +37,7 @@ class _updatepoliticspostState extends State<updatepoliticspost> {
     _titleController = TextEditingController(text: widget.snapshot['title']);
     _postcontentController =
         TextEditingController(text: widget.snapshot['content']);
+    imageurl = widget.snapshot['image'];
     //image = File(widget.snapshot['image']);
   }
 
@@ -200,7 +201,9 @@ class _updatepoliticspostState extends State<updatepoliticspost> {
               padding: EdgeInsets.all(20.0),
               child: Column(
                 children: [
-                  image == null ? Text("No image selected") : uploadArea(),
+                  image == null
+                      ? Image.network(widget.snapshot['image'])
+                      : uploadArea(),
                   Container(
                     child: Row(
                       children: [

@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'users.dart';
 import '../Authentication/auth_helper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class createlocalpost extends StatefulWidget {
   @override
@@ -35,6 +36,7 @@ class _createlocalpostState extends State<createlocalpost> {
     _postcontentController = TextEditingController(text: "");
   }
 
+  final User user = FirebaseAuth.instance.currentUser;
   getImage(source) async {
     var selectedimage = await ImagePicker.pickImage(
       source: source,
@@ -157,11 +159,8 @@ class _createlocalpostState extends State<createlocalpost> {
             child: new ListView(
               children: <Widget>[
                 new UserAccountsDrawerHeader(
-                  accountName: new Text(
-                    "News Portal App (Admin)",
-                    style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
-                  ),
-                  accountEmail: null,
+                  accountEmail: new Text("Signed in as " + user.email),
+                  accountName: null,
                   decoration: new BoxDecoration(color: Colors.orangeAccent),
                 ),
                 new ListTile(

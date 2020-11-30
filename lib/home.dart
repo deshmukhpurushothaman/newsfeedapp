@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
   CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('LatestPost');
   // ignore: deprecated_member_use
-  //final FirebaseUser user = FirebaseAuth.instance.currentUser;
+  final FirebaseUser user = FirebaseAuth.instance.currentUser;
 
   void initState() {
     subscription = collectionReference.snapshots().listen((datasnap) {
@@ -59,11 +59,8 @@ class _HomeState extends State<Home> {
           child: new ListView(
             children: <Widget>[
               new UserAccountsDrawerHeader(
-                accountName: new Text(
-                  "News Portal App",
-                  style: TextStyle(color: Colors.black),
-                ),
-                accountEmail: null,
+                accountName: null,
+                accountEmail: new Text("Signed in as " + user.email),
                 decoration: new BoxDecoration(color: Colors.orange),
               ),
               new ListTile(

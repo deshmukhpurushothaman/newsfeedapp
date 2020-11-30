@@ -92,6 +92,7 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
                     // dismissal: SlidableDismissal(
                     //   child: SlidableDrawerDismissal(),
                     // ),
+
                     child: Container(
                       height: 100.0,
                       decoration: BoxDecoration(
@@ -112,6 +113,7 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
                           //     ),
                           //   ),
                           // ),
+
                           new SizedBox(
                             width: 5.0,
                           ),
@@ -121,7 +123,6 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
                             child: Column(
                               children: [
                                 //First Container
-
                                 Container(
                                   child: Column(
                                     crossAxisAlignment:

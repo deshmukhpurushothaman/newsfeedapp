@@ -35,7 +35,7 @@ class _UserPostsState extends State<UserPosts> {
     return Scaffold(
       appBar: new AppBar(
         title: new Text(
-          "User News",
+          "User News Demo",
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.orange,

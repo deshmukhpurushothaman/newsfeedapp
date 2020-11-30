@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fl_fire_auth/Admin/usersposts.dart';
+import './usersposts.dart';
 import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/InternationalNews/DeletedInternationalAllNews.dart';
 import 'View/LatestNews/AdminLatestAllNews.dart';
 import '../Authentication/auth_helper.dart';
@@ -36,7 +36,7 @@ class _AdminHomeState extends State<AdminHome> {
   List<DocumentSnapshot> snapshot;
   CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('LatestPost');
-  //final User user = FirebaseAuth.instance.currentUser;
+  final User user = FirebaseAuth.instance.currentUser;
 
   void initState() {
     subscription = collectionReference.snapshots().listen((datasnap) {
@@ -46,7 +46,7 @@ class _AdminHomeState extends State<AdminHome> {
       });
     });
     super.initState();
-    //print("User loggedin " + user.email);
+    print("User loggedin " + user.email);
   }
 
   Widget build(BuildContext context) {
@@ -65,11 +65,8 @@ class _AdminHomeState extends State<AdminHome> {
           child: new ListView(
             children: <Widget>[
               new UserAccountsDrawerHeader(
-                accountName: new Text(
-                  "News Portal App(Super Admin)",
-                  style: TextStyle(color: Colors.black),
-                ),
-                accountEmail: null,
+                accountEmail: new Text("Signed In as " + user.email),
+                accountName: null,
                 decoration: new BoxDecoration(color: Colors.orange),
               ),
               new ListTile(

@@ -36,12 +36,14 @@ class _updateinternationalpostState extends State<updateinternationalpost> {
   void initState() {
     super.initState();
     _titleController = TextEditingController(text: widget.snapshot['title']);
+    //String image1 = widget.snapshot['image'];
     _postcontentController =
         TextEditingController(text: widget.snapshot['content']);
-    //image = File(widget.snapshot['image']);
+    imageurl = widget.snapshot['image'];
   }
 
   getImage(source) async {
+    // ignore: deprecated_member_use
     var selectedimage = await ImagePicker.pickImage(
       source: source,
     );
@@ -201,7 +203,7 @@ class _updateinternationalpostState extends State<updateinternationalpost> {
               padding: EdgeInsets.all(20.0),
               child: Column(
                 children: [
-                  image == null ? Text("No image selected") : uploadArea(),
+                  image == null ? Image.network(imageurl) : uploadArea(),
                   Container(
                     child: Row(
                       children: [

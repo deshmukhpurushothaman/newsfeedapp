@@ -38,6 +38,7 @@ class _updateuserpostState extends State<updateuserpost> {
     _postcontentController =
         TextEditingController(text: widget.snapshot['content']);
     _categoryVal = widget.snapshot['categoryval'];
+    imageurl = widget.snapshot['image'];
     //image = File(widget.snapshot['image']);
   }
 
@@ -201,7 +202,9 @@ class _updateuserpostState extends State<updateuserpost> {
               padding: EdgeInsets.all(20.0),
               child: Column(
                 children: [
-                  image == null ? Text("No image selected") : uploadArea(),
+                  image == null
+                      ? Image.network(widget.snapshot['image'])
+                      : uploadArea(),
                   Container(
                     child: Row(
                       children: [
