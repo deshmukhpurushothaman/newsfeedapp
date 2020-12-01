@@ -40,18 +40,21 @@ class _InternationalNewsState extends State<InternationalNews> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: Text(
-                "Data Loading...",
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Colors.black,
-                ),
+              // child: Text(
+              //   "Data Loading...",
+              //   style: TextStyle(
+              //     fontSize: 18.0,
+              //     color: Colors.black,
+              //   ),
+              // ),
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
               ),
             );
           } else {
             return RefreshIndicator(
               onRefresh: onRefresh,
-              backgroundColor: Colors.green,
+              backgroundColor: Colors.white,
               color: Colors.black,
               child: ListView.builder(
                 itemCount: snapshot.data.length,

@@ -27,7 +27,8 @@ class _HomeState extends State<Home> {
   CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('LatestPost');
   // ignore: deprecated_member_use
-  final user = FirebaseAuth.instance.currentUser;
+  //final FirebaseUser user = FirebaseAuth.instance.currentUser;
+  final User user = FirebaseAuth.instance.currentUser;
 
   void initState() {
     subscription = collectionReference.snapshots().listen((datasnap) {
