@@ -68,13 +68,14 @@ class _updateinternationalpostState extends State<updateinternationalpost> {
 
   progress(loading) {
     if (loading) {
+      print("Progress Entered");
       return Column(
         children: <Widget>[
           LinearProgressIndicator(
-            value: _progress,
+            value: loading,
             backgroundColor: Colors.red,
           ),
-          Text('${(_progress * 100).toStringAsFixed(2)} %'),
+          Text('${(loading * 100).toStringAsFixed(2)} %'),
         ],
       );
     } else {
@@ -94,6 +95,7 @@ class _updateinternationalpostState extends State<updateinternationalpost> {
         _progress = event.snapshot.bytesTransferred.toDouble() /
             event.snapshot.totalByteCount.toDouble();
         print(_progress);
+        progress(_progress);
       });
     });
 
