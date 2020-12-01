@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Newsfeed app',
       theme: ThemeData(
-        fontFamily: "poppins",
+        // fontFamily: "poppins",
         primarySwatch: Colors.orange,
         scaffoldBackgroundColor: Colors.white,
       ),

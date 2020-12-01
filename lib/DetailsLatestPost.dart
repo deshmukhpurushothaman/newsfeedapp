@@ -17,9 +17,9 @@ class _LatestPostDetailsState extends State<LatestPostDetails> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Latest Post Details"),
-        backgroundColor: Colors.orange[300],
+        backgroundColor: Colors.white,
       ),
-      backgroundColor: Colors.orange,
+      backgroundColor: Colors.white,
       body: ListView(
         children: <Widget>[
           new Container(
@@ -40,7 +40,7 @@ class _LatestPostDetailsState extends State<LatestPostDetails> {
           ),
           new Container(
             color: Color(0xFFffd280),
-            margin: EdgeInsets.all(10.0),
+            margin: EdgeInsets.all(6.0),
             height: MediaQuery.of(context).size.height,
             child: Column(
               children: <Widget>[
@@ -61,6 +61,7 @@ class _LatestPostDetailsState extends State<LatestPostDetails> {
                         width: 10.0,
                       ),
                       Container(
+                        padding: EdgeInsets.all(5.0),
                         width: MediaQuery.of(context).size.width / 1.3,
                         child: new Text(
                           widget.snapshot.data()["title"],
@@ -76,13 +77,20 @@ class _LatestPostDetailsState extends State<LatestPostDetails> {
                 new SizedBox(
                   height: 10.0,
                 ),
-                new Text(
-                  widget.snapshot.data()["content"],
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.black,
+                Container(
+                  margin: EdgeInsets.all(6.0),
+                  child: Text(
+                    widget.snapshot.data()["content"],
+                    style: TextStyle(fontSize: 18.0, color: Colors.black),
                   ),
                 ),
+                // new Text(
+                //   widget.snapshot.data()["content"],
+                //   style: TextStyle(
+                //     fontSize: 15.0,
+                //     color: Colors.black,
+                //   ),
+                // ),
               ],
             ),
           ),

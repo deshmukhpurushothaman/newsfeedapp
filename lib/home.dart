@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'Controller/InternationalNews.dart';
-import 'models/Post.dart';
 import 'Controller/LocalNews.dart';
 import 'Controller/SportsNews.dart';
 import 'Controller/PoliticsNews.dart';
@@ -38,13 +37,6 @@ class _HomeState extends State<Home> {
     });
     super.initState();
   }
-
-  List<News> news = [
-    News(image: "images/global.png", titlename: "International News"),
-    News(image: "images/sports.png", titlename: "Sports News"),
-    News(image: "images/politics.png", titlename: "Politics News"),
-    News(image: "images/local.png", titlename: "Local News"),
-  ];
 
   GlobalKey<ScaffoldState> drawerKey = GlobalKey();
 
@@ -166,17 +158,24 @@ class _HomeState extends State<Home> {
                   autoPlayAnimationDuration: Duration(milliseconds: 800),
                   viewportFraction: 0.8),
               items: [0, 1, 2, 3, 4, 5, 6].map((i) {
-                return Builder(
+                return new Builder(
                   builder: (BuildContext context) {
-                    return Container(
+                    return new Container(
                       width: MediaQuery.of(context).size.width,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: Image.network(
-                          snapshot[i].data()["image"],
-                          fit: BoxFit.cover,
-                          alignment: Alignment.topCenter,
+                      child: new GestureDetector(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.network(
+                            snapshot[i].data()["image"],
+                            fit: BoxFit.cover,
+                            alignment: Alignment.topCenter,
+                          ),
                         ),
+                        onTap: () {
+                          Navigator.of(context).push(new MaterialPageRoute(
+                              builder: (context) =>
+                                  LatestPostDetails(snapshot[i])));
+                        },
                       ),
                     );
                   },
@@ -235,7 +234,7 @@ class _HomeState extends State<Home> {
                               fontSize: 17.0,
                               fontWeight: FontWeight.bold))),
                   Container(
-                    padding: EdgeInsets.only(left: 98.0),
+                    padding: EdgeInsets.only(left: 117),
                     child: Text(
                       'Sports',
                       style: TextStyle(
@@ -292,7 +291,7 @@ class _HomeState extends State<Home> {
                               fontSize: 17.0,
                               fontWeight: FontWeight.bold))),
                   Container(
-                    padding: EdgeInsets.only(left: 131.0),
+                    padding: EdgeInsets.only(left: 140.0),
                     child: Text(
                       'Local',
                       style: TextStyle(

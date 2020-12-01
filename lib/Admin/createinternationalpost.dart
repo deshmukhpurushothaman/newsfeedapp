@@ -8,6 +8,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'users.dart';
 import 'InternationalNews/InternationalAllNews.dart';
 
@@ -36,6 +37,7 @@ class _createinternationalpostState extends State<createinternationalpost> {
     _postcontentController = TextEditingController(text: "");
   }
 
+  final User user = FirebaseAuth.instance.currentUser;
   getImage(source) async {
     var selectedimage = await ImagePicker.pickImage(
       source: source,
@@ -162,7 +164,7 @@ class _createinternationalpostState extends State<createinternationalpost> {
                     "News Portal App (Admin)",
                     style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
                   ),
-                  accountEmail: null,
+                  accountEmail: new Text("Signed in as " + user.email),
                   decoration: new BoxDecoration(color: Colors.orangeAccent),
                 ),
                 new ListTile(

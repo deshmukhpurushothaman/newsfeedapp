@@ -151,6 +151,7 @@ class _UserPostDetailsState extends State<UserPostDetails> {
                               .delete();
                           print("Successful");
                           Fluttertoast.showToast(msg: "News Approved");
+                          Navigator.pop(context);
                         },
                         child: Container(
                           margin: EdgeInsets.only(
@@ -198,6 +199,7 @@ class _UserPostDetailsState extends State<UserPostDetails> {
                               .delete();
                           print("Successful");
                           Fluttertoast.showToast(msg: "News Rejected");
+                          Navigator.pop(context);
                         },
                         child: Container(
                           margin: EdgeInsets.only(
