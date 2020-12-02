@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # newsfeedapp
 
 <<<<<<< HEAD
@@ -18,3 +19,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# NewsAPP
+>>>>>>> 68c16ce87ff2e8acb43da60ef03cfc1cdd9ca6a1
