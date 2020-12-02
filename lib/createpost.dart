@@ -23,6 +23,8 @@ class _createpostState extends State<createpost> {
   String imageurl;
   File image;
   String filename;
+  bool _isloading = false;
+  double _progress;
 
   @override
   void initState() {
@@ -44,11 +46,38 @@ class _createpostState extends State<createpost> {
     });
   }
 
+  progress(loading) {
+    if (loading) {
+      return Column(
+        children: <Widget>[
+          LinearProgressIndicator(
+            value: _progress,
+            backgroundColor: Colors.red,
+          ),
+          Text('${(_progress * 100).toStringAsFixed(2)} %'),
+        ],
+      );
+    } else {
+      return Text('Nothing');
+    }
+  }
+
   Future<String> uploadImage() async {
     FirebaseStorage storage = FirebaseStorage.instance;
     Reference ref = storage.ref().child(filename);
-
+    Fluttertoast.showToast(msg: "Wait for image upload success message");
     UploadTask uploadTask = ref.putFile(image);
+
+    uploadTask.events.listen((event) {
+      _isloading = true;
+      print("Upload Task Event");
+      _progress = event.snapshot.bytesTransferred.toDouble() /
+          event.snapshot.totalByteCount.toDouble();
+      print("Upload Task Event123");
+      print(_progress);
+      LinearProgressIndicator(
+          backgroundColor: Colors.green, value: _progress, minHeight: 5.0);
+    });
 
     TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {
       var x = 2;
@@ -58,7 +87,9 @@ class _createpostState extends State<createpost> {
     print('URL Is $url');
 
     imageurl = url;
-    Fluttertoast.showToast(msg: imageurl);
+    Fluttertoast.showToast(
+        msg: "Image uploaded Successfully. Now you can Submit the post.");
+
     return url;
   }
 
@@ -70,6 +101,7 @@ class _createpostState extends State<createpost> {
         FlatButton.icon(
           onPressed: () {
             uploadImage();
+
             print(filename);
           },
           icon: Icon(Icons.cloud_upload),
@@ -210,8 +242,8 @@ class _createpostState extends State<createpost> {
                         "categoryval": _categoryVal
                       });
 
-                      Fluttertoast.showToast(
-                          msg: _categoryVal + " Posted Successfully!!");
+                      Fluttertoast.showToast(msg: " Posted Successfully!!");
+                      Navigator.pop(context);
                       return;
                     }
                   },

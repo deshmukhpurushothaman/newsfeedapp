@@ -128,54 +128,6 @@ class _UserPostDetailsState extends State<UserPostDetails> {
                           ),
                         ),
                       ),
-                      //Second Container(Delete Post)
-                      InkWell(
-                        onTap: () {
-                          FirebaseFirestore.instance
-                              .collection(widget.snapshot.data()['categoryval'])
-                              // ignore: deprecated_member_use
-                              .document()
-                              // ignore: deprecated_member_use
-                              .setData({
-                            "content": widget.snapshot.data()['content'],
-                            "title": widget.snapshot.data()['title'],
-                            "image": widget.snapshot.data()['image'],
-                            "categoryval": widget.snapshot.data()['categoryval']
-                          });
-                          print("Successful");
-
-                          //Delete
-                          FirebaseFirestore.instance
-                              .collection("SuperAdminApproval")
-                              .doc(widget.snapshot.documentID)
-                              .delete();
-                          print("Successful");
-                          Fluttertoast.showToast(msg: "News Approved");
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          margin: EdgeInsets.only(
-                            right: 10.0,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15.0),
-                            color: Color(0xFFfff6e6),
-                          ),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                "Approve",
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
                       //Third Container
                       InkWell(
                         onTap: () {
@@ -215,6 +167,54 @@ class _UserPostDetailsState extends State<UserPostDetails> {
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 "Reject",
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      //Second Container(Delete Post)
+                      InkWell(
+                        onTap: () {
+                          FirebaseFirestore.instance
+                              .collection(widget.snapshot.data()['categoryval'])
+                              // ignore: deprecated_member_use
+                              .document()
+                              // ignore: deprecated_member_use
+                              .setData({
+                            "content": widget.snapshot.data()['content'],
+                            "title": widget.snapshot.data()['title'],
+                            "image": widget.snapshot.data()['image'],
+                            "categoryval": widget.snapshot.data()['categoryval']
+                          });
+                          print("Successful");
+
+                          //Delete
+                          FirebaseFirestore.instance
+                              .collection("SuperAdminApproval")
+                              .doc(widget.snapshot.documentID)
+                              .delete();
+                          print("Successful");
+                          Fluttertoast.showToast(msg: "News Approved");
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(
+                            right: 10.0,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15.0),
+                            color: Color(0xFFfff6e6),
+                          ),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "Approve",
                                 style: TextStyle(
                                   fontSize: 20.0,
                                   color: Colors.black,

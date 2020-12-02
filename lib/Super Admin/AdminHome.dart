@@ -8,10 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:carousel_pro/carousel_pro.dart';
-import 'Controller/AdminInternationalNews.dart';
-import 'Controller/AdminLocalNews.dart';
-import 'Controller/AdminSportsNews.dart';
-import 'Controller/AdminPoliticsNews.dart';
+import 'View/InternationalNews/AdminInternationalAllNews.dart';
+import 'View/LatestNews/AdminLatestAllNews.dart';
+import 'View/LocalNews/AdminLocalAllNews.dart';
+import 'View/PoliticsNews/AdminPoliticsAllNews.dart';
+import 'View/SportsNews/AdminSportsAllNews.dart';
 import 'AdminDetailsLatestPost.dart';
 import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/LocalNews/DeletedLocalAllNews.dart';
 import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/PoliticsNews/DeletedPoliticsAllNews.dart';
@@ -285,14 +286,25 @@ class _AdminHomeState extends State<AdminHome> {
                         margin: EdgeInsets.only(left: 10.0),
                         child: new Row(
                           children: <Widget>[
-                            new Expanded(
-                              flex: 1,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15.0),
-                                child: new Image.network(
-                                  snapshot[index].data()["image"],
-                                  fit: BoxFit.cover,
-                                  height: 165.0,
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                    new MaterialPageRoute(
+                                        builder: (context) => LatestPostDetails(
+                                            snapshot[index])));
+                              },
+                              child: Container(
+                                width: 150.0,
+                                child: new Expanded(
+                                  flex: 1,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    child: new Image.network(
+                                      snapshot[index].data()["image"],
+                                      fit: BoxFit.cover,
+                                      height: 165.0,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),

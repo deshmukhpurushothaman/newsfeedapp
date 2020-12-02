@@ -87,6 +87,8 @@ class _updateuserpostState extends State<updateuserpost> {
 
     UploadTask uploadTask = ref.putFile(image);
 
+    Fluttertoast.showToast(msg: "Wait for image upload success message.");
+
     uploadTask.events.listen((event) {
       setState(() {
         _isloading = true;
@@ -104,7 +106,8 @@ class _updateuserpostState extends State<updateuserpost> {
     print('URL Is $url');
 
     imageurl = url;
-    Fluttertoast.showToast(msg: imageurl);
+    Fluttertoast.showToast(
+        msg: "Image uploaded successfully. Now you can submit the post");
     return url;
   }
 
@@ -260,6 +263,7 @@ class _updateuserpostState extends State<updateuserpost> {
 
                       Fluttertoast.showToast(
                           msg: _categoryVal + " Updated Successfully!!");
+                      Navigator.pop(context);
                       return;
                     }
                   },

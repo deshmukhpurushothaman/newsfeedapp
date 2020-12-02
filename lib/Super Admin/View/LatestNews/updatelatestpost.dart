@@ -85,6 +85,8 @@ class _updateLatestpostState extends State<updateLatestpost> {
 
     UploadTask uploadTask = ref.putFile(image);
 
+    Fluttertoast.showToast(msg: "Wait for image upload success message.");
+
     uploadTask.events.listen((event) {
       setState(() {
         _isloading = true;
@@ -102,7 +104,8 @@ class _updateLatestpostState extends State<updateLatestpost> {
     print('URL Is $url');
 
     imageurl = url;
-    Fluttertoast.showToast(msg: imageurl);
+    Fluttertoast.showToast(
+        msg: "Image uploaded successfully. Now you can submit the post");
     return url;
   }
 
@@ -255,6 +258,7 @@ class _updateLatestpostState extends State<updateLatestpost> {
 
                       Fluttertoast.showToast(
                           msg: _categoryVal + " Updated Successfully!!");
+                      Navigator.pop(context);
                       return;
                     }
                   },

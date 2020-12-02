@@ -36,6 +36,14 @@ class _PoliticsNewsState extends State<PoliticsNews> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: new AppBar(
+        title: new Text(
+          "Politics News",
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+        iconTheme: new IconThemeData(color: Colors.black),
+      ),
       backgroundColor: Colors.white,
       body: FutureBuilder(
         future: getAllPost(),
@@ -98,14 +106,24 @@ class _PoliticsNewsState extends State<PoliticsNews> {
                       margin: EdgeInsets.all(6.0),
                       child: Row(
                         children: <Widget>[
-                          Expanded(
-                            flex: 1,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15.0),
-                              child: Image.network(
-                                snapshot.data[index].data()["image"],
-                                height: 170.0,
-                                fit: BoxFit.cover,
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(new MaterialPageRoute(
+                                  builder: (context) =>
+                                      Pol_PostDetails(snapshot.data[index])));
+                            },
+                            child: Container(
+                              width: 150.0,
+                              child: Expanded(
+                                flex: 1,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  child: Image.network(
+                                    snapshot.data[index].data()["image"],
+                                    height: 170.0,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
                             ),
                           ),

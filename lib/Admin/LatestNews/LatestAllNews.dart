@@ -95,14 +95,24 @@ class _LatestNewsState extends State<LatestNews> {
                       margin: EdgeInsets.all(6.0),
                       child: Row(
                         children: <Widget>[
-                          Expanded(
-                            flex: 1,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15.0),
-                              child: Image.network(
-                                snapshot.data[index].data()["image"],
-                                height: 170.0,
-                                fit: BoxFit.cover,
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(new MaterialPageRoute(
+                                  builder: (context) => Latest_PostDetails(
+                                      snapshot.data[index])));
+                            },
+                            child: Container(
+                              width: 150.0,
+                              child: Expanded(
+                                flex: 1,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  child: Image.network(
+                                    snapshot.data[index].data()["image"],
+                                    height: 170.0,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
                             ),
                           ),

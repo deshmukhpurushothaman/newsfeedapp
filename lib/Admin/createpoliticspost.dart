@@ -81,6 +81,8 @@ class _createpoliticspostState extends State<createpoliticspost> {
 
     UploadTask uploadTask = ref.putFile(image);
 
+    Fluttertoast.showToast(msg: "Wait for image upload success message.");
+
     uploadTask.events.listen((event) {
       setState(() {
         _isloading = true;
@@ -98,7 +100,8 @@ class _createpoliticspostState extends State<createpoliticspost> {
     print('URL Is $url');
 
     imageurl = url;
-    Fluttertoast.showToast(msg: imageurl);
+    Fluttertoast.showToast(
+        msg: "Image uploaded successfully. Now you can submit the post");
     return url;
   }
 
@@ -297,6 +300,7 @@ class _createpoliticspostState extends State<createpoliticspost> {
 
                       Fluttertoast.showToast(
                           msg: _categoryVal + " Posted Successfully!!");
+                      Navigator.pop(context);
                       return;
                     }
                   },
