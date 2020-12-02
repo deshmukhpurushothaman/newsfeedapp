@@ -39,6 +39,7 @@ class _updateinternationalpostState extends State<updateinternationalpost> {
     _postcontentController =
         TextEditingController(text: widget.snapshot['content']);
     //image = File(widget.snapshot['image']);
+    imageurl = widget.snapshot['image'];
   }
 
   getImage(source) async {
@@ -206,7 +207,9 @@ class _updateinternationalpostState extends State<updateinternationalpost> {
               padding: EdgeInsets.all(20.0),
               child: Column(
                 children: [
-                  image == null ? Text("No image selected") : uploadArea(),
+                  image == null
+                      ? Image.network(widget.snapshot['image'])
+                      : uploadArea(),
                   Container(
                     child: Row(
                       children: [

@@ -34,6 +34,14 @@ class _InternationalNewsState extends State<InternationalNews> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: new AppBar(
+        title: new Text(
+          "International News",
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.orange,
+        iconTheme: new IconThemeData(color: Colors.black),
+      ),
       backgroundColor: Colors.orange,
       body: FutureBuilder(
         future: getAllPost(),
