@@ -129,6 +129,7 @@ class _HomeState extends State<Home> {
               leading: Icon(EvaIcons.logOutOutline),
               onTap: () {
                 Navigator.of(context).pop();
+                Navigator.pop(context);
                 AuthHelper.logOut();
               },
             ),
