@@ -137,8 +137,7 @@ class _LatestNewsState extends State<LatestNews> {
                             },
                             child: Container(
                               width: 150.0,
-                              child: Expanded(
-                                flex: 1,
+                              child: Container(
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(15.0),
                                   child: Image.network(

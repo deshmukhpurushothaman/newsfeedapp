@@ -100,8 +100,7 @@ class _InternationalNewsState extends State<InternationalNews> {
                             },
                             child: Container(
                               width: 150.0,
-                              child: Expanded(
-                                flex: 1,
+                              child: Container(
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(15.0),
                                   child: Image.network(
