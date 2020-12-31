@@ -13,6 +13,7 @@ import 'View/LatestNews/AdminLatestAllNews.dart';
 import 'View/LocalNews/AdminLocalAllNews.dart';
 import 'View/PoliticsNews/AdminPoliticsAllNews.dart';
 import 'View/SportsNews/AdminSportsAllNews.dart';
+import 'View/ScholarshipNews/AdminScholarshipAllNews.dart';
 import 'AdminDetailsLatestPost.dart';
 import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/LocalNews/DeletedLocalAllNews.dart';
 import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/PoliticsNews/DeletedPoliticsAllNews.dart';
@@ -85,7 +86,7 @@ class _AdminHomeState extends State<AdminHome> {
               ),
               new ListTile(
                 title: new Text(
-                  "International News",
+                  "Campus Drive",
                   style: TextStyle(fontSize: 20.0, color: Colors.black),
                 ),
                 onTap: () {
@@ -98,7 +99,7 @@ class _AdminHomeState extends State<AdminHome> {
               ),
               new ListTile(
                 title: new Text(
-                  "Sports News",
+                  "Off Campus Drive",
                   style: TextStyle(fontSize: 20.0, color: Colors.black),
                 ),
                 onTap: () {
@@ -111,7 +112,7 @@ class _AdminHomeState extends State<AdminHome> {
               ),
               new ListTile(
                 title: new Text(
-                  "Local News",
+                  "Internship",
                   style: TextStyle(fontSize: 20.0, color: Colors.black),
                 ),
                 onTap: () {
@@ -123,7 +124,7 @@ class _AdminHomeState extends State<AdminHome> {
               ),
               new ListTile(
                 title: new Text(
-                  "Political News",
+                  "Walkin",
                   style: TextStyle(fontSize: 20.0, color: Colors.black),
                 ),
                 onTap: () {
@@ -187,7 +188,7 @@ class _AdminHomeState extends State<AdminHome> {
               ),
               new ListTile(
                 title: new Text(
-                  "Deleted International News",
+                  "Deleted Campus Drive",
                   style: TextStyle(fontSize: 20.0, color: Colors.black),
                 ),
                 onTap: () {
@@ -200,7 +201,7 @@ class _AdminHomeState extends State<AdminHome> {
               ),
               new ListTile(
                 title: new Text(
-                  "Deleted Local News",
+                  "Deleted Internship",
                   style: TextStyle(fontSize: 20.0, color: Colors.black),
                 ),
                 onTap: () {
@@ -213,7 +214,7 @@ class _AdminHomeState extends State<AdminHome> {
               ),
               new ListTile(
                 title: new Text(
-                  "Deleted Politics News",
+                  "Deleted Walkin",
                   style: TextStyle(fontSize: 20.0, color: Colors.black),
                 ),
                 onTap: () {
@@ -226,7 +227,7 @@ class _AdminHomeState extends State<AdminHome> {
               ),
               new ListTile(
                 title: new Text(
-                  "Deleted Sports News",
+                  "Deleted Off Campus Drive",
                   style: TextStyle(fontSize: 20.0, color: Colors.black),
                 ),
                 onTap: () {
@@ -370,7 +371,7 @@ class _AdminHomeState extends State<AdminHome> {
           //Third Container
           Container(
             margin: EdgeInsets.all(10.0),
-            height: 200.0,
+            height: 300.0,
             child: Column(
               children: [
                 Container(
@@ -394,7 +395,7 @@ class _AdminHomeState extends State<AdminHome> {
                                             InternationalNews()));
                               },
                               child: Text(
-                                "International News",
+                                "Campus Drive",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 19.0,
@@ -424,7 +425,7 @@ class _AdminHomeState extends State<AdminHome> {
                                         builder: (context) => SportsNews()));
                               },
                               child: Text(
-                                "Sports News",
+                                "Off Campus Drive",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 19.0,
@@ -460,7 +461,7 @@ class _AdminHomeState extends State<AdminHome> {
                                         builder: (context) => LocalNews()));
                               },
                               child: Text(
-                                "Local News",
+                                "Internship",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 19.0,
@@ -490,7 +491,46 @@ class _AdminHomeState extends State<AdminHome> {
                                         builder: (context) => PoliticsNews()));
                               },
                               child: Text(
-                                "Politics News",
+                                "Walkin",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 19.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      //Sign Out
+                    ],
+                  ),
+                ),
+                new SizedBox(
+                  height: 8.0,
+                ),
+                Container(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          height: 75.0,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFffd280),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                    new MaterialPageRoute(
+                                        builder: (context) =>
+                                            ScholarshipNews()));
+                              },
+                              child: Text(
+                                "Scholarship",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 19.0,

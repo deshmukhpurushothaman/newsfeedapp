@@ -181,7 +181,8 @@ class _updatepoliticspostState extends State<updatepoliticspost> {
                 "InternationalAllNews",
                 "PoliticsAllNews",
                 "SportsAllNews",
-                "LocalAllNews"
+                "LocalAllNews",
+                "ScholarshipAllNews"
               ].map(
                 (val) {
                   return DropdownMenuItem<String>(

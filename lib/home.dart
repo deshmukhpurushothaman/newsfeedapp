@@ -11,6 +11,7 @@ import 'View/InternationalNews/InternationalAllNews.dart';
 import 'View/LocalNews/LocalAllNews.dart';
 import 'View/SportsNews/SportsAllNews.dart';
 import 'View/PoliticsNews/PoliticsAllNews.dart';
+import 'View/Scholarship/ScholarshipAllNews.dart';
 import 'DetailsLatestPost.dart';
 import 'createpost.dart';
 import 'dart:async';
@@ -230,15 +231,15 @@ class _HomeState extends State<Home> {
                 children: [
                   Container(
                       padding: EdgeInsets.only(left: 33.0),
-                      child: Text('International',
+                      child: Text('Campus Drive',
                           style: TextStyle(
                               color: Colors.grey,
                               fontSize: 17.0,
                               fontWeight: FontWeight.bold))),
                   Container(
-                    padding: EdgeInsets.only(left: 117),
+                    padding: EdgeInsets.only(left: 80),
                     child: Text(
-                      'Sports',
+                      'Off Campus Drive',
                       style: TextStyle(
                           color: Colors.grey,
                           fontSize: 17.0,
@@ -287,7 +288,7 @@ class _HomeState extends State<Home> {
                 children: [
                   Container(
                       padding: EdgeInsets.only(left: 57.0),
-                      child: Text('Politics',
+                      child: Text('Internship',
                           style: TextStyle(
                               color: Colors.grey,
                               fontSize: 17.0,
@@ -295,13 +296,70 @@ class _HomeState extends State<Home> {
                   Container(
                     padding: EdgeInsets.only(left: 140.0),
                     child: Text(
-                      'Local',
+                      'Walkin',
                       style: TextStyle(
                           color: Colors.grey,
                           fontSize: 17.0,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            Container(
+              padding: EdgeInsets.only(bottom: 5.0),
+              child: Row(
+                children: [
+                  InkWell(
+                    child: Container(
+                      child: Image.asset(
+                        "images/politics.png",
+                        width: 180,
+                        height: 130,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(new MaterialPageRoute(
+                          builder: (context) => ScholarshipNews()));
+                    },
+                  ),
+                  // InkWell(
+                  //   child: Container(
+                  //     child: Image.asset(
+                  //       "images/local.png",
+                  //       width: 180,
+                  //       height: 130,
+                  //     ),
+                  //   ),
+                  //   onTap: () {
+                  //     Navigator.of(context).push(new MaterialPageRoute(
+                  //         builder: (context) => LocalNews()));
+                  //   },
+                  // ),
+                ],
+              ),
+            ),
+            Container(
+              child: Row(
+                children: [
+                  Container(
+                      padding: EdgeInsets.only(left: 57.0),
+                      child: Text('Scholarship',
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.bold))),
+                  // Container(
+                  //   padding: EdgeInsets.only(left: 140.0),
+                  //   child: Text(
+                  //     'Local',
+                  //     style: TextStyle(
+                  //         color: Colors.grey,
+                  //         fontSize: 17.0,
+                  //         fontWeight: FontWeight.bold),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

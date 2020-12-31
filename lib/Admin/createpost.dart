@@ -8,6 +8,7 @@ import 'InternationalNews/InternationalAllNews.dart';
 import 'LocalNews/LocalAllNews.dart';
 import 'PoliticsNews/PoliticsAllNews.dart';
 import 'SportsNews/SportsAllNews.dart';
+import 'ScholarshipNews/ScholarshipAllNews.dart';
 import 'usersposts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -298,7 +299,8 @@ class _createpostState extends State<createpost> {
                 "InternationalAllNews",
                 "PoliticsAllNews",
                 "SportsAllNews",
-                "LocalAllNews"
+                "LocalAllNews",
+                "ScholarshipAllNews"
               ].map(
                 (val) {
                   return DropdownMenuItem<String>(

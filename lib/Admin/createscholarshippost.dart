@@ -2,19 +2,22 @@ import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'ScholarshipNews/ScholarshipAllNews.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
+import 'users.dart';
+import '../Authentication/auth_helper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class createpost extends StatefulWidget {
+class createScholarshippost extends StatefulWidget {
   @override
-  _createpostState createState() => _createpostState();
+  _createScholarshippostState createState() => _createScholarshippostState();
 }
 
-class _createpostState extends State<createpost> {
+class _createScholarshippostState extends State<createScholarshippost> {
   TextEditingController _titleController;
   TextEditingController _postcontentController;
 
@@ -25,7 +28,7 @@ class _createpostState extends State<createpost> {
   String filename;
   bool _isloading = false;
   double _progress;
-
+  final User user = FirebaseAuth.instance.currentUser;
   @override
   void initState() {
     super.initState();
@@ -42,6 +45,16 @@ class _createpostState extends State<createpost> {
 
     setState(() {
       image = croppedFile;
+      filename = basename(image.path);
+    });
+  }
+
+  Future _getImage() async {
+    var selectedImage =
+        await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      image = selectedImage;
       filename = basename(image.path);
     });
   }
@@ -65,18 +78,18 @@ class _createpostState extends State<createpost> {
   Future<String> uploadImage() async {
     FirebaseStorage storage = FirebaseStorage.instance;
     Reference ref = storage.ref().child(filename);
-    Fluttertoast.showToast(msg: "Wait for image upload success message");
+
     UploadTask uploadTask = ref.putFile(image);
 
+    Fluttertoast.showToast(msg: "Wait for image upload success message.");
+
     uploadTask.events.listen((event) {
-      _isloading = true;
-      print("Upload Task Event");
-      _progress = event.snapshot.bytesTransferred.toDouble() /
-          event.snapshot.totalByteCount.toDouble();
-      print("Upload Task Event123");
-      print(_progress);
-      LinearProgressIndicator(
-          backgroundColor: Colors.green, value: _progress, minHeight: 5.0);
+      setState(() {
+        _isloading = true;
+        _progress = event.snapshot.bytesTransferred.toDouble() /
+            event.snapshot.totalByteCount.toDouble();
+        print(_progress);
+      });
     });
 
     TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {
@@ -88,8 +101,7 @@ class _createpostState extends State<createpost> {
 
     imageurl = url;
     Fluttertoast.showToast(
-        msg: "Image uploaded Successfully. Now you can Submit the post.");
-
+        msg: "Image uploaded successfully. Now you can submit the post");
     return url;
   }
 
@@ -101,7 +113,6 @@ class _createpostState extends State<createpost> {
         FlatButton.icon(
           onPressed: () {
             uploadImage();
-
             print(filename);
           },
           icon: Icon(Icons.cloud_upload),
@@ -144,6 +155,58 @@ class _createpostState extends State<createpost> {
           backgroundColor: Colors.orange,
           iconTheme: new IconThemeData(color: Colors.grey[800]),
         ),
+        drawer: new Drawer(
+          child: Container(
+            color: Colors.white,
+            child: new ListView(
+              children: <Widget>[
+                new UserAccountsDrawerHeader(
+                  accountEmail: new Text("Signed in as " + user.email),
+                  accountName: null,
+                  decoration: new BoxDecoration(color: Colors.orangeAccent),
+                ),
+                new ListTile(
+                  title: new Text(
+                    "Scholarship",
+                    style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(new MaterialPageRoute(
+                        builder: (context) => ScholarshipNews()));
+                  },
+                  leading: new Icon(Icons.person,
+                      color: Colors.grey[800], size: 20.0),
+                ),
+                new ListTile(
+                  title: new Text(
+                    "Users",
+                    style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(new MaterialPageRoute(
+                        builder: (context) => UsersPage()));
+                  },
+                  leading: new Icon(Icons.person,
+                      color: Colors.grey[800], size: 20.0),
+                ),
+                new ListTile(
+                  title: new Text(
+                    "Logout",
+                    style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    AuthHelper.logOut();
+                  },
+                  leading: new Icon(Icons.logout,
+                      color: Colors.grey[800], size: 20.0),
+                ),
+              ],
+            ),
+          ),
+        ),
         body: ListView(
           padding: EdgeInsets.all(8),
           children: <Widget>[
@@ -160,14 +223,7 @@ class _createpostState extends State<createpost> {
               isExpanded: true,
               iconSize: 30.0,
               style: TextStyle(color: Colors.orange),
-              items: [
-                "LatestPost",
-                "InternationalAllNews",
-                "PoliticsAllNews",
-                "SportsAllNews",
-                "LocalAllNews",
-                "ScholarshipAllNews"
-              ].map(
+              items: ["ScholarshipAllNews"].map(
                 (val) {
                   return DropdownMenuItem<String>(
                     value: val,
@@ -195,7 +251,7 @@ class _createpostState extends State<createpost> {
                       children: [
                         FlatButton.icon(
                             onPressed: () => getImage(ImageSource.camera),
-                            padding: EdgeInsets.only(right: 90),
+                            padding: EdgeInsets.only(right: 110),
                             icon: Icon(Icons.camera),
                             label: Text('Camera')),
                         FlatButton.icon(
@@ -232,18 +288,18 @@ class _createpostState extends State<createpost> {
 
                       // ignore: deprecated_member_use
                       Firestore.instance
-                          .collection("AdminApproval")
+                          .collection(_categoryVal)
                           // ignore: deprecated_member_use
                           .document()
                           // ignore: deprecated_member_use
                           .setData({
                         "content": _postcontentController.text,
                         "title": _titleController.text,
-                        "image": imageurl,
-                        "categoryval": _categoryVal
+                        "image": imageurl
                       });
 
-                      Fluttertoast.showToast(msg: " Posted Successfully!!");
+                      Fluttertoast.showToast(
+                          msg: _categoryVal + " Posted Successfully!!");
                       Navigator.pop(context);
                       return;
                     }
