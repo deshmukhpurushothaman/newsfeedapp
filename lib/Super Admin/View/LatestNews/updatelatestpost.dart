@@ -177,12 +177,12 @@ class _updateLatestpostState extends State<updateLatestpost> {
               iconSize: 30.0,
               style: TextStyle(color: Colors.orange),
               items: [
-                "LatestPost",
-                "LatestAllNews",
-                "PoliticsAllNews",
-                "SportsAllNews",
-                "LocalAllNews",
-                "ScholarshipAllNews"
+                "Latest Post",
+                "Campus Drive",
+                "Internship",
+                "Off Campus Drive",
+                "Walkin",
+                "Scholarship"
               ].map(
                 (val) {
                   return DropdownMenuItem<String>(

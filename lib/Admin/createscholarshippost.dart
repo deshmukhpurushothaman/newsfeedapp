@@ -223,7 +223,7 @@ class _createScholarshippostState extends State<createScholarshippost> {
               isExpanded: true,
               iconSize: 30.0,
               style: TextStyle(color: Colors.orange),
-              items: ["ScholarshipAllNews"].map(
+              items: ["Scholarship"].map(
                 (val) {
                   return DropdownMenuItem<String>(
                     value: val,

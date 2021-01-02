@@ -1,24 +1,25 @@
-import 'package:fl_fire_auth/View/Scholarship/ScholarshipNews_Postdetails.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-//import 'ScholarshipNews_PostDetails.dart';
+import './InternshipNews_Postdetails.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import './updateInternshippost.dart';
 import 'dart:async';
 
-class ScholarshipNews extends StatefulWidget {
-  ScholarshipNews({Key key}) : super(key: key);
+class Internship extends StatefulWidget {
+  Internship({Key key}) : super(key: key);
 
   @override
-  _ScholarshipNewsState createState() => _ScholarshipNewsState();
+  _InternshipState createState() => _InternshipState();
 }
 
-class _ScholarshipNewsState extends State<ScholarshipNews> {
+class _InternshipState extends State<Internship> {
   Future getAllPost() async {
     // ignore: deprecated_member_use
     var firestore = Firestore.instance;
     QuerySnapshot snap =
         // ignore: deprecated_member_use
-        await firestore.collection("Scholarship").getDocuments();
+        await firestore.collection("Internship").getDocuments();
     // ignore: deprecated_member_use
     return snap.documents;
   }
@@ -35,13 +36,13 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
     return Scaffold(
       appBar: new AppBar(
         title: new Text(
-          "Scholarship",
+          "Internship",
           style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.orange,
         iconTheme: new IconThemeData(color: Colors.black),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.orange,
       body: FutureBuilder(
         future: getAllPost(),
         builder: (context, snapshot) {
@@ -58,7 +59,7 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
           } else {
             return RefreshIndicator(
               onRefresh: onRefresh,
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.green,
               color: Colors.black,
               child: ListView.builder(
                 itemCount: snapshot.data.length,
@@ -80,10 +81,52 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
                     //     icon: Icons.delete,
                     //   ),
                     // ],
+                    secondaryActions: [
+                      IconSlideAction(
+                        caption: 'Delete',
+                        color: Colors.blueGrey,
+                        icon: Icons.delete,
+                        onTap: () => {
+                          print("Entered"),
+                          //Copy to new Deleted Collection
+                          FirebaseFirestore.instance
+                              .collection("DeletedInternship")
+                              // ignore: deprecated_member_use
+                              .document()
+                              // ignore: deprecated_member_use
+                              .setData({
+                            "content": snapshot.data[index].data()['content'],
+                            "title": snapshot.data[index].data()['title'],
+                            "image": snapshot.data[index].data()['image'],
+                            "categoryval": "Internship",
+                          }),
+                          print("Successful"),
 
-                    dismissal: SlidableDismissal(
-                      child: SlidableDrawerDismissal(),
-                    ),
+                          //Delete
+                          FirebaseFirestore.instance
+                              .collection("Internship")
+                              .doc(snapshot.data[index].documentID)
+                              .delete(),
+                          print("Successful"),
+                          Fluttertoast.showToast(
+                              msg:
+                                  "Deleted Successfully!!! Refresh the page to see the changes."),
+                        },
+                      ),
+                    ],
+                    // onDismissed: (DismissDirection) {
+                    //   //snapshot.data.delete(index);
+                    //   print("Entered");
+                    //   FirebaseFirestore.instance
+                    //       .collection("PoliticsAllNews")
+                    //       .doc(snapshot.data[index].documentID)
+                    //       .delete();
+                    //   print("Successful");
+                    // },
+
+                    // dismissal: SlidableDismissal(
+                    //   child: SlidableDrawerDismissal(),
+                    // ),
                     child: Container(
                       height: 170.0,
                       decoration: BoxDecoration(
@@ -96,7 +139,7 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
                           InkWell(
                             onTap: () {
                               Navigator.of(context).push(new MaterialPageRoute(
-                                  builder: (context) => Scholarship_PostDetails(
+                                  builder: (context) => Internship_PostDetails(
                                       snapshot.data[index])));
                             },
                             child: Container(
@@ -150,7 +193,7 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
                                 ),
 
                                 SizedBox(
-                                  height: 5.0,
+                                  height: 20.0,
                                 ),
 
                                 Container(
@@ -166,7 +209,7 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
                                           Navigator.of(context).push(
                                               new MaterialPageRoute(
                                                   builder: (context) =>
-                                                      Scholarship_PostDetails(
+                                                      Internship_PostDetails(
                                                           snapshot
                                                               .data[index])));
                                         },
@@ -183,11 +226,45 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
                                             alignment: Alignment.center,
                                             child: Padding(
                                               padding:
-                                                  const EdgeInsets.all(5.0),
+                                                  const EdgeInsets.all(8.0),
                                               child: Text(
                                                 "View Details",
                                                 style: TextStyle(
-                                                  fontSize: 15.0,
+                                                  fontSize: 20.0,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                              new MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      updateInternshippost(
+                                                          snapshot
+                                                              .data[index])));
+                                        },
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                            right: 10.0,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                            color: Color(0xFFfff6e6),
+                                          ),
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                "Update",
+                                                style: TextStyle(
+                                                  fontSize: 20.0,
                                                   color: Colors.black,
                                                 ),
                                               ),

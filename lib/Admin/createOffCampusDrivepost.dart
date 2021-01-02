@@ -1,25 +1,24 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../Authentication/auth_helper.dart';
+import './Off Campus Drive/OffCampusDriveAllNews.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
-//import 'users.dart';
-//import 'InternationalNews/InternationalAllNews.dart';
+import 'users.dart';
+import '../Authentication/auth_helper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class updatelatestpost extends StatefulWidget {
-  DocumentSnapshot snapshot;
-  updatelatestpost(this.snapshot);
+class createOffCampusDrivepost extends StatefulWidget {
   @override
-  _updatelatestpostState createState() => _updatelatestpostState();
+  _createOffCampusDrivepostState createState() =>
+      _createOffCampusDrivepostState();
 }
 
-class _updatelatestpostState extends State<updatelatestpost> {
+class _createOffCampusDrivepostState extends State<createOffCampusDrivepost> {
   TextEditingController _titleController;
   TextEditingController _postcontentController;
 
@@ -30,15 +29,12 @@ class _updatelatestpostState extends State<updatelatestpost> {
   String filename;
   bool _isloading = false;
   double _progress;
-
+  final User user = FirebaseAuth.instance.currentUser;
   @override
   void initState() {
     super.initState();
-    _titleController = TextEditingController(text: widget.snapshot['title']);
-    _postcontentController =
-        TextEditingController(text: widget.snapshot['content']);
-    //image = File(widget.snapshot['image']);
-    imageurl = widget.snapshot['image'];
+    _titleController = TextEditingController(text: "");
+    _postcontentController = TextEditingController(text: "");
   }
 
   getImage(source) async {
@@ -54,15 +50,15 @@ class _updatelatestpostState extends State<updatelatestpost> {
     });
   }
 
-  // Future _getImage() async {
-  //   var selectedImage =
-  //       await ImagePicker.pickImage(source: ImageSource.gallery);
+  Future _getImage() async {
+    var selectedImage =
+        await ImagePicker.pickImage(source: ImageSource.gallery);
 
-  //   setState(() {
-  //     image = selectedImage;
-  //     filename = basename(image.path);
-  //   });
-  // }
+    setState(() {
+      image = selectedImage;
+      filename = basename(image.path);
+    });
+  }
 
   progress(loading) {
     if (loading) {
@@ -160,6 +156,58 @@ class _updatelatestpostState extends State<updatelatestpost> {
           backgroundColor: Colors.orange,
           iconTheme: new IconThemeData(color: Colors.grey[800]),
         ),
+        drawer: new Drawer(
+          child: Container(
+            color: Colors.white,
+            child: new ListView(
+              children: <Widget>[
+                new UserAccountsDrawerHeader(
+                  accountName: null,
+                  accountEmail: Text("Signed in as " + user.email),
+                  decoration: new BoxDecoration(color: Colors.orangeAccent),
+                ),
+                new ListTile(
+                  title: new Text(
+                    "Off Campus Drive",
+                    style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(new MaterialPageRoute(
+                        builder: (context) => OffCampusDriveNews()));
+                  },
+                  leading: new Icon(Icons.person,
+                      color: Colors.grey[800], size: 20.0),
+                ),
+                new ListTile(
+                  title: new Text(
+                    "Users",
+                    style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(new MaterialPageRoute(
+                        builder: (context) => UsersPage()));
+                  },
+                  leading: new Icon(Icons.person,
+                      color: Colors.grey[800], size: 20.0),
+                ),
+                new ListTile(
+                  title: new Text(
+                    "Logout",
+                    style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    AuthHelper.logOut();
+                  },
+                  leading: new Icon(Icons.logout,
+                      color: Colors.grey[800], size: 20.0),
+                ),
+              ],
+            ),
+          ),
+        ),
         body: ListView(
           padding: EdgeInsets.all(8),
           children: <Widget>[
@@ -176,14 +224,7 @@ class _updatelatestpostState extends State<updatelatestpost> {
               isExpanded: true,
               iconSize: 30.0,
               style: TextStyle(color: Colors.orange),
-              items: [
-                "Latest Post",
-                "Campus Drive",
-                "Internship",
-                "Off Campus Drive",
-                "Walkin",
-                "Scholarship"
-              ].map(
+              items: ["Off Campus Drive"].map(
                 (val) {
                   return DropdownMenuItem<String>(
                     value: val,
@@ -205,9 +246,7 @@ class _updatelatestpostState extends State<updatelatestpost> {
               padding: EdgeInsets.all(20.0),
               child: Column(
                 children: [
-                  image == null
-                      ? Image.network(widget.snapshot['image'])
-                      : uploadArea(),
+                  image == null ? Text("No image selected") : uploadArea(),
                   Container(
                     child: Row(
                       children: [
@@ -252,16 +291,16 @@ class _updatelatestpostState extends State<updatelatestpost> {
                       Firestore.instance
                           .collection(_categoryVal)
                           // ignore: deprecated_member_use
-                          .document(widget.snapshot.id)
+                          .document()
                           // ignore: deprecated_member_use
-                          .updateData({
+                          .setData({
                         "content": _postcontentController.text,
                         "title": _titleController.text,
                         "image": imageurl
                       });
 
                       Fluttertoast.showToast(
-                          msg: _categoryVal + " Updated Successfully!!");
+                          msg: _categoryVal + " Posted Successfully!!");
                       Navigator.pop(context);
                       return;
                     }
@@ -279,19 +318,16 @@ class _updatelatestpostState extends State<updatelatestpost> {
                       ),
                       borderRadius: BorderRadius.all(Radius.circular(80.0)),
                     ),
-                    child: InkWell(
-                      //
-                      child: Container(
-                        constraints: const BoxConstraints(
-                            minWidth: 88.0,
-                            minHeight: 36.0), // min sizes for Material buttons
-                        alignment: Alignment.center,
-                        child: Text("Update",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17)),
-                      ),
+                    child: Container(
+                      constraints: const BoxConstraints(
+                          minWidth: 88.0,
+                          minHeight: 36.0), // min sizes for Material buttons
+                      alignment: Alignment.center,
+                      child: Text("SUBMIT",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17)),
                     ),
                   ),
                 ),

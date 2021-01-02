@@ -19,7 +19,7 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
     var firestore = Firestore.instance;
     QuerySnapshot snap =
         // ignore: deprecated_member_use
-        await firestore.collection("ScholarshipAllNews").getDocuments();
+        await firestore.collection("Scholarship").getDocuments();
     // ignore: deprecated_member_use
     return snap.documents;
   }
@@ -94,13 +94,13 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
                             "content": snapshot.data[index].data()['content'],
                             "title": snapshot.data[index].data()['title'],
                             "image": snapshot.data[index].data()['image'],
-                            "categoryval": "ScholarshipAllNews",
+                            "categoryval": "Scholarship",
                           }),
                           print("Successful"),
 
                           //Delete
                           FirebaseFirestore.instance
-                              .collection("ScholarshipAllNews")
+                              .collection("Scholarship")
                               .doc(snapshot.data[index].documentID)
                               .delete(),
                           print("Successful"),
@@ -114,7 +114,7 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
                     //   //snapshot.data.delete(index);
                     //   print("Entered");
                     //   FirebaseFirestore.instance
-                    //       .collection("ScholarshipAllNews")
+                    //       .collection("Scholarship")
                     //       .doc(snapshot.data[index].documentID)
                     //       .delete();
                     //   print("Successful");

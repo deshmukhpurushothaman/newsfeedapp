@@ -3,23 +3,23 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../Authentication/auth_helper.dart';
+import '../../Authentication/auth_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 //import 'users.dart';
-//import 'InternationalNews/InternationalAllNews.dart';
+//import 'CampusDriveNews/CampusDriveAllNews.dart';
 
-class updatelatestpost extends StatefulWidget {
+class updateCampusDrivepost extends StatefulWidget {
   DocumentSnapshot snapshot;
-  updatelatestpost(this.snapshot);
+  updateCampusDrivepost(this.snapshot);
   @override
-  _updatelatestpostState createState() => _updatelatestpostState();
+  _updateCampusDrivepostState createState() => _updateCampusDrivepostState();
 }
 
-class _updatelatestpostState extends State<updatelatestpost> {
+class _updateCampusDrivepostState extends State<updateCampusDrivepost> {
   TextEditingController _titleController;
   TextEditingController _postcontentController;
 
@@ -37,8 +37,8 @@ class _updatelatestpostState extends State<updatelatestpost> {
     _titleController = TextEditingController(text: widget.snapshot['title']);
     _postcontentController =
         TextEditingController(text: widget.snapshot['content']);
-    //image = File(widget.snapshot['image']);
     imageurl = widget.snapshot['image'];
+    //image = File(widget.snapshot['image']);
   }
 
   getImage(source) async {
@@ -177,12 +177,7 @@ class _updatelatestpostState extends State<updatelatestpost> {
               iconSize: 30.0,
               style: TextStyle(color: Colors.orange),
               items: [
-                "Latest Post",
                 "Campus Drive",
-                "Internship",
-                "Off Campus Drive",
-                "Walkin",
-                "Scholarship"
               ].map(
                 (val) {
                   return DropdownMenuItem<String>(

@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../Authentication/auth_helper.dart';
 import 'LatestNews/LatestAllNews.dart';
-import 'InternationalNews/InternationalAllNews.dart';
-import 'LocalNews/LocalAllNews.dart';
-import 'PoliticsNews/PoliticsAllNews.dart';
-import 'SportsNews/SportsAllNews.dart';
+import './Campus Drive/CampusDriveAllNews.dart';
+import './Walkin/WalkinAllNews.dart';
+import './Internship/InternshipAllNews.dart';
+import './Off Campus Drive/OffCampusDriveAllNews.dart';
 import 'ScholarshipNews/ScholarshipAllNews.dart';
 import 'usersposts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -186,52 +186,52 @@ class _createpostState extends State<createpost> {
                 ),
                 new ListTile(
                   title: new Text(
-                    "International News",
+                    "Campus Drive",
                     style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
                   ),
                   onTap: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (context) => InternationalNews()));
+                        builder: (context) => CampusDriveNews()));
                   },
                   leading: new Icon(Icons.person,
                       color: Colors.grey[800], size: 20.0),
                 ),
                 new ListTile(
                   title: new Text(
-                    "Local News",
+                    "Walkin",
                     style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
                   ),
                   onTap: () {
                     Navigator.of(context).pop();
-                    Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (context) => LocalNews()));
+                    Navigator.of(context).push(
+                        new MaterialPageRoute(builder: (context) => Walkin()));
                   },
                   leading: new Icon(Icons.person,
                       color: Colors.grey[800], size: 20.0),
                 ),
                 new ListTile(
                   title: new Text(
-                    "Politics News",
+                    "Internship",
                     style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
                   ),
                   onTap: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (context) => PoliticsNews()));
+                        builder: (context) => InternshipNews()));
                   },
                   leading: new Icon(Icons.person,
                       color: Colors.grey[800], size: 20.0),
                 ),
                 new ListTile(
                   title: new Text(
-                    "Sports News",
+                    "Off Campus Drive",
                     style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
                   ),
                   onTap: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (context) => SportsNews()));
+                        builder: (context) => OffCampusDriveNews()));
                   },
                   leading: new Icon(Icons.person,
                       color: Colors.grey[800], size: 20.0),
@@ -295,12 +295,12 @@ class _createpostState extends State<createpost> {
               iconSize: 30.0,
               style: TextStyle(color: Colors.orange),
               items: [
-                "LatestPost",
-                "InternationalAllNews",
-                "PoliticsAllNews",
-                "SportsAllNews",
-                "LocalAllNews",
-                "ScholarshipAllNews"
+                "Latest Post",
+                "Campus Drive",
+                "Internship",
+                "Off Campus Drive",
+                "Walkin",
+                "Scholarship"
               ].map(
                 (val) {
                   return DropdownMenuItem<String>(

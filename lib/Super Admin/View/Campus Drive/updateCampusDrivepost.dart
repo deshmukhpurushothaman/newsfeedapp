@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../Authentication/auth_helper.dart';
+import '../../../Authentication/auth_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -12,14 +12,14 @@ import 'package:path/path.dart';
 //import 'users.dart';
 //import 'InternationalNews/InternationalAllNews.dart';
 
-class updatelatestpost extends StatefulWidget {
+class updateCampusDrivepost extends StatefulWidget {
   DocumentSnapshot snapshot;
-  updatelatestpost(this.snapshot);
+  updateCampusDrivepost(this.snapshot);
   @override
-  _updatelatestpostState createState() => _updatelatestpostState();
+  _updateCampusDrivepostState createState() => _updateCampusDrivepostState();
 }
 
-class _updatelatestpostState extends State<updatelatestpost> {
+class _updateCampusDrivepostState extends State<updateCampusDrivepost> {
   TextEditingController _titleController;
   TextEditingController _postcontentController;
 
@@ -66,13 +66,14 @@ class _updatelatestpostState extends State<updatelatestpost> {
 
   progress(loading) {
     if (loading) {
+      print("Progress Entered");
       return Column(
         children: <Widget>[
           LinearProgressIndicator(
-            value: _progress,
+            value: loading,
             backgroundColor: Colors.red,
           ),
-          Text('${(_progress * 100).toStringAsFixed(2)} %'),
+          Text('${(loading * 100).toStringAsFixed(2)} %'),
         ],
       );
     } else {
@@ -94,6 +95,7 @@ class _updatelatestpostState extends State<updatelatestpost> {
         _progress = event.snapshot.bytesTransferred.toDouble() /
             event.snapshot.totalByteCount.toDouble();
         print(_progress);
+        progress(_progress);
       });
     });
 

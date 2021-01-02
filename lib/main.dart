@@ -3,10 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fl_fire_auth/Admin/createpost.dart';
 import 'package:fl_fire_auth/Admin/createlatestpost.dart';
-import 'package:fl_fire_auth/Admin/createinternationalpost.dart';
-import 'package:fl_fire_auth/Admin/createlocalpost.dart';
-import 'package:fl_fire_auth/Admin/createpoliticspost.dart';
-import 'package:fl_fire_auth/Admin/createsportspost.dart';
+import 'package:fl_fire_auth/Admin/createscholarshippost.dart';
+import './Admin/createCampusDrivepost.dart';
+import './Admin/createWalkinpost.dart';
+import './Admin/createInternshippost.dart';
+import './Admin/createOffCampusDrivepost.dart';
 import 'Start.dart';
 import 'package:flutter/cupertino.dart';
 //import 'Admin/admin_home.dart';
@@ -66,13 +67,15 @@ class MainScreen extends StatelessWidget {
                   } else if (user['role'] == '3') {
                     return createlatestpost();
                   } else if (user['role'] == '4') {
-                    return createinternationalpost();
+                    return createCampusDrivepost();
                   } else if (user['role'] == '5') {
-                    return createlocalpost();
+                    return createWalkinpost();
                   } else if (user['role'] == '6') {
-                    return createpoliticspost();
+                    return createInternshippost();
                   } else if (user['role'] == '7') {
-                    return createsportspost();
+                    return createOffCampusDrivepost();
+                  } else if (user['role'] == '8') {
+                    return createScholarshippost();
                   } else {
                     return Home();
                   }

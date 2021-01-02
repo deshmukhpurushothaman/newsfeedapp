@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/ScholarshipNews/DeletedScholarshipAllNews.dart';
 import './usersposts.dart';
-import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/InternationalNews/DeletedInternationalAllNews.dart';
+import './Deleted News/Campus Drive/DeletedCampusDriveAllNews.dart';
 import 'View/LatestNews/AdminLatestAllNews.dart';
 import '../Authentication/auth_helper.dart';
 //import 'dart:html';
@@ -8,16 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:carousel_pro/carousel_pro.dart';
-import 'View/InternationalNews/AdminInternationalAllNews.dart';
+import './View/Campus Drive/CampusDriveAllNews.dart';
 import 'View/LatestNews/AdminLatestAllNews.dart';
-import 'View/LocalNews/AdminLocalAllNews.dart';
-import 'View/PoliticsNews/AdminPoliticsAllNews.dart';
-import 'View/SportsNews/AdminSportsAllNews.dart';
+import 'View/Walkin/WalkinAllNews.dart';
+import './View/Internship/InternshipAllNews.dart';
+import './View/Off Campus Drive/OffCampusDriveAllNews.dart';
 import 'View/ScholarshipNews/AdminScholarshipAllNews.dart';
 import 'AdminDetailsLatestPost.dart';
-import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/LocalNews/DeletedLocalAllNews.dart';
-import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/PoliticsNews/DeletedPoliticsAllNews.dart';
-import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/SportsNews/DeletedSportsAllNews.dart';
+import './Deleted News/Walkin/DeletedWalkinAllNews.dart';
+import './Deleted News/Internship/DeletedInternshipAllNews.dart';
+import './Deleted News/Off Campus Drive/DeletedOffCampusDriveAllNews.dart';
 import 'Deleted News/LatestNews/DeletedLatestAllNews.dart';
 import 'dart:async';
 import './users.dart';
@@ -92,7 +93,7 @@ class _AdminHomeState extends State<AdminHome> {
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (context) => InternationalNews()));
+                      builder: (context) => CampusDrive()));
                 },
                 leading:
                     new Icon(Icons.next_week, color: Colors.black, size: 20.0),
@@ -105,7 +106,7 @@ class _AdminHomeState extends State<AdminHome> {
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (context) => SportsNews()));
+                      builder: (context) => OffCampusDrive()));
                 },
                 leading:
                     new Icon(Icons.security, color: Colors.black, size: 20.0),
@@ -117,8 +118,8 @@ class _AdminHomeState extends State<AdminHome> {
                 ),
                 onTap: () {
                   Navigator.of(context).pop();
-                  Navigator.of(context).push(
-                      new MaterialPageRoute(builder: (context) => LocalNews()));
+                  Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (context) => Internship()));
                 },
                 leading: new Icon(Icons.image, color: Colors.black, size: 20.0),
               ),
@@ -129,8 +130,20 @@ class _AdminHomeState extends State<AdminHome> {
                 ),
                 onTap: () {
                   Navigator.of(context).pop();
+                  Navigator.of(context).push(
+                      new MaterialPageRoute(builder: (context) => Walkin()));
+                },
+                leading: new Icon(Icons.adb, color: Colors.black, size: 20.0),
+              ),
+              new ListTile(
+                title: new Text(
+                  "Scholarship",
+                  style: TextStyle(fontSize: 20.0, color: Colors.black),
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
                   Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (context) => PoliticsNews()));
+                      builder: (context) => ScholarshipNews()));
                 },
                 leading: new Icon(Icons.adb, color: Colors.black, size: 20.0),
               ),
@@ -194,7 +207,7 @@ class _AdminHomeState extends State<AdminHome> {
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (context) => DeletedInternationalNews()));
+                      builder: (context) => DeletedCampusDrive()));
                 },
                 leading:
                     new Icon(Icons.delete, color: Colors.black, size: 20.0),
@@ -207,7 +220,7 @@ class _AdminHomeState extends State<AdminHome> {
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (context) => DeletedLocalNews()));
+                      builder: (context) => DeletedInternship()));
                 },
                 leading:
                     new Icon(Icons.delete, color: Colors.black, size: 20.0),
@@ -220,7 +233,20 @@ class _AdminHomeState extends State<AdminHome> {
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (context) => DeletedPoliticsNews()));
+                      builder: (context) => DeletedWalkin()));
+                },
+                leading:
+                    new Icon(Icons.delete, color: Colors.black, size: 20.0),
+              ),
+              new ListTile(
+                title: new Text(
+                  "Deleted Scholarship",
+                  style: TextStyle(fontSize: 20.0, color: Colors.black),
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (context) => DeletedScholarshipNews()));
                 },
                 leading:
                     new Icon(Icons.delete, color: Colors.black, size: 20.0),
@@ -233,7 +259,7 @@ class _AdminHomeState extends State<AdminHome> {
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (context) => DeletedSportsNews()));
+                      builder: (context) => DeletedOffCampusDrive()));
                 },
                 leading:
                     new Icon(Icons.delete, color: Colors.black, size: 20.0),
@@ -391,8 +417,7 @@ class _AdminHomeState extends State<AdminHome> {
                               onTap: () {
                                 Navigator.of(context).push(
                                     new MaterialPageRoute(
-                                        builder: (context) =>
-                                            InternationalNews()));
+                                        builder: (context) => CampusDrive()));
                               },
                               child: Text(
                                 "Campus Drive",
@@ -422,7 +447,8 @@ class _AdminHomeState extends State<AdminHome> {
                               onTap: () {
                                 Navigator.of(context).push(
                                     new MaterialPageRoute(
-                                        builder: (context) => SportsNews()));
+                                        builder: (context) =>
+                                            OffCampusDrive()));
                               },
                               child: Text(
                                 "Off Campus Drive",
@@ -458,10 +484,10 @@ class _AdminHomeState extends State<AdminHome> {
                               onTap: () {
                                 Navigator.of(context).push(
                                     new MaterialPageRoute(
-                                        builder: (context) => LocalNews()));
+                                        builder: (context) => Walkin()));
                               },
                               child: Text(
-                                "Internship",
+                                "Walkin",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 19.0,
@@ -488,10 +514,10 @@ class _AdminHomeState extends State<AdminHome> {
                               onTap: () {
                                 Navigator.of(context).push(
                                     new MaterialPageRoute(
-                                        builder: (context) => PoliticsNews()));
+                                        builder: (context) => Internship()));
                               },
                               child: Text(
-                                "Walkin",
+                                "Internship",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 19.0,

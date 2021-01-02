@@ -1,24 +1,24 @@
-import 'package:fl_fire_auth/View/Scholarship/ScholarshipNews_Postdetails.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-//import 'ScholarshipNews_PostDetails.dart';
+import './DeletedInternshipNews_Postdetails.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:async';
 
-class ScholarshipNews extends StatefulWidget {
-  ScholarshipNews({Key key}) : super(key: key);
+class DeletedInternship extends StatefulWidget {
+  DeletedInternship({Key key}) : super(key: key);
 
   @override
-  _ScholarshipNewsState createState() => _ScholarshipNewsState();
+  _DeletedInternshipState createState() => _DeletedInternshipState();
 }
 
-class _ScholarshipNewsState extends State<ScholarshipNews> {
+class _DeletedInternshipState extends State<DeletedInternship> {
   Future getAllPost() async {
     // ignore: deprecated_member_use
     var firestore = Firestore.instance;
     QuerySnapshot snap =
         // ignore: deprecated_member_use
-        await firestore.collection("Scholarship").getDocuments();
+        await firestore.collection("DeletedInternship").getDocuments();
     // ignore: deprecated_member_use
     return snap.documents;
   }
@@ -35,13 +35,13 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
     return Scaffold(
       appBar: new AppBar(
         title: new Text(
-          "Scholarship",
+          "Deleted Politics News",
           style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.orange,
         iconTheme: new IconThemeData(color: Colors.black),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.orange,
       body: FutureBuilder(
         future: getAllPost(),
         builder: (context, snapshot) {
@@ -58,7 +58,7 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
           } else {
             return RefreshIndicator(
               onRefresh: onRefresh,
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.green,
               color: Colors.black,
               child: ListView.builder(
                 itemCount: snapshot.data.length,
@@ -73,13 +73,48 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
                     //     icon: Icons.archive,
                     //   ),
                     // ],
-                    // secondaryActions: [
-                    //   IconSlideAction(
-                    //     caption: 'Delete',
-                    //     color: Colors.blueGrey,
-                    //     icon: Icons.delete,
-                    //   ),
-                    // ],
+                    secondaryActions: [
+                      IconSlideAction(
+                        caption: 'Restore',
+                        color: Colors.blueGrey,
+                        icon: Icons.restore,
+                        onTap: () => {
+                          print("Entered"),
+                          //Copy to new Deleted Collection
+                          FirebaseFirestore.instance
+                              .collection("PoliticsAllNews")
+                              // ignore: deprecated_member_use
+                              .document()
+                              // ignore: deprecated_member_use
+                              .setData({
+                            "content": snapshot.data[index].data()['content'],
+                            "title": snapshot.data[index].data()['title'],
+                            "image": snapshot.data[index].data()['image'],
+                            "categoryval": "PoliticsAllNews",
+                          }),
+                          print("Successful"),
+
+                          //Delete
+                          FirebaseFirestore.instance
+                              .collection("DeletedInternship")
+                              .doc(snapshot.data[index].documentID)
+                              .delete(),
+                          print("Successful"),
+                          Fluttertoast.showToast(
+                              msg:
+                                  "Restored Successfully!!! Refresh the page to see the changes."),
+                        },
+                      ),
+                    ],
+                    // onDismissed: (DismissDirection) {
+                    //   //snapshot.data.delete(index);
+                    //   print("Entered");
+                    //   FirebaseFirestore.instance
+                    //       .collection("PoliticsAllNews")
+                    //       .doc(snapshot.data[index].documentID)
+                    //       .delete();
+                    //   print("Successful");
+                    // },
 
                     dismissal: SlidableDismissal(
                       child: SlidableDrawerDismissal(),
@@ -93,23 +128,14 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
                       margin: EdgeInsets.all(6.0),
                       child: Row(
                         children: <Widget>[
-                          InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(new MaterialPageRoute(
-                                  builder: (context) => Scholarship_PostDetails(
-                                      snapshot.data[index])));
-                            },
-                            child: Container(
-                              width: 150.0,
-                              child: Container(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  child: Image.network(
-                                    snapshot.data[index].data()["image"],
-                                    height: 170.0,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                          Expanded(
+                            flex: 1,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15.0),
+                              child: Image.network(
+                                snapshot.data[index].data()["image"],
+                                height: 170.0,
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
@@ -150,7 +176,7 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
                                 ),
 
                                 SizedBox(
-                                  height: 5.0,
+                                  height: 20.0,
                                 ),
 
                                 Container(
@@ -159,14 +185,12 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       //First Container
-
-                                      //Second Container
                                       InkWell(
                                         onTap: () {
                                           Navigator.of(context).push(
                                               new MaterialPageRoute(
                                                   builder: (context) =>
-                                                      Scholarship_PostDetails(
+                                                      DeletedInternship_PostDetails(
                                                           snapshot
                                                               .data[index])));
                                         },
@@ -183,11 +207,11 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
                                             alignment: Alignment.center,
                                             child: Padding(
                                               padding:
-                                                  const EdgeInsets.all(5.0),
+                                                  const EdgeInsets.all(8.0),
                                               child: Text(
                                                 "View Details",
                                                 style: TextStyle(
-                                                  fontSize: 15.0,
+                                                  fontSize: 20.0,
                                                   color: Colors.black,
                                                 ),
                                               ),
@@ -195,6 +219,7 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
                                           ),
                                         ),
                                       ),
+                                      //Second Container(Delete Post)
                                     ],
                                   ),
                                 ),

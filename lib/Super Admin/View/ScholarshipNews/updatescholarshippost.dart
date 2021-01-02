@@ -179,12 +179,12 @@ class _updatescholarshippostState extends State<updatescholarshippost> {
               iconSize: 30.0,
               style: TextStyle(color: Colors.orange),
               items: [
-                "LatestPost",
-                "InternationalAllNews",
-                "PoliticsAllNews",
-                "SportsAllNews",
-                "LocalAllNews",
-                "ScholarshipAllNews"
+                "Latest Post",
+                "Campus Drive",
+                "Internship",
+                "Off Campus Drive",
+                "Walkin",
+                "Scholarship"
               ].map(
                 (val) {
                   return DropdownMenuItem<String>(

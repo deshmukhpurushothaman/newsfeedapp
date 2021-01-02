@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../Authentication/auth_helper.dart';
+import '../../../Authentication/auth_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -12,14 +12,14 @@ import 'package:path/path.dart';
 //import 'users.dart';
 //import 'InternationalNews/InternationalAllNews.dart';
 
-class updatelatestpost extends StatefulWidget {
+class updateInternshippost extends StatefulWidget {
   DocumentSnapshot snapshot;
-  updatelatestpost(this.snapshot);
+  updateInternshippost(this.snapshot);
   @override
-  _updatelatestpostState createState() => _updatelatestpostState();
+  _updateInternshippostState createState() => _updateInternshippostState();
 }
 
-class _updatelatestpostState extends State<updatelatestpost> {
+class _updateInternshippostState extends State<updateInternshippost> {
   TextEditingController _titleController;
   TextEditingController _postcontentController;
 
@@ -280,7 +280,20 @@ class _updatelatestpostState extends State<updatelatestpost> {
                       borderRadius: BorderRadius.all(Radius.circular(80.0)),
                     ),
                     child: InkWell(
-                      //
+                      // onTap: () {
+                      //   FirebaseFirestore.instance
+                      //       .collection("InternationalAnnNews")
+                      //       //.where("email", isEqualTo: widget.snapshot['email'])
+                      //       // ignore: deprecated_member_use
+                      //       .document(widget.snapshot.id)
+
+                      //       // ignore: deprecated_member_use
+                      //       .updateData({
+                      //     "title": _titleController,
+                      //     "content": _postcontentController,
+                      //     "iamge": image
+                      //   });
+                      // },
                       child: Container(
                         constraints: const BoxConstraints(
                             minWidth: 88.0,

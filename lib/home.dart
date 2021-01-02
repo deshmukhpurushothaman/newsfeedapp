@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'View/InternationalNews/InternationalAllNews.dart';
-import 'View/LocalNews/LocalAllNews.dart';
-import 'View/SportsNews/SportsAllNews.dart';
-import 'View/PoliticsNews/PoliticsAllNews.dart';
+import './View/Campus Drive/CampusDriveAllNews.dart';
+import './View/Walkin/WalkinAllNews.dart';
+import './View/Off Campus Drive/OffCampusDriveAllNews.dart';
+import './View/Internship/InternshipAllNews.dart';
 import 'View/Scholarship/ScholarshipAllNews.dart';
 import 'DetailsLatestPost.dart';
 import 'createpost.dart';
@@ -207,7 +207,7 @@ class _HomeState extends State<Home> {
                     ),
                     onTap: () {
                       Navigator.of(context).push(new MaterialPageRoute(
-                          builder: (context) => InternationalNews()));
+                          builder: (context) => CampusDriveNews()));
                     },
                   ),
                   InkWell(
@@ -220,7 +220,7 @@ class _HomeState extends State<Home> {
                     ),
                     onTap: () {
                       Navigator.of(context).push(new MaterialPageRoute(
-                          builder: (context) => SportsNews()));
+                          builder: (context) => OffCampusDriveNews()));
                     },
                   ),
                 ],
@@ -264,7 +264,7 @@ class _HomeState extends State<Home> {
                     ),
                     onTap: () {
                       Navigator.of(context).push(new MaterialPageRoute(
-                          builder: (context) => PoliticsNews()));
+                          builder: (context) => InternshipNews()));
                     },
                   ),
                   InkWell(
@@ -277,7 +277,7 @@ class _HomeState extends State<Home> {
                     ),
                     onTap: () {
                       Navigator.of(context).push(new MaterialPageRoute(
-                          builder: (context) => LocalNews()));
+                          builder: (context) => WalkinNews()));
                     },
                   ),
                 ],
