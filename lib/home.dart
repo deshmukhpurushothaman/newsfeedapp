@@ -199,11 +199,23 @@ class _HomeState extends State<Home> {
                 children: [
                   InkWell(
                     child: Container(
-                      child: Image.asset(
-                        "images/global.png",
-                        width: 180,
-                        height: 130,
+                      width: 200,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: AssetImage(
+                            "images/campus drive.jpg",
+                            // width: 200,
+                            // height: 150,
+                          ),
+                        ),
                       ),
+                      // child: Image.asset(
+                      //   "images/campus drive.jpg",
+                      //   width: 180,
+                      //   height: 130,
+                      // ),
                     ),
                     onTap: () {
                       Navigator.of(context).push(new MaterialPageRoute(
@@ -212,11 +224,24 @@ class _HomeState extends State<Home> {
                   ),
                   InkWell(
                     child: Container(
-                      child: Image.asset(
-                        "images/sports.png",
-                        width: 180,
-                        height: 130,
+                      padding: EdgeInsets.only(left: 40.0),
+                      width: 200,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: AssetImage(
+                            "images/off campus drive.png",
+                            // width: 200,
+                            // height: 150,
+                          ),
+                        ),
                       ),
+                      // child: Image.asset(
+                      //   "images/off campus drive.png",
+                      //   width: 150,
+                      //   height: 110,
+                      // ),
                     ),
                     onTap: () {
                       Navigator.of(context).push(new MaterialPageRoute(
@@ -237,7 +262,7 @@ class _HomeState extends State<Home> {
                               fontSize: 17.0,
                               fontWeight: FontWeight.bold))),
                   Container(
-                    padding: EdgeInsets.only(left: 80),
+                    padding: EdgeInsets.only(left: 100),
                     child: Text(
                       'Off Campus Drive',
                       style: TextStyle(
@@ -257,9 +282,9 @@ class _HomeState extends State<Home> {
                   InkWell(
                     child: Container(
                       child: Image.asset(
-                        "images/politics.png",
-                        width: 180,
-                        height: 130,
+                        "images/internship.png",
+                        width: 200,
+                        height: 160,
                       ),
                     ),
                     onTap: () {
@@ -269,11 +294,24 @@ class _HomeState extends State<Home> {
                   ),
                   InkWell(
                     child: Container(
-                      child: Image.asset(
-                        "images/local.png",
-                        width: 180,
-                        height: 130,
+                      padding: EdgeInsets.only(left: 10.0),
+                      width: 200,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: AssetImage(
+                            "images/walkin.png",
+                            // width: 200,
+                            // height: 150,
+                          ),
+                        ),
                       ),
+                      // child: Image.asset(
+                      //   "images/walkin.png",
+                      //   width: 200,
+                      //   height: 150,
+                      // ),
                     ),
                     onTap: () {
                       Navigator.of(context).push(new MaterialPageRoute(
@@ -314,7 +352,7 @@ class _HomeState extends State<Home> {
                   InkWell(
                     child: Container(
                       child: Image.asset(
-                        "images/politics.png",
+                        "images/scholarship.png",
                         width: 180,
                         height: 130,
                       ),
