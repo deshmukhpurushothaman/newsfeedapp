@@ -199,7 +199,7 @@ class _HomeState extends State<Home> {
                 children: [
                   InkWell(
                     child: Container(
-                      width: 200,
+                      width: 150,
                       height: 120,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
@@ -224,8 +224,8 @@ class _HomeState extends State<Home> {
                   ),
                   InkWell(
                     child: Container(
-                      padding: EdgeInsets.only(left: 40.0),
-                      width: 200,
+                      padding: EdgeInsets.only(left: 170.0),
+                      width: 150,
                       height: 120,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
@@ -262,7 +262,7 @@ class _HomeState extends State<Home> {
                               fontSize: 17.0,
                               fontWeight: FontWeight.bold))),
                   Container(
-                    padding: EdgeInsets.only(left: 100),
+                    padding: EdgeInsets.only(left: 50),
                     child: Text(
                       'Off Campus Drive',
                       style: TextStyle(
@@ -283,7 +283,7 @@ class _HomeState extends State<Home> {
                     child: Container(
                       child: Image.asset(
                         "images/internship.png",
-                        width: 200,
+                        width: 180,
                         height: 160,
                       ),
                     ),
@@ -295,7 +295,7 @@ class _HomeState extends State<Home> {
                   InkWell(
                     child: Container(
                       padding: EdgeInsets.only(left: 10.0),
-                      width: 200,
+                      width: 150,
                       height: 120,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
@@ -325,14 +325,14 @@ class _HomeState extends State<Home> {
               child: Row(
                 children: [
                   Container(
-                      padding: EdgeInsets.only(left: 57.0),
+                      padding: EdgeInsets.only(left: 70.0),
                       child: Text('Internship',
                           style: TextStyle(
                               color: Colors.grey,
                               fontSize: 17.0,
                               fontWeight: FontWeight.bold))),
                   Container(
-                    padding: EdgeInsets.only(left: 140.0),
+                    padding: EdgeInsets.only(left: 80.0),
                     child: Text(
                       'Walkin',
                       style: TextStyle(
@@ -353,7 +353,7 @@ class _HomeState extends State<Home> {
                     child: Container(
                       child: Image.asset(
                         "images/scholarship.png",
-                        width: 180,
+                        width: 150,
                         height: 130,
                       ),
                     ),
@@ -382,7 +382,7 @@ class _HomeState extends State<Home> {
               child: Row(
                 children: [
                   Container(
-                      padding: EdgeInsets.only(left: 57.0),
+                      padding: EdgeInsets.only(left: 35.0),
                       child: Text('Scholarship',
                           style: TextStyle(
                               color: Colors.grey,
