@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fl_fire_auth/Admin/createEventspost.dart';
 import 'package:fl_fire_auth/Admin/createpost.dart';
 import 'package:fl_fire_auth/Admin/createlatestpost.dart';
 import 'package:fl_fire_auth/Admin/createscholarshippost.dart';
@@ -76,6 +77,8 @@ class MainScreen extends StatelessWidget {
                     return createOffCampusDrivepost();
                   } else if (user['role'] == '8') {
                     return createScholarshippost();
+                  } else if (user['role'] == '9') {
+                    return createEventspost();
                   } else {
                     return Home();
                   }

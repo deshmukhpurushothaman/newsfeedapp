@@ -1,3 +1,5 @@
+import 'package:fl_fire_auth/Authentication/login.dart';
+
 import 'auth_helper.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
@@ -202,7 +204,9 @@ class _SignupPageState extends State<SignupPage> {
                                 Fluttertoast.showToast(
                                     msg: "Signup successful");
                                 print("Signup successful");
-                                Navigator.pop(context);
+                                Navigator.of(context).push(
+                                    new MaterialPageRoute(
+                                        builder: (context) => LoginPage()));
                               }
                             } catch (e) {
                               print(e);

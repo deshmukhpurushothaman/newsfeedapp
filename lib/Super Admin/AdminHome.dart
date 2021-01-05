@@ -1,4 +1,10 @@
+//import 'dart:html';
+
+//import 'dart:html';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/Events/DeletedEventsAllNews.dart';
+//import 'package:fl_fire_auth/Admin/Events/EventsAllNews.dart';
 import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/ScholarshipNews/DeletedScholarshipAllNews.dart';
 import './usersposts.dart';
 import './Deleted News/Campus Drive/DeletedCampusDriveAllNews.dart';
@@ -15,6 +21,7 @@ import 'View/Walkin/WalkinAllNews.dart';
 import './View/Internship/InternshipAllNews.dart';
 import './View/Off Campus Drive/OffCampusDriveAllNews.dart';
 import 'View/ScholarshipNews/AdminScholarshipAllNews.dart';
+import 'View/Events/EventsAllNews.dart';
 import 'AdminDetailsLatestPost.dart';
 import './Deleted News/Walkin/DeletedWalkinAllNews.dart';
 import './Deleted News/Internship/DeletedInternshipAllNews.dart';
@@ -149,6 +156,18 @@ class _AdminHomeState extends State<AdminHome> {
               ),
               new ListTile(
                 title: new Text(
+                  "Events",
+                  style: TextStyle(fontSize: 20.0, color: Colors.black),
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(
+                      new MaterialPageRoute(builder: (context) => Events()));
+                },
+                leading: new Icon(Icons.adb, color: Colors.black, size: 20.0),
+              ),
+              new ListTile(
+                title: new Text(
                   "User News",
                   style: TextStyle(fontSize: 20.0, color: Colors.black),
                 ),
@@ -260,6 +279,19 @@ class _AdminHomeState extends State<AdminHome> {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(new MaterialPageRoute(
                       builder: (context) => DeletedOffCampusDrive()));
+                },
+                leading:
+                    new Icon(Icons.delete, color: Colors.black, size: 20.0),
+              ),
+              new ListTile(
+                title: new Text(
+                  "Deleted Events",
+                  style: TextStyle(fontSize: 20.0, color: Colors.black),
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (context) => DeletedEvents()));
                 },
                 leading:
                     new Icon(Icons.delete, color: Colors.black, size: 20.0),
@@ -557,6 +589,36 @@ class _AdminHomeState extends State<AdminHome> {
                               },
                               child: Text(
                                 "Scholarship",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 19.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      new SizedBox(
+                        width: 8.0,
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          height: 75.0,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFffd280),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                    new MaterialPageRoute(
+                                        builder: (context) => Events()));
+                              },
+                              child: Text(
+                                "Events",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 19.0,

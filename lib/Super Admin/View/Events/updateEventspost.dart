@@ -1,20 +1,25 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import '../../../Authentication/auth_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
+//import 'users.dart';
+//import 'InternationalNews/InternationalAllNews.dart';
 
-class createpost extends StatefulWidget {
+class updateEventspost extends StatefulWidget {
+  DocumentSnapshot snapshot;
+  updateEventspost(this.snapshot);
   @override
-  _createpostState createState() => _createpostState();
+  _updateEventspostState createState() => _updateEventspostState();
 }
 
-class _createpostState extends State<createpost> {
+class _updateEventspostState extends State<updateEventspost> {
   TextEditingController _titleController;
   TextEditingController _postcontentController;
 
@@ -29,8 +34,11 @@ class _createpostState extends State<createpost> {
   @override
   void initState() {
     super.initState();
-    _titleController = TextEditingController(text: "");
-    _postcontentController = TextEditingController(text: "");
+    _titleController = TextEditingController(text: widget.snapshot['title']);
+    _postcontentController =
+        TextEditingController(text: widget.snapshot['content']);
+    //image = File(widget.snapshot['image']);
+    imageurl = widget.snapshot['image'];
   }
 
   getImage(source) async {
@@ -45,6 +53,16 @@ class _createpostState extends State<createpost> {
       filename = basename(image.path);
     });
   }
+
+  // Future _getImage() async {
+  //   var selectedImage =
+  //       await ImagePicker.pickImage(source: ImageSource.gallery);
+
+  //   setState(() {
+  //     image = selectedImage;
+  //     filename = basename(image.path);
+  //   });
+  // }
 
   progress(loading) {
     if (loading) {
@@ -65,18 +83,18 @@ class _createpostState extends State<createpost> {
   Future<String> uploadImage() async {
     FirebaseStorage storage = FirebaseStorage.instance;
     Reference ref = storage.ref().child(filename);
-    Fluttertoast.showToast(msg: "Wait for image upload success message");
+
     UploadTask uploadTask = ref.putFile(image);
 
+    Fluttertoast.showToast(msg: "Wait for image upload success message.");
+
     uploadTask.events.listen((event) {
-      _isloading = true;
-      print("Upload Task Event");
-      _progress = event.snapshot.bytesTransferred.toDouble() /
-          event.snapshot.totalByteCount.toDouble();
-      print("Upload Task Event123");
-      print(_progress);
-      LinearProgressIndicator(
-          backgroundColor: Colors.green, value: _progress, minHeight: 5.0);
+      setState(() {
+        _isloading = true;
+        _progress = event.snapshot.bytesTransferred.toDouble() /
+            event.snapshot.totalByteCount.toDouble();
+        print(_progress);
+      });
     });
 
     TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {
@@ -88,8 +106,7 @@ class _createpostState extends State<createpost> {
 
     imageurl = url;
     Fluttertoast.showToast(
-        msg: "Image uploaded Successfully. Now you can Submit the post.");
-
+        msg: "Image uploaded successfully. Now you can submit the post");
     return url;
   }
 
@@ -101,7 +118,6 @@ class _createpostState extends State<createpost> {
         FlatButton.icon(
           onPressed: () {
             uploadImage();
-
             print(filename);
           },
           icon: Icon(Icons.cloud_upload),
@@ -190,13 +206,15 @@ class _createpostState extends State<createpost> {
               padding: EdgeInsets.all(20.0),
               child: Column(
                 children: [
-                  image == null ? Text("No image selected") : uploadArea(),
+                  image == null
+                      ? Image.network(widget.snapshot['image'])
+                      : uploadArea(),
                   Container(
                     child: Row(
                       children: [
                         FlatButton.icon(
                             onPressed: () => getImage(ImageSource.camera),
-                            padding: EdgeInsets.only(right: 90),
+                            padding: EdgeInsets.only(right: 110),
                             icon: Icon(Icons.camera),
                             label: Text('Camera')),
                         FlatButton.icon(
@@ -233,18 +251,18 @@ class _createpostState extends State<createpost> {
 
                       // ignore: deprecated_member_use
                       Firestore.instance
-                          .collection("AdminApproval")
+                          .collection(_categoryVal)
                           // ignore: deprecated_member_use
-                          .document()
+                          .document(widget.snapshot.id)
                           // ignore: deprecated_member_use
-                          .setData({
+                          .updateData({
                         "content": _postcontentController.text,
                         "title": _titleController.text,
-                        "image": imageurl,
-                        "categoryval": _categoryVal
+                        "image": imageurl
                       });
 
-                      Fluttertoast.showToast(msg: " Posted Successfully!!");
+                      Fluttertoast.showToast(
+                          msg: _categoryVal + " Posted Successfully!!");
                       Navigator.pop(context);
                       return;
                     }
@@ -262,16 +280,32 @@ class _createpostState extends State<createpost> {
                       ),
                       borderRadius: BorderRadius.all(Radius.circular(80.0)),
                     ),
-                    child: Container(
-                      constraints: const BoxConstraints(
-                          minWidth: 88.0,
-                          minHeight: 36.0), // min sizes for Material buttons
-                      alignment: Alignment.center,
-                      child: Text("SUBMIT",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17)),
+                    child: InkWell(
+                      // onTap: () {
+                      //   FirebaseFirestore.instance
+                      //       .collection("InternationalAnnNews")
+                      //       //.where("email", isEqualTo: widget.snapshot['email'])
+                      //       // ignore: deprecated_member_use
+                      //       .document(widget.snapshot.id)
+
+                      //       // ignore: deprecated_member_use
+                      //       .updateData({
+                      //     "title": _titleController,
+                      //     "content": _postcontentController,
+                      //     "iamge": image
+                      //   });
+                      // },
+                      child: Container(
+                        constraints: const BoxConstraints(
+                            minWidth: 88.0,
+                            minHeight: 36.0), // min sizes for Material buttons
+                        alignment: Alignment.center,
+                        child: Text("Update",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17)),
+                      ),
                     ),
                   ),
                 ),

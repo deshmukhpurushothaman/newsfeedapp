@@ -1,3 +1,5 @@
+//import 'dart:html';
+
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -12,6 +14,7 @@ import './View/Walkin/WalkinAllNews.dart';
 import './View/Off Campus Drive/OffCampusDriveAllNews.dart';
 import './View/Internship/InternshipAllNews.dart';
 import 'View/Scholarship/ScholarshipAllNews.dart';
+import "View/Events/EventsAllNews.dart";
 import 'DetailsLatestPost.dart';
 import 'createpost.dart';
 import 'dart:async';
@@ -117,11 +120,62 @@ class _HomeState extends State<Home> {
             ),
             SizedBox(height: 10),
             ListTile(
-              title: Text("Create post"),
-              leading: Icon(EvaIcons.edit2Outline),
+              title: Text("Campus Drive"),
+              //leading: Icon(EvaIcons.edit2Outline),
+              leading: new Icon(Icons.grade_outlined, size: 20.0),
+              onTap: () {
+                Navigator.of(context).push(new MaterialPageRoute(
+                    builder: (context) => CampusDriveNews()));
+              },
+            ),
+            SizedBox(height: 10),
+            ListTile(
+              title: Text("Off Campus Drive"),
+              //leading: Icon(EvaIcons.edit2Outline),
+              leading: new Icon(Icons.local_post_office_outlined, size: 20.0),
+              onTap: () {
+                Navigator.of(context).push(new MaterialPageRoute(
+                    builder: (context) => OffCampusDriveNews()));
+              },
+            ),
+            SizedBox(height: 10),
+            ListTile(
+              title: Text("Internship"),
+              //leading: Icon(EvaIcons.edit2Outline),
+              leading: new Icon(Icons.work_outline, size: 20.0),
+              onTap: () {
+                Navigator.of(context).push(new MaterialPageRoute(
+                    builder: (context) => InternshipNews()));
+              },
+            ),
+            SizedBox(height: 10),
+            ListTile(
+              title: Text("Walkin"),
+              //leading: Icon(EvaIcons.edit2Outline),
+              leading: new Icon(Icons.directions_walk_outlined, size: 20.0),
               onTap: () {
                 Navigator.of(context).push(
-                    new MaterialPageRoute(builder: (context) => createpost()));
+                    new MaterialPageRoute(builder: (context) => WalkinNews()));
+              },
+            ),
+            SizedBox(height: 10),
+            ListTile(
+              title: Text("Scholarship"),
+              //leading: Icon(EvaIcons.edit2Outline),
+              leading: new Icon(Icons.school_outlined, size: 20.0),
+              onTap: () {
+                Navigator.of(context).push(new MaterialPageRoute(
+                    builder: (context) => ScholarshipNews()));
+              },
+            ),
+            SizedBox(height: 10),
+            ListTile(
+              title: Text("Events"),
+              //leading: Icon(EvaIcons.edit2Outline),
+              leading: new Icon(Icons.event_available_outlined, size: 20.0),
+              onTap: () {
+                Navigator.of(context).push(
+                    new MaterialPageRoute(builder: (context) => EventsNews()));
               },
             ),
             SizedBox(height: 10),
@@ -362,19 +416,20 @@ class _HomeState extends State<Home> {
                           builder: (context) => ScholarshipNews()));
                     },
                   ),
-                  // InkWell(
-                  //   child: Container(
-                  //     child: Image.asset(
-                  //       "images/local.png",
-                  //       width: 180,
-                  //       height: 130,
-                  //     ),
-                  //   ),
-                  //   onTap: () {
-                  //     Navigator.of(context).push(new MaterialPageRoute(
-                  //         builder: (context) => LocalNews()));
-                  //   },
-                  // ),
+                  InkWell(
+                    child: Container(
+                      padding: EdgeInsets.only(left: 50.0),
+                      child: Image.asset(
+                        "images/local.png",
+                        width: 180,
+                        height: 130,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(new MaterialPageRoute(
+                          builder: (context) => EventsNews()));
+                    },
+                  ),
                 ],
               ),
             ),
@@ -388,16 +443,16 @@ class _HomeState extends State<Home> {
                               color: Colors.grey,
                               fontSize: 17.0,
                               fontWeight: FontWeight.bold))),
-                  // Container(
-                  //   padding: EdgeInsets.only(left: 140.0),
-                  //   child: Text(
-                  //     'Local',
-                  //     style: TextStyle(
-                  //         color: Colors.grey,
-                  //         fontSize: 17.0,
-                  //         fontWeight: FontWeight.bold),
-                  //   ),
-                  // ),
+                  Container(
+                    padding: EdgeInsets.only(left: 140.0),
+                    child: Text(
+                      'Events',
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 17.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ],
               ),
             ),
