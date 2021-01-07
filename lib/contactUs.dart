@@ -30,7 +30,7 @@ class _contactusState extends State<contactus> {
                   child: Column(
                 children: [
                   SizedBox(height: 20.0),
-                  Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Align(
                       alignment: Alignment.center,
                       child: CircleAvatar(
@@ -41,14 +41,14 @@ class _contactusState extends State<contactus> {
                                 width: 180,
                                 height: 180,
                                 child: Image.asset(
-                                  "images/campus drive.jpg",
+                                  "images/best_enlist.jpg",
                                   fit: BoxFit.fill,
                                 )),
                           )),
                     ),
                   ]),
                   SizedBox(
-                    height: 20.0,
+                    height: 30.0,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -71,7 +71,7 @@ class _contactusState extends State<contactus> {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  "developbestenlist@gmail.com",
+                                  "support@bestenlist.co.in",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 20.0,
@@ -85,7 +85,7 @@ class _contactusState extends State<contactus> {
                     ],
                   ),
                   SizedBox(
-                    height: 20.0,
+                    height: 30.0,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -98,7 +98,7 @@ class _contactusState extends State<contactus> {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  "Telegrm",
+                                  "Telegram",
                                   style: TextStyle(
                                     color: Colors.blueGrey,
                                     fontSize: 18.0,
@@ -108,7 +108,44 @@ class _contactusState extends State<contactus> {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  "developbestenlist@gmail.com",
+                                  "https://t.me/Internship_2020",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          child: Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Website",
+                                  style: TextStyle(
+                                    color: Colors.blueGrey,
+                                    fontSize: 18.0,
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "https://bestenlist.com/",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 20.0,
@@ -126,5 +163,3 @@ class _contactusState extends State<contactus> {
     );
   }
 }
-
-class contactuspost {}

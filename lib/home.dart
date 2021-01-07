@@ -47,7 +47,7 @@ class _HomeState extends State<Home> {
   Timer _timer;
 
   void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes: 3), (_) => _logOutUser);
+    _timer = Timer.periodic(const Duration(minutes: 1), (_) => _logOutUser);
   }
 
   void _logOutUser() {
@@ -197,7 +197,7 @@ class _HomeState extends State<Home> {
             ListTile(
               title: Text("Contact Us"),
               //leading: Icon(EvaIcons.edit2Outline),
-              leading: new Icon(Icons.event_available_outlined, size: 20.0),
+              leading: new Icon(Icons.contact_phone_outlined, size: 20.0),
               onTap: () {
                 Navigator.of(context).push(
                     new MaterialPageRoute(builder: (context) => contactus()));
