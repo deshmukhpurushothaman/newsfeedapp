@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/Events/DeletedEventsAllNews.dart';
 //import 'package:fl_fire_auth/Admin/Events/EventsAllNews.dart';
 import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/ScholarshipNews/DeletedScholarshipAllNews.dart';
-import './usersposts.dart';
+//import './usersposts.dart';
 import './Deleted News/Campus Drive/DeletedCampusDriveAllNews.dart';
 import 'View/LatestNews/AdminLatestAllNews.dart';
 import '../Authentication/auth_helper.dart';
@@ -166,19 +166,19 @@ class _AdminHomeState extends State<AdminHome> {
                 },
                 leading: new Icon(Icons.adb, color: Colors.black, size: 20.0),
               ),
-              new ListTile(
-                title: new Text(
-                  "User News",
-                  style: TextStyle(fontSize: 20.0, color: Colors.black),
-                ),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(
-                      new MaterialPageRoute(builder: (context) => UserPosts()));
-                },
-                leading:
-                    new Icon(Icons.next_week, color: Colors.black, size: 20.0),
-              ),
+              // new ListTile(
+              //   title: new Text(
+              //     "User News",
+              //     style: TextStyle(fontSize: 20.0, color: Colors.black),
+              //   ),
+              //   onTap: () {
+              //     Navigator.of(context).pop();
+              //     Navigator.of(context).push(
+              //         new MaterialPageRoute(builder: (context) => UserPosts()));
+              //   },
+              //   leading:
+              //       new Icon(Icons.next_week, color: Colors.black, size: 20.0),
+              // ),
               new ListTile(
                 title: new Text(
                   "Users",

@@ -16,6 +16,7 @@ import './View/Internship/InternshipAllNews.dart';
 import 'View/Scholarship/ScholarshipAllNews.dart';
 import "View/Events/EventsAllNews.dart";
 import 'DetailsLatestPost.dart';
+import 'contactUs.dart';
 import 'createpost.dart';
 import 'dart:async';
 
@@ -41,6 +42,20 @@ class _HomeState extends State<Home> {
       });
     });
     super.initState();
+  }
+
+  Timer _timer;
+
+  void _initializeTimer() {
+    _timer = Timer.periodic(const Duration(minutes: 3), (_) => _logOutUser);
+  }
+
+  void _logOutUser() {
+    AuthHelper.logOut();
+    // Log out the user if they're logged in, then cancel the timer.
+    // You'll have to make sure to cancel the timer if the user manually logs out
+    //   and to call _initializeTimer once the user logs in
+    _timer.cancel();
   }
 
   GlobalKey<ScaffoldState> drawerKey = GlobalKey();
@@ -176,6 +191,16 @@ class _HomeState extends State<Home> {
               onTap: () {
                 Navigator.of(context).push(
                     new MaterialPageRoute(builder: (context) => EventsNews()));
+              },
+            ),
+            SizedBox(height: 10),
+            ListTile(
+              title: Text("Contact Us"),
+              //leading: Icon(EvaIcons.edit2Outline),
+              leading: new Icon(Icons.event_available_outlined, size: 20.0),
+              onTap: () {
+                Navigator.of(context).push(
+                    new MaterialPageRoute(builder: (context) => contactus()));
               },
             ),
             SizedBox(height: 10),

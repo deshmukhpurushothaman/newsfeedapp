@@ -9,7 +9,7 @@ import './Walkin/WalkinAllNews.dart';
 import './Internship/InternshipAllNews.dart';
 import './Off Campus Drive/OffCampusDriveAllNews.dart';
 import 'ScholarshipNews/ScholarshipAllNews.dart';
-import 'usersposts.dart';
+//import 'usersposts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -236,19 +236,19 @@ class _createpostState extends State<createpost> {
                   leading: new Icon(Icons.person,
                       color: Colors.grey[800], size: 20.0),
                 ),
-                new ListTile(
-                  title: new Text(
-                    "User News",
-                    style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (context) => UserPosts()));
-                  },
-                  leading: new Icon(Icons.person,
-                      color: Colors.grey[800], size: 20.0),
-                ),
+                // new ListTile(
+                //   title: new Text(
+                //     "User News",
+                //     style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
+                //   ),
+                //   onTap: () {
+                //     Navigator.of(context).pop();
+                //     Navigator.of(context).push(new MaterialPageRoute(
+                //         builder: (context) => UserPosts()));
+                //   },
+                //   leading: new Icon(Icons.person,
+                //       color: Colors.grey[800], size: 20.0),
+                // ),
                 new ListTile(
                   title: new Text(
                     "Users",
