@@ -229,40 +229,43 @@ class _HomeState extends State<Home> {
               ),
             ),
             SizedBox(height: 15),
-            CarouselSlider(
-              options: CarouselOptions(
-                  aspectRatio: 16 / 9,
-                  height: 200,
-                  autoPlay: true,
-                  enlargeCenterPage: true,
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  enableInfiniteScroll: true,
-                  autoPlayAnimationDuration: Duration(milliseconds: 800),
-                  viewportFraction: 0.8),
-              items: [0, 1, 2, 3, 4, 5, 6].map((i) {
-                return new Builder(
-                  builder: (BuildContext context) {
-                    return new Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: new GestureDetector(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Image.network(
-                            snapshot[i].data()["image"],
-                            fit: BoxFit.cover,
-                            alignment: Alignment.topCenter,
+            Container(
+              height: 500,
+              child: CarouselSlider(
+                options: CarouselOptions(
+                    aspectRatio: 16 / 9,
+                    height: 400,
+                    autoPlay: true,
+                    enlargeCenterPage: true,
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enableInfiniteScroll: true,
+                    autoPlayAnimationDuration: Duration(milliseconds: 800),
+                    viewportFraction: 0.8),
+                items: [0, 1, 2, 3, 4, 5, 6].map((i) {
+                  return new Builder(
+                    builder: (BuildContext context) {
+                      return new Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: new GestureDetector(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Image.network(
+                              snapshot[i].data()["image"],
+                              fit: BoxFit.cover,
+                              alignment: Alignment.topCenter,
+                            ),
                           ),
+                          onTap: () {
+                            Navigator.of(context).push(new MaterialPageRoute(
+                                builder: (context) =>
+                                    LatestPostDetails(snapshot[i])));
+                          },
                         ),
-                        onTap: () {
-                          Navigator.of(context).push(new MaterialPageRoute(
-                              builder: (context) =>
-                                  LatestPostDetails(snapshot[i])));
-                        },
-                      ),
-                    );
-                  },
-                );
-              }).toList(),
+                      );
+                    },
+                  );
+                }).toList(),
+              ),
             ),
             SizedBox(height: 20),
             Padding(

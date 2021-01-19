@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+//import 'package:fl_fire_auth/Admin/admin_home.dart';
 import 'package:fl_fire_auth/Admin/createEventspost.dart';
 import 'package:fl_fire_auth/Admin/createpost.dart';
 import 'package:fl_fire_auth/Admin/createlatestpost.dart';
@@ -18,6 +19,7 @@ import 'home.dart';
 import 'Authentication/signup.dart';
 import 'package:flutter/material.dart';
 import 'Authentication/login.dart';
+import './carousal.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

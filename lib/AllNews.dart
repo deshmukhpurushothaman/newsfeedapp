@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import './CampusDrive_Postdetails.dart';
+import './AllNewsDetails.dart';
 import 'dart:async';
 
-class CampusDriveNews extends StatefulWidget {
-  //CampusDriveNews(String title, {Key key}) : super(key: key);
+class AllNews extends StatefulWidget {
+  final String title;
+  AllNews(this.title);
 
   @override
-  _CampusDriveNewsState createState() => _CampusDriveNewsState();
+  _AllNewsState createState() => _AllNewsState(title);
 }
 
-class _CampusDriveNewsState extends State<CampusDriveNews> {
+class _AllNewsState extends State<AllNews> {
+  String title;
+  _AllNewsState(this.title);
+
   Future getAllPost() async {
     // ignore: deprecated_member_use
     var firestore = Firestore.instance;
     QuerySnapshot snap =
         // ignore: deprecated_member_use
-        await firestore.collection("Campus Drive").getDocuments();
+        await firestore.collection("$title").getDocuments();
     // ignore: deprecated_member_use
     return snap.documents;
   }
@@ -34,7 +38,7 @@ class _CampusDriveNewsState extends State<CampusDriveNews> {
     return Scaffold(
       appBar: new AppBar(
         title: new Text(
-          "Campus Drive",
+          "${title}",
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
@@ -95,8 +99,8 @@ class _CampusDriveNewsState extends State<CampusDriveNews> {
                           InkWell(
                             onTap: () {
                               Navigator.of(context).push(new MaterialPageRoute(
-                                  builder: (context) => CampusDrive_PostDetails(
-                                      snapshot.data[index])));
+                                  builder: (context) =>
+                                      AllNews_Details(snapshot.data[index])));
                             },
                             child: Container(
                               width: 150.0,
@@ -165,9 +169,8 @@ class _CampusDriveNewsState extends State<CampusDriveNews> {
                                           Navigator.of(context).push(
                                               new MaterialPageRoute(
                                                   builder: (context) =>
-                                                      CampusDrive_PostDetails(
-                                                          snapshot
-                                                              .data[index])));
+                                                      AllNews_Details(snapshot
+                                                          .data[index])));
                                         },
                                         child: Container(
                                           margin: EdgeInsets.only(
