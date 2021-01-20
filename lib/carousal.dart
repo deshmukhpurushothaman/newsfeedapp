@@ -344,9 +344,17 @@ class _CityExplorerPageState extends State<CityExplorerPage> {
               bottomLeft: Radius.circular(15.0),
               bottomRight: Radius.circular(15.0),
             ),
-            child: Image.asset(
-              imagesList[index],
-              fit: BoxFit.fitHeight,
+            child: InkWell(
+              child: Container(
+                child: Image.asset(
+                  imagesList[index],
+                  fit: BoxFit.fitHeight,
+                ),
+              ),
+              onTap: () {
+                Navigator.of(context).push(new MaterialPageRoute(
+                    builder: (context) => AllNews(detailsList[index].title)));
+              },
             ),
           ),
         ),

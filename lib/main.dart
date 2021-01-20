@@ -82,7 +82,7 @@ class MainScreen extends StatelessWidget {
                   } else if (user['role'] == '9') {
                     return createEventspost();
                   } else {
-                    return Home();
+                    return CityExplorerPage();
                   }
                 } else {
                   return Material(
