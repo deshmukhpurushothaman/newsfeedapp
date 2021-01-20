@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'auth_helper.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -19,6 +20,14 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController _emailController;
   TextEditingController _passwordController;
+
+  static FirebaseAuth _auth = FirebaseAuth.instance;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  // checkAuthentication(){
+  //   _auth.onAuthStateChanged.listen((user) {
+  //     if(user!=null)
+  //   })
+  // }
 
   @override
   void initState() {
@@ -203,6 +212,7 @@ class _LoginPageState extends State<LoginPage> {
                                         await AuthHelper.signInWithEmail(
                                             email: _emailController.text,
                                             password: _passwordController.text);
+                                    print("Login Page");
                                     if (user != null) {
                                       Fluttertoast.showToast(
                                           msg: "login successful");
@@ -212,9 +222,10 @@ class _LoginPageState extends State<LoginPage> {
                                       Navigator.of(context).push(
                                           new MaterialPageRoute(
                                               builder: (context) => Home()));
-                                    }
+                                    } 
                                   } catch (e) {
                                     print(e);
+                                    Fluttertoast.showToast(msg: e.message);
                                   }
                                 },
                                 shape: RoundedRectangleBorder(

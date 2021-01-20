@@ -207,6 +207,9 @@ class _SignupPageState extends State<SignupPage> {
                                 Navigator.of(context).push(
                                     new MaterialPageRoute(
                                         builder: (context) => LoginPage()));
+                              } else if (user == null) {
+                                Fluttertoast.showToast(
+                                    msg: "User with this Email already exists");
                               }
                             } catch (e) {
                               print(e);

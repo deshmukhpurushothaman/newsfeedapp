@@ -218,7 +218,7 @@ class _CityExplorerPageState extends State<CityExplorerPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
-                height: 500.0,
+                height: MediaQuery.of(context).size.height / 2,
                 child: PageView.builder(
                   itemBuilder: (context, index) {
                     return itemBuilder(index);
@@ -268,7 +268,7 @@ class _CityExplorerPageState extends State<CityExplorerPage> {
                       style: TextStyle(fontSize: 18.0),
                     ),
                     SizedBox(
-                      height: 30.0,
+                      height: 10.0,
                     ),
                     Container(
                       width: 80.0,
@@ -276,7 +276,7 @@ class _CityExplorerPageState extends State<CityExplorerPage> {
                       color: Colors.black,
                     ),
                     SizedBox(
-                      height: 10.0,
+                      height: 5.0,
                     ),
                     // ignore: missing_required_param
                     FlatButton(
@@ -346,9 +346,12 @@ class _CityExplorerPageState extends State<CityExplorerPage> {
             ),
             child: InkWell(
               child: Container(
+                width: 500.0,
                 child: Image.asset(
                   imagesList[index],
                   fit: BoxFit.fitHeight,
+                  height: 400.0,
+                  width: 1000.0,
                 ),
               ),
               onTap: () {
