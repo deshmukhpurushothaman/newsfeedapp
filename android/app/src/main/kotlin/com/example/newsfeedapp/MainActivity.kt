@@ -1,4 +1,4 @@
-package com.example.newsfeedapp
+package com.bestenlist.campusvita
 
 import io.flutter.embedding.android.FlutterActivity
 

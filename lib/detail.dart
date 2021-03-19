@@ -9,25 +9,24 @@ final detailsList = [
   Detail(
       title: "Campus Drive",
       description:
-          "From a central park, to a broadway theatre and the iconic Times square"),
+          "It is on-campus recruitment drive and pool campus drive informations."),
   Detail(
       title: "Off Campus Drive",
       description:
-          "At the tip of Africa, you will find a city that has it all to offer. Explore Table Mountain and Robben Island"),
+          "You can find details of Off-Campus drive recruitment of various companies."),
   Detail(
       title: "Internship",
       description:
-          "Breathtaking lakes, villages and the high peaks of the Alps for amazing Ski resorts"),
+          "An opportunity for career exploration and development, and to learn new skills."),
   Detail(
       title: "Walkin",
       description:
-          "Breathtaking lakes, villages and the high peaks of the Alps for amazing Ski resorts"),
+          "Find places where you can make appointmet and then you can reach them."),
   Detail(
       title: "Scholarship",
-      description:
-          "Breathtaking lakes, villages and the high peaks of the Alps for amazing Ski resorts"),
+      description: "It is a payment made to support student's education."),
   Detail(
       title: "Events",
       description:
-          "Breathtaking lakes, villages and the high peaks of the Alps for amazing Ski resorts"),
+          "Various programs that are going to take place in the upcoming days."),
 ];

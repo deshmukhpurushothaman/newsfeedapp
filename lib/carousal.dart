@@ -66,7 +66,7 @@ class _CityExplorerPageState extends State<CityExplorerPage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "Newsfeed",
+          "CampusVita",
           style: TextStyle(
             color: Colors.black,
           ),

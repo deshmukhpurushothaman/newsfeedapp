@@ -1,42 +1,33 @@
 {
   "project_info": {
-    "project_number": "157112293720",
-    "firebase_url": "https://newsfeed-app-c9840.firebaseio.com",
-    "project_id": "newsfeed-app-c9840",
-    "storage_bucket": "newsfeed-app-c9840.appspot.com"
+    "project_number": "311803041957",
+    "project_id": "campusvita-b8782",
+    "storage_bucket": "campusvita-b8782.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:157112293720:android:9aba88fa3c613cd4da2d2d",
+        "mobilesdk_app_id": "1:311803041957:android:30390111cd2d734251d54c",
         "android_client_info": {
-          "package_name": "com.example.newsfeedapp"
+          "package_name": "com.bestenlist.campusvita"
         }
       },
       "oauth_client": [
         {
-          "client_id": "157112293720-26l6ghi8ls9753kj755mqpp8f626hpk1.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.newsfeedapp",
-            "certificate_hash": "ba36ff269b74b3bc41baa6ada92203f66ac7de7b"
-          }
-        },
-        {
-          "client_id": "157112293720-oon318i1ha3e0kebcgl9occan3fmdero.apps.googleusercontent.com",
+          "client_id": "311803041957-f0loeb8frlhk2uhi24kbgvlknsnslsf1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB4hsVL-MI7ojNQsE4VLwjDHKDHLPZPeAs"
+          "current_key": "AIzaSyAUckkNaK6se4zqqT1_57-QpH-GiCw4CQ0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "157112293720-oon318i1ha3e0kebcgl9occan3fmdero.apps.googleusercontent.com",
+              "client_id": "311803041957-f0loeb8frlhk2uhi24kbgvlknsnslsf1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

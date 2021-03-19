@@ -15,7 +15,7 @@ import 'package:flutter/cupertino.dart';
 //import 'Admin/admin_home.dart';
 import 'Super Admin/AdminHome.dart';
 import 'Authentication/auth_helper.dart';
-import 'home.dart';
+//import 'home.dart';
 import 'Authentication/signup.dart';
 import 'package:flutter/material.dart';
 import 'Authentication/login.dart';
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Newsfeed app',
+      title: 'CampusVita',
       theme: ThemeData(
         // fontFamily: "poppins",
         primarySwatch: Colors.orange,

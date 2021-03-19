@@ -71,7 +71,7 @@ class _contactusState extends State<contactus> {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  "support@bestenlist.co.in",
+                                  "info@bestenlist.co.in",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 20.0,
@@ -145,7 +145,7 @@ class _contactusState extends State<contactus> {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  "https://bestenlist.com/",
+                                  "https://bestenlist.co.in/",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 20.0,

@@ -1,3 +1,4 @@
+import 'package:fl_fire_auth/carousal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
@@ -6,7 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'signup.dart';
 import 'social.dart';
-import '../Home.dart';
+//import '../Home.dart';
 import 'ForgotScreen.dart';
 import '../FadeAnimation.dart';
 
@@ -219,10 +220,11 @@ class _LoginPageState extends State<LoginPage> {
                                       print("login successful");
                                       print(_passwordController.text);
                                       Navigator.pop(context);
-                                      Navigator.of(context).push(
-                                          new MaterialPageRoute(
-                                              builder: (context) => Home()));
-                                    } 
+                                      // Navigator.of(context).push(
+                                      //     new MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             CityExplorerPage()));
+                                    }
                                   } catch (e) {
                                     print(e);
                                     Fluttertoast.showToast(msg: e.message);

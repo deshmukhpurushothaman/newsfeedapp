@@ -43,7 +43,7 @@ class _StartState extends State<Start> {
                         color: Colors.black),
                     children: <TextSpan>[
                   TextSpan(
-                      text: 'Newsfeed App',
+                      text: 'CampusVita',
                       style: TextStyle(
                           fontSize: 30.0,
                           fontWeight: FontWeight.bold,

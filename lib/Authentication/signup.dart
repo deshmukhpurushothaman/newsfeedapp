@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import '../FadeAnimation.dart';
 import 'social.dart';
-import '../Home.dart';
+//import '../Home.dart';
 
 bool isHiddenPassword = true;
 
@@ -196,6 +196,10 @@ class _SignupPageState extends State<SignupPage> {
                               return;
                             }
                             try {
+                              print("User Details " +
+                                  _emailController.text +
+                                  " " +
+                                  _passwordController.text);
                               final user = await AuthHelper.signUpWithEmail(
                                   name: _nameController.text,
                                   email: _emailController.text,
