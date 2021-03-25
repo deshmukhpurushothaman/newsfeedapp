@@ -156,7 +156,7 @@ class _CityExplorerPageState extends State<CityExplorerPage> {
             ),
             SizedBox(height: 10),
             ListTile(
-              title: Text("Walkin"),
+              title: Text("Walk-in"),
               //leading: Icon(EvaIcons.edit2Outline),
               leading: new Icon(Icons.directions_walk_outlined, size: 20.0),
               onTap: () {

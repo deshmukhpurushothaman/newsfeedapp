@@ -3,6 +3,7 @@
 //import 'dart:html';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fl_fire_auth/Admin/createpost.dart';
 import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/Events/DeletedEventsAllNews.dart';
 //import 'package:fl_fire_auth/Admin/Events/EventsAllNews.dart';
 import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/ScholarshipNews/DeletedScholarshipAllNews.dart';
@@ -78,6 +79,19 @@ class _AdminHomeState extends State<AdminHome> {
                 accountEmail: new Text("Signed In as " + user.email),
                 accountName: null,
                 decoration: new BoxDecoration(color: Colors.orange),
+              ),
+              new ListTile(
+                title: new Text(
+                  "Create New Post",
+                  style: TextStyle(fontSize: 20.0, color: Colors.black),
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (context) => createpost()));
+                },
+                leading:
+                    new Icon(Icons.next_week, color: Colors.black, size: 20.0),
               ),
               new ListTile(
                 title: new Text(

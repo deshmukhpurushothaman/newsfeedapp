@@ -26,13 +26,16 @@ class _AllNews_DetailsState extends State<AllNews_Details> {
             height: 250.0,
             margin: EdgeInsets.all(6.0),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(10.0),
-              child: Image.network(
-                widget.snapshot["image"],
-                height: 250.0,
-                fit: BoxFit.cover,
-              ),
-            ),
+                borderRadius: BorderRadius.circular(10.0),
+                // child: Image.network(
+                //   widget.snapshot["image"],
+                //   height: 250.0,
+                //   fit: BoxFit.cover,
+                // ),
+                child: FadeInImage.assetNetwork(
+                  image: widget.snapshot["image"],
+                  placeholder: 'images/politics.png',
+                )),
           ),
 
           SizedBox(height: 7.0),

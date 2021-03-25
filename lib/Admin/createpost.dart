@@ -295,12 +295,12 @@ class _createpostState extends State<createpost> {
               iconSize: 30.0,
               style: TextStyle(color: Colors.orange),
               items: [
-                "Latest Post",
                 "Campus Drive",
                 "Internship",
                 "Off Campus Drive",
                 "Walkin",
-                "Scholarship"
+                "Scholarship",
+                "Events"
               ].map(
                 (val) {
                   return DropdownMenuItem<String>(

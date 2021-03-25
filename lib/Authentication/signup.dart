@@ -208,6 +208,7 @@ class _SignupPageState extends State<SignupPage> {
                                 Fluttertoast.showToast(
                                     msg: "Signup successful");
                                 print("Signup successful");
+                                Navigator.pop(context);
                                 Navigator.of(context).push(
                                     new MaterialPageRoute(
                                         builder: (context) => LoginPage()));
@@ -216,7 +217,7 @@ class _SignupPageState extends State<SignupPage> {
                                     msg: "User with this Email already exists");
                               }
                             } catch (e) {
-                              print(e);
+                              print(e.code);
                             }
                           },
                           shape: RoundedRectangleBorder(
@@ -261,7 +262,10 @@ class _SignupPageState extends State<SignupPage> {
                         press: () async {
                           try {
                             await AuthHelper.signInWithGoogle();
+                            Fluttertoast.showToast(msg: "Signup successful");
                             Navigator.pop(context);
+                            Navigator.of(context).push(new MaterialPageRoute(
+                                builder: (context) => LoginPage()));
                           } catch (e) {
                             print(e);
                           }
