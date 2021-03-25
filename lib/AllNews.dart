@@ -107,10 +107,14 @@ class _AllNewsState extends State<AllNews> {
                               child: Container(
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(15.0),
-                                  child: Image.network(
-                                    snapshot.data[index].data()["image"],
-                                    height: 170.0,
-                                    fit: BoxFit.cover,
+                                  // child: Image.network(
+                                  //   snapshot.data[index].data()["image"],
+                                  //   height: 170.0,
+                                  //   fit: BoxFit.cover,
+                                  // ),
+                                  child: FadeInImage.assetNetwork(
+                                    image: snapshot.data[index].data()["image"],
+                                    placeholder: 'images/hiring.jpg',
                                   ),
                                 ),
                               ),

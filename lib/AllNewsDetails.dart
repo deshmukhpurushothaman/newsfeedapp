@@ -34,7 +34,7 @@ class _AllNews_DetailsState extends State<AllNews_Details> {
                 // ),
                 child: FadeInImage.assetNetwork(
                   image: widget.snapshot["image"],
-                  placeholder: 'images/politics.png',
+                  placeholder: 'images/hiring.jpg',
                 )),
           ),
 

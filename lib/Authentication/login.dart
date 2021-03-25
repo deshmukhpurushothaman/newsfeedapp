@@ -216,7 +216,7 @@ class _LoginPageState extends State<LoginPage> {
                                     print("Login Page");
                                     if (user != null) {
                                       Fluttertoast.showToast(
-                                          msg: "login successful");
+                                          msg: "Login Successful");
                                       print("login successful");
                                       print(_passwordController.text);
                                       Navigator.pop(context);
@@ -271,6 +271,7 @@ class _LoginPageState extends State<LoginPage> {
                               try {
                                 await AuthHelper.signInWithGoogle();
                                 Navigator.pop(context);
+                                Fluttertoast.showToast(msg: "Login Successful");
                               } catch (e) {
                                 print(e);
                               }
