@@ -16,6 +16,7 @@ class DeletedEvents_PostDetails extends StatefulWidget {
 class _DeletedEvents_PostDetailsState extends State<DeletedEvents_PostDetails> {
   @override
   Widget build(BuildContext context) {
+    String title = widget.snapshot["default"];
     return Scaffold(
       appBar: AppBar(title: Text("Events"), backgroundColor: Colors.orange),
       backgroundColor: Colors.orange,
@@ -27,10 +28,16 @@ class _DeletedEvents_PostDetailsState extends State<DeletedEvents_PostDetails> {
             margin: EdgeInsets.all(6.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
-              child: Image.network(
-                widget.snapshot["image"],
+              // child: Image.network(
+              //   widget.snapshot["image"],
+              //   height: 250.0,
+              //   fit: BoxFit.cover,
+              // ),
+              child: FadeInImage.assetNetwork(
+                image: widget.snapshot["image"],
                 height: 250.0,
                 fit: BoxFit.cover,
+                placeholder: 'images/${title}.jpg',
               ),
             ),
           ),

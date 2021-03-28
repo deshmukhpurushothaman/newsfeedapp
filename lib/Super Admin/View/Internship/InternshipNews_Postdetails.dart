@@ -15,6 +15,9 @@ class Internship_PostDetails extends StatefulWidget {
 class _Internship_PostDetailsState extends State<Internship_PostDetails> {
   @override
   Widget build(BuildContext context) {
+    String title = widget.snapshot["default"];
+    int length = title.length;
+    String titleBar = title.substring(0, length - 1);
     return Scaffold(
       appBar: AppBar(
         title: Text("Internship"),
@@ -29,10 +32,16 @@ class _Internship_PostDetailsState extends State<Internship_PostDetails> {
             margin: EdgeInsets.all(6.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
-              child: Image.network(
-                widget.snapshot["image"],
+              // child: Image.network(
+              //   widget.snapshot["image"],
+              //   height: 250.0,
+              //   fit: BoxFit.cover,
+              // ),
+              child: FadeInImage.assetNetwork(
+                image: widget.snapshot["image"],
                 height: 250.0,
                 fit: BoxFit.cover,
+                placeholder: 'images/${title}.jpg',
               ),
             ),
           ),

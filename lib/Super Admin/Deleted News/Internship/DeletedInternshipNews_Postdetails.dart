@@ -17,6 +17,7 @@ class _DeletedInternship_PostDetailsState
     extends State<DeletedInternship_PostDetails> {
   @override
   Widget build(BuildContext context) {
+    String title = widget.snapshot["default"];
     return Scaffold(
       appBar: AppBar(title: Text("Internship"), backgroundColor: Colors.orange),
       backgroundColor: Colors.orange,
@@ -28,10 +29,16 @@ class _DeletedInternship_PostDetailsState
             margin: EdgeInsets.all(6.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
-              child: Image.network(
-                widget.snapshot["image"],
+              // child: Image.network(
+              //   widget.snapshot["image"],
+              //   height: 250.0,
+              //   fit: BoxFit.cover,
+              // ),
+              child: FadeInImage.assetNetwork(
+                image: widget.snapshot["image"],
                 height: 250.0,
                 fit: BoxFit.cover,
+                placeholder: 'images/${title}.jpg',
               ),
             ),
           ),

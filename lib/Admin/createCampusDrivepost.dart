@@ -299,7 +299,8 @@ class _createCampusDrivepostState extends State<createCampusDrivepost> {
                           .setData({
                         "content": _postcontentController.text,
                         "title": _titleController.text,
-                        "image": imageurl
+                        "image": imageurl,
+                        "default": "${_categoryVal}1"
                       });
 
                       Fluttertoast.showToast(

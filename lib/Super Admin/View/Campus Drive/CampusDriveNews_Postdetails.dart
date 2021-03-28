@@ -16,6 +16,9 @@ class CampusDrive_PostDetails extends StatefulWidget {
 class _CampusDrive_PostDetailsState extends State<CampusDrive_PostDetails> {
   @override
   Widget build(BuildContext context) {
+    String title = widget.snapshot["default"];
+    int length = title.length;
+    String titleBar = title.substring(0, length - 1);
     return Scaffold(
       appBar:
           AppBar(title: Text("Campus Drive"), backgroundColor: Colors.orange),
@@ -27,13 +30,18 @@ class _CampusDrive_PostDetailsState extends State<CampusDrive_PostDetails> {
             height: 250.0,
             margin: EdgeInsets.all(6.0),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(10.0),
-              child: Image.network(
-                widget.snapshot["image"],
-                height: 250.0,
-                fit: BoxFit.cover,
-              ),
-            ),
+                borderRadius: BorderRadius.circular(10.0),
+                // child: Image.network(
+                //   widget.snapshot["image"],
+                //   height: 250.0,
+                //   fit: BoxFit.cover,
+                // ),
+                child: FadeInImage.assetNetwork(
+                  image: widget.snapshot["image"],
+                  height: 250.0,
+                  fit: BoxFit.cover,
+                  placeholder: 'images/${title}.jpg',
+                )),
           ),
 
           SizedBox(height: 7.0),

@@ -252,7 +252,8 @@ class _updateCampusDrivepostState extends State<updateCampusDrivepost> {
                           .updateData({
                         "content": _postcontentController.text,
                         "title": _titleController.text,
-                        "image": imageurl
+                        "image": imageurl,
+                        "default": "${_categoryVal}1"
                       });
 
                       Fluttertoast.showToast(

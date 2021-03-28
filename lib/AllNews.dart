@@ -114,7 +114,10 @@ class _AllNewsState extends State<AllNews> {
                                   // ),
                                   child: FadeInImage.assetNetwork(
                                     image: snapshot.data[index].data()["image"],
-                                    placeholder: 'images/hiring.jpg',
+                                    height: 170.0,
+                                    fit: BoxFit.cover,
+                                    placeholder:
+                                        'images/${snapshot.data[index].data()["default"]}.jpg',
                                   ),
                                 ),
                               ),

@@ -132,10 +132,17 @@ class _DeletedScholarshipNewsState extends State<DeletedScholarshipNews> {
                             flex: 1,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(15.0),
-                              child: Image.network(
-                                snapshot.data[index].data()["image"],
+                              // child: Image.network(
+                              //   snapshot.data[index].data()["image"],
+                              //   height: 170.0,
+                              //   fit: BoxFit.cover,
+                              // ),
+                              child: FadeInImage.assetNetwork(
+                                image: snapshot.data[index].data()["image"],
                                 height: 170.0,
                                 fit: BoxFit.cover,
+                                placeholder:
+                                    'images/${snapshot.data[index].data()["default"]}.jpg',
                               ),
                             ),
                           ),

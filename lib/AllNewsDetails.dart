@@ -15,9 +15,11 @@ class AllNews_Details extends StatefulWidget {
 class _AllNews_DetailsState extends State<AllNews_Details> {
   @override
   Widget build(BuildContext context) {
+    String title = widget.snapshot["default"];
+    int length = title.length;
+    String titleBar = title.substring(0, length - 1);
     return Scaffold(
-      appBar:
-          AppBar(title: Text("Campus Drive"), backgroundColor: Colors.white),
+      appBar: AppBar(title: Text("${titleBar}"), backgroundColor: Colors.white),
       backgroundColor: Colors.white,
       body: ListView(
         children: [
@@ -34,7 +36,9 @@ class _AllNews_DetailsState extends State<AllNews_Details> {
                 // ),
                 child: FadeInImage.assetNetwork(
                   image: widget.snapshot["image"],
-                  placeholder: 'images/hiring.jpg',
+                  height: 250.0,
+                  fit: BoxFit.cover,
+                  placeholder: 'images/${title}.jpg',
                 )),
           ),
 
