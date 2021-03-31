@@ -1,3 +1,4 @@
+//import 'dart:html';
 import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import './Walkin/WalkinAllNews.dart';
 import './Internship/InternshipAllNews.dart';
 import './Off Campus Drive/OffCampusDriveAllNews.dart';
 import 'ScholarshipNews/ScholarshipAllNews.dart';
+import 'Events/EventsAllNews.dart';
 //import 'usersposts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -236,6 +238,32 @@ class _createpostState extends State<createpost> {
                   leading: new Icon(Icons.person,
                       color: Colors.grey[800], size: 20.0),
                 ),
+                new ListTile(
+                  title: new Text(
+                    "Scholarships",
+                    style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(new MaterialPageRoute(
+                        builder: (context) => ScholarshipNews()));
+                  },
+                  leading: new Icon(Icons.person,
+                      color: Colors.grey[800], size: 20.0),
+                ),
+                new ListTile(
+                  title: new Text(
+                    "Events",
+                    style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(
+                        new MaterialPageRoute(builder: (context) => Events()));
+                  },
+                  leading: new Icon(Icons.person,
+                      color: Colors.grey[800], size: 20.0),
+                ),
                 // new ListTile(
                 //   title: new Text(
                 //     "User News",
@@ -374,12 +402,14 @@ class _createpostState extends State<createpost> {
                         "content": _postcontentController.text,
                         "title": _titleController.text,
                         "image": imageurl,
-                        "default": "${_categoryVal}1"
+                        "default": "${_categoryVal}1",
+                        "posted_on": "${DateTime.now()}",
+                        "posted_by": "${user.email}"
                       });
 
                       Fluttertoast.showToast(
                           msg: _categoryVal + " Posted Successfully!!");
-                      Navigator.pop(context);
+                      //Navigator.pop(context);
                       return;
                     }
                   },

@@ -21,7 +21,10 @@ class _AllNewsState extends State<AllNews> {
     var firestore = Firestore.instance;
     QuerySnapshot snap =
         // ignore: deprecated_member_use
-        await firestore.collection("$title").getDocuments();
+        await firestore
+            .collection("$title")
+            .orderBy("posted_on", descending: true)
+            .getDocuments();
     // ignore: deprecated_member_use
     return snap.documents;
   }

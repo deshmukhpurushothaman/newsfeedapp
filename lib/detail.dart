@@ -20,8 +20,7 @@ final detailsList = [
           "An opportunity for career exploration and development, and to learn new skills."),
   Detail(
       title: "Walkin",
-      description:
-          "Find places where you can make appointmet and then you can reach them."),
+      description: "Find out the walk-in details in your city."),
   Detail(
       title: "Scholarship",
       description: "It is a payment made to support student's education."),

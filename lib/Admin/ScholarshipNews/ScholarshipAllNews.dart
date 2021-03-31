@@ -20,7 +20,7 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
     var firestore = Firestore.instance;
     QuerySnapshot snap =
         // ignore: deprecated_member_use
-        await firestore.collection("ScholarshipAllNews").getDocuments();
+        await firestore.collection("Scholarship").getDocuments();
     // ignore: deprecated_member_use
     return snap.documents;
   }

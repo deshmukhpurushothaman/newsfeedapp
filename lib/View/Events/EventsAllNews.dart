@@ -17,7 +17,10 @@ class _EventsNewsState extends State<EventsNews> {
     var firestore = Firestore.instance;
     QuerySnapshot snap =
         // ignore: deprecated_member_use
-        await firestore.collection("Events").getDocuments();
+        await firestore
+            .collection("Events")
+            .orderBy("posted_on", descending: true)
+            .getDocuments();
     // ignore: deprecated_member_use
     return snap.documents;
   }

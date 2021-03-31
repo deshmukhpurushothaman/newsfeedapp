@@ -19,7 +19,10 @@ class _CampusDriveState extends State<CampusDrive> {
     var firestore = Firestore.instance;
     QuerySnapshot snap =
         // ignore: deprecated_member_use
-        await firestore.collection("Campus Drive").getDocuments();
+        await firestore
+            .collection("Campus Drive")
+            .orderBy("posted_on", descending: true)
+            .getDocuments();
     // ignore: deprecated_member_use
     return snap.documents;
   }

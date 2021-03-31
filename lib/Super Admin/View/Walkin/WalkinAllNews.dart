@@ -20,7 +20,10 @@ class _WalkinState extends State<Walkin> {
     var firestore = Firestore.instance;
     QuerySnapshot snap =
         // ignore: deprecated_member_use
-        await firestore.collection("Walkin").getDocuments();
+        await firestore
+            .collection("Walkin")
+            .orderBy("posted_on", descending: true)
+            .getDocuments();
     // ignore: deprecated_member_use
     return snap.documents;
   }

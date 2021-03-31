@@ -15,6 +15,7 @@ class Walkin_PostDetails extends StatefulWidget {
 class _Walkin_PostDetailsState extends State<Walkin_PostDetails> {
   @override
   Widget build(BuildContext context) {
+    String title = widget.snapshot["default"];
     return Scaffold(
       appBar: AppBar(title: Text("Walkin"), backgroundColor: Colors.white),
       backgroundColor: Colors.white,
@@ -26,10 +27,16 @@ class _Walkin_PostDetailsState extends State<Walkin_PostDetails> {
             margin: EdgeInsets.all(6.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
-              child: Image.network(
-                widget.snapshot["image"],
+              // child: Image.network(
+              //   widget.snapshot["image"],
+              //   height: 250.0,
+              //   fit: BoxFit.cover,
+              // ),
+              child: FadeInImage.assetNetwork(
+                image: widget.snapshot["image"],
                 height: 250.0,
                 fit: BoxFit.cover,
+                placeholder: 'images/${title}.jpg',
               ),
             ),
           ),
