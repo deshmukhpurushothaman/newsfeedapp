@@ -91,6 +91,11 @@ class _DeletedOffCampusDriveState extends State<DeletedOffCampusDrive> {
                             "title": snapshot.data[index].data()['title'],
                             "image": snapshot.data[index].data()['image'],
                             "categoryval": "Off Campus Drive",
+                            "default": "Off Campus Drive1",
+                            "posted_on":
+                                snapshot.data[index].data()['posted_on'],
+                            "posted_by":
+                                snapshot.data[index].data()['posted_by'],
                           }),
                           print("Successful"),
 

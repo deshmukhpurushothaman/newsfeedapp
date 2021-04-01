@@ -103,6 +103,11 @@ class _WalkinState extends State<Walkin> {
                             "title": snapshot.data[index].data()['title'],
                             "image": snapshot.data[index].data()['image'],
                             "categoryval": "Walkin",
+                            "default": "Walkin1",
+                            "posted_on":
+                                snapshot.data[index].data()['posted_on'],
+                            "posted_by":
+                                snapshot.data[index].data()['posted_by'],
                           }),
                           print("Successful"),
 

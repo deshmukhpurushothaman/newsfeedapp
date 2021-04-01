@@ -35,7 +35,7 @@ class _DeletedInternshipState extends State<DeletedInternship> {
     return Scaffold(
       appBar: new AppBar(
         title: new Text(
-          "Deleted Politics News",
+          "Deleted Internship",
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.orange,
@@ -82,7 +82,7 @@ class _DeletedInternshipState extends State<DeletedInternship> {
                           print("Entered"),
                           //Copy to new Deleted Collection
                           FirebaseFirestore.instance
-                              .collection("PoliticsAllNews")
+                              .collection("Internship")
                               // ignore: deprecated_member_use
                               .document()
                               // ignore: deprecated_member_use
@@ -90,7 +90,12 @@ class _DeletedInternshipState extends State<DeletedInternship> {
                             "content": snapshot.data[index].data()['content'],
                             "title": snapshot.data[index].data()['title'],
                             "image": snapshot.data[index].data()['image'],
-                            "categoryval": "PoliticsAllNews",
+                            "categoryval": "Internship",
+                            "default": "Internship1",
+                            "posted_on":
+                                snapshot.data[index].data()['posted_on'],
+                            "posted_by":
+                                snapshot.data[index].data()['posted_by'],
                           }),
                           print("Successful"),
 

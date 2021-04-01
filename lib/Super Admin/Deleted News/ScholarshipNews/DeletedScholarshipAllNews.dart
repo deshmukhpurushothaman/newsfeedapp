@@ -82,7 +82,7 @@ class _DeletedScholarshipNewsState extends State<DeletedScholarshipNews> {
                           print("Entered"),
                           //Copy to new Deleted Collection
                           FirebaseFirestore.instance
-                              .collection("ScholarshipAllNews")
+                              .collection("Scholarship")
                               // ignore: deprecated_member_use
                               .document()
                               // ignore: deprecated_member_use
@@ -90,7 +90,12 @@ class _DeletedScholarshipNewsState extends State<DeletedScholarshipNews> {
                             "content": snapshot.data[index].data()['content'],
                             "title": snapshot.data[index].data()['title'],
                             "image": snapshot.data[index].data()['image'],
-                            "categoryval": "ScholarshipAllNews",
+                            "categoryval": "Scholarship",
+                            "default": "Scholarship1",
+                            "posted_on":
+                                snapshot.data[index].data()['posted_on'],
+                            "posted_by":
+                                snapshot.data[index].data()['posted_by'],
                           }),
                           print("Successful"),
 

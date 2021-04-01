@@ -91,6 +91,11 @@ class _DeletedEventsState extends State<DeletedEvents> {
                             "title": snapshot.data[index].data()['title'],
                             "image": snapshot.data[index].data()['image'],
                             "categoryval": "Events",
+                            "default": "Events1",
+                            "posted_on":
+                                snapshot.data[index].data()['posted_on'],
+                            "posted_by":
+                                snapshot.data[index].data()['posted_by'],
                           }),
                           print("Successful"),
 
