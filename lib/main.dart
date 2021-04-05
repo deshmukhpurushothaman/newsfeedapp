@@ -6,10 +6,10 @@ import 'package:fl_fire_auth/Admin/createEventspost.dart';
 import 'package:fl_fire_auth/Admin/createpost.dart';
 import 'package:fl_fire_auth/Admin/createlatestpost.dart';
 import 'package:fl_fire_auth/Admin/createscholarshippost.dart';
-import './Admin/createCampusDrivepost.dart';
+import './Admin/createGovtJobpost.dart';
 import './Admin/createWalkinpost.dart';
 import './Admin/createInternshippost.dart';
-import './Admin/createOffCampusDrivepost.dart';
+import './Admin/createNonGovtJobpost.dart';
 import 'Start.dart';
 import 'package:flutter/cupertino.dart';
 //import 'Admin/admin_home.dart';
@@ -70,13 +70,13 @@ class MainScreen extends StatelessWidget {
                   } else if (user['role'] == '3') {
                     return createlatestpost();
                   } else if (user['role'] == '4') {
-                    return createCampusDrivepost();
+                    return createGovtJobpost();
                   } else if (user['role'] == '5') {
                     return createWalkinpost();
                   } else if (user['role'] == '6') {
                     return createInternshippost();
                   } else if (user['role'] == '7') {
-                    return createOffCampusDrivepost();
+                    return createNonGovtJobpost();
                   } else if (user['role'] == '8') {
                     return createScholarshippost();
                   } else if (user['role'] == '9') {

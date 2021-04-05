@@ -1,25 +1,26 @@
-//import 'package:fl_fire_auth/Super%20Admin/View/Walkin/WalkinNews_Postdetails.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import './Walkin_Postdetails.dart';
+import './NonGovtJobNews_Postdetails.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import './updateNonGovtJobpost.dart';
 import 'dart:async';
 
-class Walkin extends StatefulWidget {
-  Walkin({Key key}) : super(key: key);
+class NonGovtJob extends StatefulWidget {
+  NonGovtJob({Key key}) : super(key: key);
 
   @override
-  _WalkinState createState() => _WalkinState();
+  _NonGovtJobState createState() => _NonGovtJobState();
 }
 
-class _WalkinState extends State<Walkin> {
+class _NonGovtJobState extends State<NonGovtJob> {
   Future getAllPost() async {
     // ignore: deprecated_member_use
     var firestore = Firestore.instance;
     QuerySnapshot snap =
         // ignore: deprecated_member_use
         await firestore
-            .collection("Walkin")
+            .collection("Non-Government Job")
             .orderBy("posted_on", descending: true)
             .getDocuments();
     // ignore: deprecated_member_use
@@ -38,13 +39,13 @@ class _WalkinState extends State<Walkin> {
     return Scaffold(
       appBar: new AppBar(
         title: new Text(
-          "Walkin",
+          "Non-Government Job",
           style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.orange,
         iconTheme: new IconThemeData(color: Colors.black),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.orange,
       body: FutureBuilder(
         future: getAllPost(),
         builder: (context, snapshot) {
@@ -83,10 +84,56 @@ class _WalkinState extends State<Walkin> {
                     //     icon: Icons.delete,
                     //   ),
                     // ],
+                    secondaryActions: [
+                      IconSlideAction(
+                        caption: 'Delete',
+                        color: Colors.blueGrey,
+                        icon: Icons.delete,
+                        onTap: () => {
+                          print("Entered"),
+                          //Copy to new Deleted Collection
+                          FirebaseFirestore.instance
+                              .collection("DeletedNonGovtJob")
+                              // ignore: deprecated_member_use
+                              .document()
+                              // ignore: deprecated_member_use
+                              .setData({
+                            "content": snapshot.data[index].data()['content'],
+                            "title": snapshot.data[index].data()['title'],
+                            "image": snapshot.data[index].data()['image'],
+                            "categoryval": "Non-Government Job",
+                            "default": "Non-Government Job1",
+                            "posted_on":
+                                snapshot.data[index].data()['posted_on'],
+                            "posted_by":
+                                snapshot.data[index].data()['posted_by'],
+                          }),
+                          print("Successful"),
 
-                    dismissal: SlidableDismissal(
-                      child: SlidableDrawerDismissal(),
-                    ),
+                          //Delete
+                          FirebaseFirestore.instance
+                              .collection("Non-Government Job")
+                              .doc(snapshot.data[index].documentID)
+                              .delete(),
+                          print("Successful"),
+                          Fluttertoast.showToast(
+                              msg:
+                                  "Deleted Successfully!!! Refresh the page to see the changes."),
+                        },
+                      ),
+                    ],
+                    // onDismissed: (DismissDirection) {
+                    //   //snapshot.data.delete(index);
+                    //   print("Entered");
+                    //   FirebaseFirestore.instance
+                    //       .collection("SportsAllNews")
+                    //       .doc(snapshot.data[index].documentID)
+                    //       .delete();
+                    //   print("Successful");
+                    // },
+                    // dismissal: SlidableDismissal(
+                    //   child: SlidableDrawerDismissal(),
+                    // ),
                     child: Container(
                       height: 170.0,
                       decoration: BoxDecoration(
@@ -99,13 +146,12 @@ class _WalkinState extends State<Walkin> {
                           InkWell(
                             onTap: () {
                               Navigator.of(context).push(new MaterialPageRoute(
-                                  builder: (context) => Walkin_PostDetails(
+                                  builder: (context) => NonGovtJob_PostDetails(
                                       snapshot.data[index])));
                             },
                             child: Container(
                               width: 150.0,
-                              child: Expanded(
-                                flex: 1,
+                              child: Container(
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(15.0),
                                   // child: Image.network(
@@ -177,7 +223,7 @@ class _WalkinState extends State<Walkin> {
                                           Navigator.of(context).push(
                                               new MaterialPageRoute(
                                                   builder: (context) =>
-                                                      Walkin_PostDetails(
+                                                      NonGovtJob_PostDetails(
                                                           snapshot
                                                               .data[index])));
                                         },
@@ -197,6 +243,40 @@ class _WalkinState extends State<Walkin> {
                                                   const EdgeInsets.all(8.0),
                                               child: Text(
                                                 "View Details",
+                                                style: TextStyle(
+                                                  fontSize: 20.0,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                              new MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      updateNonGovtJobpost(
+                                                          snapshot
+                                                              .data[index])));
+                                        },
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                            right: 10.0,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                            color: Color(0xFFfff6e6),
+                                          ),
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                "Update",
                                                 style: TextStyle(
                                                   fontSize: 20.0,
                                                   color: Colors.black,

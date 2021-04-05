@@ -1,25 +1,24 @@
-//import 'package:fl_fire_auth/Super%20Admin/View/Walkin/WalkinNews_Postdetails.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import './Walkin_Postdetails.dart';
+import './NonGovtJob_Postdetails.dart';
 import 'dart:async';
 
-class Walkin extends StatefulWidget {
-  Walkin({Key key}) : super(key: key);
+class NonGovtJobNews extends StatefulWidget {
+  NonGovtJobNews({Key key}) : super(key: key);
 
   @override
-  _WalkinState createState() => _WalkinState();
+  _NonGovtJobNewsState createState() => _NonGovtJobNewsState();
 }
 
-class _WalkinState extends State<Walkin> {
+class _NonGovtJobNewsState extends State<NonGovtJobNews> {
   Future getAllPost() async {
     // ignore: deprecated_member_use
     var firestore = Firestore.instance;
     QuerySnapshot snap =
         // ignore: deprecated_member_use
         await firestore
-            .collection("Walkin")
+            .collection("Non-Government Job")
             .orderBy("posted_on", descending: true)
             .getDocuments();
     // ignore: deprecated_member_use
@@ -38,13 +37,13 @@ class _WalkinState extends State<Walkin> {
     return Scaffold(
       appBar: new AppBar(
         title: new Text(
-          "Walkin",
+          "Non-Government Job",
           style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.orange,
         iconTheme: new IconThemeData(color: Colors.black),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.orange,
       body: FutureBuilder(
         future: getAllPost(),
         builder: (context, snapshot) {
@@ -99,7 +98,7 @@ class _WalkinState extends State<Walkin> {
                           InkWell(
                             onTap: () {
                               Navigator.of(context).push(new MaterialPageRoute(
-                                  builder: (context) => Walkin_PostDetails(
+                                  builder: (context) => NonGovtJob_PostDetails(
                                       snapshot.data[index])));
                             },
                             child: Container(
@@ -177,7 +176,7 @@ class _WalkinState extends State<Walkin> {
                                           Navigator.of(context).push(
                                               new MaterialPageRoute(
                                                   builder: (context) =>
-                                                      Walkin_PostDetails(
+                                                      NonGovtJob_PostDetails(
                                                           snapshot
                                                               .data[index])));
                                         },

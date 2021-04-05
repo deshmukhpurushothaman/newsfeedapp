@@ -161,10 +161,9 @@ class _createpostState extends State<createpost> {
               iconSize: 30.0,
               style: TextStyle(color: Colors.orange),
               items: [
-                "Latest Post",
-                "Campus Drive",
+                "Government Job",
                 "Internship",
-                "Off Campus Drive",
+                "Non-Government Job",
                 "Walkin",
                 "Scholarship",
                 "Events"

@@ -1,31 +1,23 @@
-//import 'dart:html';
 import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../Authentication/auth_helper.dart';
-import './View/LatestNews/AdminLatestAllNews.dart';
-import './View/Govt Job/GovtJobAllNews.dart';
-import './View/Walkin/WalkinAllNews.dart';
-import './View/Internship/InternshipAllNews.dart';
-import './View/Non Govt Job/NonGovtJobAllNews.dart';
-import './View/ScholarshipNews/AdminScholarshipAllNews.dart';
-import './View/Events/EventsAllNews.dart';
-//import 'usersposts.dart';
+import './Non Govt Job/NonGovtJobAllNews.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'users.dart';
+import '../Authentication/auth_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class createpost extends StatefulWidget {
+class createNonGovtJobpost extends StatefulWidget {
   @override
-  _createpostState createState() => _createpostState();
+  _createNonGovtJobpostState createState() => _createNonGovtJobpostState();
 }
 
-class _createpostState extends State<createpost> {
+class _createNonGovtJobpostState extends State<createNonGovtJobpost> {
   TextEditingController _titleController;
   TextEditingController _postcontentController;
 
@@ -163,6 +155,58 @@ class _createpostState extends State<createpost> {
           backgroundColor: Colors.orange,
           iconTheme: new IconThemeData(color: Colors.grey[800]),
         ),
+        drawer: new Drawer(
+          child: Container(
+            color: Colors.white,
+            child: new ListView(
+              children: <Widget>[
+                new UserAccountsDrawerHeader(
+                  accountName: null,
+                  accountEmail: Text("Signed in as " + user.email),
+                  decoration: new BoxDecoration(color: Colors.orangeAccent),
+                ),
+                new ListTile(
+                  title: new Text(
+                    "Non-Government Job",
+                    style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(new MaterialPageRoute(
+                        builder: (context) => NonGovtJobNews()));
+                  },
+                  leading: new Icon(Icons.person,
+                      color: Colors.grey[800], size: 20.0),
+                ),
+                new ListTile(
+                  title: new Text(
+                    "Users",
+                    style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(new MaterialPageRoute(
+                        builder: (context) => UsersPage()));
+                  },
+                  leading: new Icon(Icons.person,
+                      color: Colors.grey[800], size: 20.0),
+                ),
+                new ListTile(
+                  title: new Text(
+                    "Logout",
+                    style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    AuthHelper.logOut();
+                  },
+                  leading: new Icon(Icons.logout,
+                      color: Colors.grey[800], size: 20.0),
+                ),
+              ],
+            ),
+          ),
+        ),
         body: ListView(
           padding: EdgeInsets.all(8),
           children: <Widget>[
@@ -179,14 +223,7 @@ class _createpostState extends State<createpost> {
               isExpanded: true,
               iconSize: 30.0,
               style: TextStyle(color: Colors.orange),
-              items: [
-                "Government Job",
-                "Internship",
-                "Non-Government Job",
-                "Walkin",
-                "Scholarship",
-                "Events"
-              ].map(
+              items: ["Non-Government Job"].map(
                 (val) {
                   return DropdownMenuItem<String>(
                     value: val,
@@ -266,7 +303,7 @@ class _createpostState extends State<createpost> {
 
                       Fluttertoast.showToast(
                           msg: _categoryVal + " Posted Successfully!!");
-                      //Navigator.pop(context);
+                      Navigator.pop(context);
                       return;
                     }
                   },

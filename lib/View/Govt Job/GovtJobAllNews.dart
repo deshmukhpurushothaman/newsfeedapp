@@ -1,25 +1,24 @@
-//import 'package:fl_fire_auth/Super%20Admin/View/Walkin/WalkinNews_Postdetails.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import './Walkin_Postdetails.dart';
+import './GovtJob_Postdetails.dart';
 import 'dart:async';
 
-class Walkin extends StatefulWidget {
-  Walkin({Key key}) : super(key: key);
+class GovtJobNews extends StatefulWidget {
+  //GovtJobNews(String title, {Key key}) : super(key: key);
 
   @override
-  _WalkinState createState() => _WalkinState();
+  _GovtJobNewsState createState() => _GovtJobNewsState();
 }
 
-class _WalkinState extends State<Walkin> {
+class _GovtJobNewsState extends State<GovtJobNews> {
   Future getAllPost() async {
     // ignore: deprecated_member_use
     var firestore = Firestore.instance;
     QuerySnapshot snap =
         // ignore: deprecated_member_use
         await firestore
-            .collection("Walkin")
+            .collection("Government Job")
             .orderBy("posted_on", descending: true)
             .getDocuments();
     // ignore: deprecated_member_use
@@ -38,7 +37,7 @@ class _WalkinState extends State<Walkin> {
     return Scaffold(
       appBar: new AppBar(
         title: new Text(
-          "Walkin",
+          "Government Job",
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
@@ -61,7 +60,7 @@ class _WalkinState extends State<Walkin> {
           } else {
             return RefreshIndicator(
               onRefresh: onRefresh,
-              backgroundColor: Colors.green,
+              backgroundColor: Colors.white,
               color: Colors.black,
               child: ListView.builder(
                 itemCount: snapshot.data.length,
@@ -99,13 +98,12 @@ class _WalkinState extends State<Walkin> {
                           InkWell(
                             onTap: () {
                               Navigator.of(context).push(new MaterialPageRoute(
-                                  builder: (context) => Walkin_PostDetails(
+                                  builder: (context) => GovtJob_PostDetails(
                                       snapshot.data[index])));
                             },
                             child: Container(
                               width: 150.0,
-                              child: Expanded(
-                                flex: 1,
+                              child: Container(
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(15.0),
                                   // child: Image.network(
@@ -161,7 +159,7 @@ class _WalkinState extends State<Walkin> {
                                 ),
 
                                 SizedBox(
-                                  height: 20.0,
+                                  height: 5.0,
                                 ),
 
                                 Container(
@@ -177,7 +175,7 @@ class _WalkinState extends State<Walkin> {
                                           Navigator.of(context).push(
                                               new MaterialPageRoute(
                                                   builder: (context) =>
-                                                      Walkin_PostDetails(
+                                                      GovtJob_PostDetails(
                                                           snapshot
                                                               .data[index])));
                                         },
@@ -194,11 +192,11 @@ class _WalkinState extends State<Walkin> {
                                             alignment: Alignment.center,
                                             child: Padding(
                                               padding:
-                                                  const EdgeInsets.all(8.0),
+                                                  const EdgeInsets.all(5.0),
                                               child: Text(
                                                 "View Details",
                                                 style: TextStyle(
-                                                  fontSize: 20.0,
+                                                  fontSize: 15.0,
                                                   color: Colors.black,
                                                 ),
                                               ),

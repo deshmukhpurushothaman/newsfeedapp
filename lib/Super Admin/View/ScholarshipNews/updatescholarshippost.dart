@@ -179,9 +179,9 @@ class _updatescholarshippostState extends State<updatescholarshippost> {
               iconSize: 30.0,
               style: TextStyle(color: Colors.orange),
               items: [
-                "Campus Drive",
+                "Government Job",
                 "Internship",
-                "Off Campus Drive",
+                "Non-Government Job",
                 "Walkin",
                 "Scholarship",
                 "Events"

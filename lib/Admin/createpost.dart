@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../Authentication/auth_helper.dart';
 import 'LatestNews/LatestAllNews.dart';
-import './Campus Drive/CampusDriveAllNews.dart';
+import './Govt Job/GovtJobAllNews.dart';
 import './Walkin/WalkinAllNews.dart';
 import './Internship/InternshipAllNews.dart';
-import './Off Campus Drive/OffCampusDriveAllNews.dart';
+import './Non Govt Job/NonGovtJobAllNews.dart';
 import 'ScholarshipNews/ScholarshipAllNews.dart';
 import 'Events/EventsAllNews.dart';
 //import 'usersposts.dart';
@@ -188,13 +188,13 @@ class _createpostState extends State<createpost> {
                 ),
                 new ListTile(
                   title: new Text(
-                    "Campus Drive",
+                    "Government Job",
                     style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
                   ),
                   onTap: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (context) => CampusDriveNews()));
+                        builder: (context) => GovtJobNews()));
                   },
                   leading: new Icon(Icons.person,
                       color: Colors.grey[800], size: 20.0),
@@ -227,13 +227,13 @@ class _createpostState extends State<createpost> {
                 ),
                 new ListTile(
                   title: new Text(
-                    "Off Campus Drive",
+                    "Non-Government Job",
                     style: TextStyle(fontSize: 20.0, color: Colors.grey[800]),
                   ),
                   onTap: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (context) => OffCampusDriveNews()));
+                        builder: (context) => NonGovtJobNews()));
                   },
                   leading: new Icon(Icons.person,
                       color: Colors.grey[800], size: 20.0),
@@ -323,9 +323,9 @@ class _createpostState extends State<createpost> {
               iconSize: 30.0,
               style: TextStyle(color: Colors.orange),
               items: [
-                "Campus Drive",
+                "Government Job",
                 "Internship",
-                "Off Campus Drive",
+                "Non-Government Job",
                 "Walkin",
                 "Scholarship",
                 "Events"

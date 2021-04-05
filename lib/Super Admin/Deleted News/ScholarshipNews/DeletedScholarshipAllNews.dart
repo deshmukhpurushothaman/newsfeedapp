@@ -18,7 +18,10 @@ class _DeletedScholarshipNewsState extends State<DeletedScholarshipNews> {
     var firestore = Firestore.instance;
     QuerySnapshot snap =
         // ignore: deprecated_member_use
-        await firestore.collection("DeletedScholarshipNews").getDocuments();
+        await firestore
+            .collection("DeletedScholarshipNews")
+            .orderBy("posted_on", descending: true)
+            .getDocuments();
     // ignore: deprecated_member_use
     return snap.documents;
   }

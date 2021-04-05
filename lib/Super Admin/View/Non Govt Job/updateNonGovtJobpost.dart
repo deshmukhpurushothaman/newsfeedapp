@@ -1,31 +1,25 @@
-//import 'dart:html';
 import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../Authentication/auth_helper.dart';
-import './View/LatestNews/AdminLatestAllNews.dart';
-import './View/Govt Job/GovtJobAllNews.dart';
-import './View/Walkin/WalkinAllNews.dart';
-import './View/Internship/InternshipAllNews.dart';
-import './View/Non Govt Job/NonGovtJobAllNews.dart';
-import './View/ScholarshipNews/AdminScholarshipAllNews.dart';
-import './View/Events/EventsAllNews.dart';
-//import 'usersposts.dart';
+import '../../../Authentication/auth_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
-import 'users.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+//import 'users.dart';
+//import 'InternationalNews/InternationalAllNews.dart';
 
-class createpost extends StatefulWidget {
+class updateNonGovtJobpost extends StatefulWidget {
+  DocumentSnapshot snapshot;
+  updateNonGovtJobpost(this.snapshot);
   @override
-  _createpostState createState() => _createpostState();
+  _updateNonGovtJobpostState createState() => _updateNonGovtJobpostState();
 }
 
-class _createpostState extends State<createpost> {
+class _updateNonGovtJobpostState extends State<updateNonGovtJobpost> {
   TextEditingController _titleController;
   TextEditingController _postcontentController;
 
@@ -36,12 +30,15 @@ class _createpostState extends State<createpost> {
   String filename;
   bool _isloading = false;
   double _progress;
-  final User user = FirebaseAuth.instance.currentUser;
+
   @override
   void initState() {
     super.initState();
-    _titleController = TextEditingController(text: "");
-    _postcontentController = TextEditingController(text: "");
+    _titleController = TextEditingController(text: widget.snapshot['title']);
+    _postcontentController =
+        TextEditingController(text: widget.snapshot['content']);
+    //image = File(widget.snapshot['image']);
+    imageurl = widget.snapshot['image'];
   }
 
   getImage(source) async {
@@ -57,15 +54,15 @@ class _createpostState extends State<createpost> {
     });
   }
 
-  Future _getImage() async {
-    var selectedImage =
-        await ImagePicker.pickImage(source: ImageSource.gallery);
+  // Future _getImage() async {
+  //   var selectedImage =
+  //       await ImagePicker.pickImage(source: ImageSource.gallery);
 
-    setState(() {
-      image = selectedImage;
-      filename = basename(image.path);
-    });
-  }
+  //   setState(() {
+  //     image = selectedImage;
+  //     filename = basename(image.path);
+  //   });
+  // }
 
   progress(loading) {
     if (loading) {
@@ -208,7 +205,9 @@ class _createpostState extends State<createpost> {
               padding: EdgeInsets.all(20.0),
               child: Column(
                 children: [
-                  image == null ? Text("No image selected") : uploadArea(),
+                  image == null
+                      ? Image.network(widget.snapshot['image'])
+                      : uploadArea(),
                   Container(
                     child: Row(
                       children: [
@@ -253,20 +252,18 @@ class _createpostState extends State<createpost> {
                       Firestore.instance
                           .collection(_categoryVal)
                           // ignore: deprecated_member_use
-                          .document()
+                          .document(widget.snapshot.id)
                           // ignore: deprecated_member_use
-                          .setData({
+                          .updateData({
                         "content": _postcontentController.text,
                         "title": _titleController.text,
                         "image": imageurl,
-                        "default": "${_categoryVal}1",
-                        "posted_on": "${DateTime.now()}",
-                        "posted_by": "${user.email}"
+                        "default": "${_categoryVal}1"
                       });
 
                       Fluttertoast.showToast(
-                          msg: _categoryVal + " Posted Successfully!!");
-                      //Navigator.pop(context);
+                          msg: _categoryVal + " Updated Successfully!!");
+                      Navigator.pop(context);
                       return;
                     }
                   },
@@ -283,16 +280,32 @@ class _createpostState extends State<createpost> {
                       ),
                       borderRadius: BorderRadius.all(Radius.circular(80.0)),
                     ),
-                    child: Container(
-                      constraints: const BoxConstraints(
-                          minWidth: 88.0,
-                          minHeight: 36.0), // min sizes for Material buttons
-                      alignment: Alignment.center,
-                      child: Text("SUBMIT",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17)),
+                    child: InkWell(
+                      // onTap: () {
+                      //   FirebaseFirestore.instance
+                      //       .collection("InternationalAnnNews")
+                      //       //.where("email", isEqualTo: widget.snapshot['email'])
+                      //       // ignore: deprecated_member_use
+                      //       .document(widget.snapshot.id)
+
+                      //       // ignore: deprecated_member_use
+                      //       .updateData({
+                      //     "title": _titleController,
+                      //     "content": _postcontentController,
+                      //     "iamge": image
+                      //   });
+                      // },
+                      child: Container(
+                        constraints: const BoxConstraints(
+                            minWidth: 88.0,
+                            minHeight: 36.0), // min sizes for Material buttons
+                        alignment: Alignment.center,
+                        child: Text("Update",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17)),
+                      ),
                     ),
                   ),
                 ),

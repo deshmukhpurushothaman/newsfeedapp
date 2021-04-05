@@ -3,11 +3,11 @@
 //import 'dart:html';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fl_fire_auth/createpost.dart';
+import './createpost.dart';
 import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/Events/DeletedEventsAllNews.dart';
 //import 'package:fl_fire_auth/Admin/Events/EventsAllNews.dart';
 import 'package:fl_fire_auth/Super%20Admin/Deleted%20News/ScholarshipNews/DeletedScholarshipAllNews.dart';
-import './Deleted News/Campus Drive/DeletedCampusDriveAllNews.dart';
+import './Deleted News/Govt Job/DeletedGovtJobAllNews.dart';
 import 'View/LatestNews/AdminLatestAllNews.dart';
 import '../Authentication/auth_helper.dart';
 //import 'dart:html';
@@ -15,17 +15,18 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:carousel_pro/carousel_pro.dart';
-import './View/Campus Drive/CampusDriveAllNews.dart';
+import './View/Govt Job/GovtJobAllNews.dart';
 import 'View/LatestNews/AdminLatestAllNews.dart';
+import 'View/Non Govt Job/NonGovtJobAllNews.dart';
 import 'View/Walkin/WalkinAllNews.dart';
 import './View/Internship/InternshipAllNews.dart';
-import './View/Off Campus Drive/OffCampusDriveAllNews.dart';
+import './View/Non Govt Job/NonGovtJobAllNews.dart';
 import 'View/ScholarshipNews/AdminScholarshipAllNews.dart';
 import 'View/Events/EventsAllNews.dart';
 import 'AdminDetailsLatestPost.dart';
 import './Deleted News/Walkin/DeletedWalkinAllNews.dart';
 import './Deleted News/Internship/DeletedInternshipAllNews.dart';
-import './Deleted News/Off Campus Drive/DeletedOffCampusDriveAllNews.dart';
+import './Deleted News/Non Govt Job/DeletedNonGovtJobAllNews.dart';
 import 'Deleted News/LatestNews/DeletedLatestAllNews.dart';
 import 'dart:async';
 import './users.dart';
@@ -107,26 +108,26 @@ class _AdminHomeState extends State<AdminHome> {
               ),
               new ListTile(
                 title: new Text(
-                  "Campus Drive",
+                  "Government Job",
                   style: TextStyle(fontSize: 20.0, color: Colors.black),
                 ),
                 onTap: () {
                   Navigator.of(context).pop();
-                  Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (context) => CampusDrive()));
+                  Navigator.of(context).push(
+                      new MaterialPageRoute(builder: (context) => GovtJob()));
                 },
                 leading:
                     new Icon(Icons.next_week, color: Colors.black, size: 20.0),
               ),
               new ListTile(
                 title: new Text(
-                  "Off Campus Drive",
+                  "Non-Government Job",
                   style: TextStyle(fontSize: 20.0, color: Colors.black),
                 ),
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (context) => OffCampusDrive()));
+                      builder: (context) => NonGovtJob()));
                 },
                 leading:
                     new Icon(Icons.security, color: Colors.black, size: 20.0),
@@ -233,13 +234,13 @@ class _AdminHomeState extends State<AdminHome> {
               ),
               new ListTile(
                 title: new Text(
-                  "Deleted Campus Drive",
+                  "Deleted Government Job",
                   style: TextStyle(fontSize: 20.0, color: Colors.black),
                 ),
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (context) => DeletedCampusDrive()));
+                      builder: (context) => DeletedGovtJob()));
                 },
                 leading:
                     new Icon(Icons.delete, color: Colors.black, size: 20.0),
@@ -285,13 +286,13 @@ class _AdminHomeState extends State<AdminHome> {
               ),
               new ListTile(
                 title: new Text(
-                  "Deleted Off Campus Drive",
+                  "Deleted Non-Government Job",
                   style: TextStyle(fontSize: 20.0, color: Colors.black),
                 ),
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (context) => DeletedOffCampusDrive()));
+                      builder: (context) => DeletedNonGovtJob()));
                 },
                 leading:
                     new Icon(Icons.delete, color: Colors.black, size: 20.0),
@@ -462,10 +463,10 @@ class _AdminHomeState extends State<AdminHome> {
                               onTap: () {
                                 Navigator.of(context).push(
                                     new MaterialPageRoute(
-                                        builder: (context) => CampusDrive()));
+                                        builder: (context) => GovtJob()));
                               },
                               child: Text(
-                                "Campus Drive",
+                                "Government Job",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 19.0,
@@ -492,11 +493,10 @@ class _AdminHomeState extends State<AdminHome> {
                               onTap: () {
                                 Navigator.of(context).push(
                                     new MaterialPageRoute(
-                                        builder: (context) =>
-                                            OffCampusDrive()));
+                                        builder: (context) => NonGovtJob()));
                               },
                               child: Text(
-                                "Off Campus Drive",
+                                "Non Govt Job",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 19.0,

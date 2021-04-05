@@ -297,7 +297,9 @@ class _createWalkinpostState extends State<createWalkinpost> {
                         "content": _postcontentController.text,
                         "title": _titleController.text,
                         "image": imageurl,
-                        "default": "${_categoryVal}1"
+                        "default": "${_categoryVal}1",
+                        "posted_on": "${DateTime.now()}",
+                        "posted_by": "${user.email}"
                       });
 
                       Fluttertoast.showToast(

@@ -18,7 +18,10 @@ class _DeletedInternshipState extends State<DeletedInternship> {
     var firestore = Firestore.instance;
     QuerySnapshot snap =
         // ignore: deprecated_member_use
-        await firestore.collection("DeletedInternship").getDocuments();
+        await firestore
+            .collection("DeletedInternship")
+            .orderBy("posted_on", descending: true)
+            .getDocuments();
     // ignore: deprecated_member_use
     return snap.documents;
   }

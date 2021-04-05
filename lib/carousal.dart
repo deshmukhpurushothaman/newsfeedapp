@@ -3,9 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import './Detail.dart';
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import './View/Campus Drive/CampusDriveAllNews.dart';
+import './View/Govt Job/GovtJObAllNews.dart';
 import './View/Walkin/WalkinAllNews.dart';
-import './View/Off Campus Drive/OffCampusDriveAllNews.dart';
+import './View/Non Govt Job/NonGovtJobAllNews.dart';
 import './View/Internship/InternshipAllNews.dart';
 import 'View/Scholarship/ScholarshipAllNews.dart';
 import "View/Events/EventsAllNews.dart";
@@ -126,22 +126,22 @@ class _CityExplorerPageState extends State<CityExplorerPage> {
             ),
             SizedBox(height: 10),
             ListTile(
-              title: Text("Campus Drive"),
+              title: Text("Government Job"),
               //leading: Icon(EvaIcons.edit2Outline),
               leading: new Icon(Icons.grade_outlined, size: 20.0),
               onTap: () {
-                Navigator.of(context).push(new MaterialPageRoute(
-                    builder: (context) => CampusDriveNews()));
+                Navigator.of(context).push(
+                    new MaterialPageRoute(builder: (context) => GovtJobNews()));
               },
             ),
             SizedBox(height: 10),
             ListTile(
-              title: Text("Off Campus Drive"),
+              title: Text("Non-Government Job"),
               //leading: Icon(EvaIcons.edit2Outline),
               leading: new Icon(Icons.local_post_office_outlined, size: 20.0),
               onTap: () {
                 Navigator.of(context).push(new MaterialPageRoute(
-                    builder: (context) => OffCampusDriveNews()));
+                    builder: (context) => NonGovtJobNews()));
               },
             ),
             SizedBox(height: 10),

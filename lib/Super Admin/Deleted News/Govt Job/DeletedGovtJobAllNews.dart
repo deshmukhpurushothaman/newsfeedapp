@@ -1,27 +1,24 @@
-//import 'package:fl_fire_auth/Super%20Admin/View/Walkin/WalkinNews_Postdetails.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import './Walkin_Postdetails.dart';
+import './DeletedGovtJobNews_Postdetails.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:async';
 
-class Walkin extends StatefulWidget {
-  Walkin({Key key}) : super(key: key);
+class DeletedGovtJob extends StatefulWidget {
+  DeletedGovtJob({Key key}) : super(key: key);
 
   @override
-  _WalkinState createState() => _WalkinState();
+  _DeletedGovtJobState createState() => _DeletedGovtJobState();
 }
 
-class _WalkinState extends State<Walkin> {
+class _DeletedGovtJobState extends State<DeletedGovtJob> {
   Future getAllPost() async {
     // ignore: deprecated_member_use
     var firestore = Firestore.instance;
     QuerySnapshot snap =
         // ignore: deprecated_member_use
-        await firestore
-            .collection("Walkin")
-            .orderBy("posted_on", descending: true)
-            .getDocuments();
+        await firestore.collection("DeletedGovtJob").orderBy("posted_on", descending: true).getDocuments();
     // ignore: deprecated_member_use
     return snap.documents;
   }
@@ -38,13 +35,13 @@ class _WalkinState extends State<Walkin> {
     return Scaffold(
       appBar: new AppBar(
         title: new Text(
-          "Walkin",
+          "Deleted Government Job",
           style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.orange,
         iconTheme: new IconThemeData(color: Colors.black),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.orange,
       body: FutureBuilder(
         future: getAllPost(),
         builder: (context, snapshot) {
@@ -76,13 +73,53 @@ class _WalkinState extends State<Walkin> {
                     //     icon: Icons.archive,
                     //   ),
                     // ],
-                    // secondaryActions: [
-                    //   IconSlideAction(
-                    //     caption: 'Delete',
-                    //     color: Colors.blueGrey,
-                    //     icon: Icons.delete,
-                    //   ),
-                    // ],
+                    secondaryActions: [
+                      IconSlideAction(
+                        caption: 'Restore',
+                        color: Colors.blueGrey,
+                        icon: Icons.restore,
+                        onTap: () => {
+                          print("Entered"),
+                          //Copy to new Deleted Collection
+                          FirebaseFirestore.instance
+                              .collection("Government Job")
+                              // ignore: deprecated_member_use
+                              .document()
+                              // ignore: deprecated_member_use
+                              .setData({
+                            "content": snapshot.data[index].data()['content'],
+                            "title": snapshot.data[index].data()['title'],
+                            "image": snapshot.data[index].data()['image'],
+                            "categoryval": "Government Job",
+                            "default": "Government Job1",
+                            "posted_on":
+                                snapshot.data[index].data()['posted_on'],
+                            "posted_by":
+                                snapshot.data[index].data()['posted_by'],
+                          }),
+                          print("Successful"),
+
+                          //Delete
+                          FirebaseFirestore.instance
+                              .collection("DeletedGovtJob")
+                              .doc(snapshot.data[index].documentID)
+                              .delete(),
+                          print("Successful"),
+                          Fluttertoast.showToast(
+                              msg:
+                                  "Restored Successfully!!! Refresh the page to see the changes."),
+                        },
+                      ),
+                    ],
+                    // onDismissed: (DismissDirection) {
+                    //   //snapshot.data.delete(index);
+                    //   print("Entered");
+                    //   FirebaseFirestore.instance
+                    //       .collection("InternationalAllNews")
+                    //       .doc(snapshot.data[index].documentID)
+                    //       .delete();
+                    //   print("Successful");
+                    // },
 
                     dismissal: SlidableDismissal(
                       child: SlidableDrawerDismissal(),
@@ -96,31 +133,21 @@ class _WalkinState extends State<Walkin> {
                       margin: EdgeInsets.all(6.0),
                       child: Row(
                         children: <Widget>[
-                          InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(new MaterialPageRoute(
-                                  builder: (context) => Walkin_PostDetails(
-                                      snapshot.data[index])));
-                            },
-                            child: Container(
-                              width: 150.0,
-                              child: Expanded(
-                                flex: 1,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  // child: Image.network(
-                                  //   snapshot.data[index].data()["image"],
-                                  //   height: 170.0,
-                                  //   fit: BoxFit.cover,
-                                  // ),
-                                  child: FadeInImage.assetNetwork(
-                                    image: snapshot.data[index].data()["image"],
-                                    height: 170.0,
-                                    fit: BoxFit.cover,
-                                    placeholder:
-                                        'images/${snapshot.data[index].data()["default"]}.jpg',
-                                  ),
-                                ),
+                          Expanded(
+                            flex: 1,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15.0),
+                              // child: Image.network(
+                              //   snapshot.data[index].data()["image"],
+                              //   height: 170.0,
+                              //   fit: BoxFit.cover,
+                              // ),
+                              child: FadeInImage.assetNetwork(
+                                image: snapshot.data[index].data()["image"],
+                                height: 170.0,
+                                fit: BoxFit.cover,
+                                placeholder:
+                                    'images/${snapshot.data[index].data()["default"]}.jpg',
                               ),
                             ),
                           ),
@@ -170,14 +197,12 @@ class _WalkinState extends State<Walkin> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       //First Container
-
-                                      //Second Container
                                       InkWell(
                                         onTap: () {
                                           Navigator.of(context).push(
                                               new MaterialPageRoute(
                                                   builder: (context) =>
-                                                      Walkin_PostDetails(
+                                                      DeletedGovtJob_PostDetails(
                                                           snapshot
                                                               .data[index])));
                                         },
@@ -206,6 +231,7 @@ class _WalkinState extends State<Walkin> {
                                           ),
                                         ),
                                       ),
+                                      //Second Container(Delete Post)
                                     ],
                                   ),
                                 ),
