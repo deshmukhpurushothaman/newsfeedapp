@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "freshmen_companion",
+            "name": "CampusVita",
             "request": "launch",
             "type": "dart"
         }

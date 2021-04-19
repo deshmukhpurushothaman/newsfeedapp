@@ -99,6 +99,12 @@ class _DeletedScholarshipNewsState extends State<DeletedScholarshipNews> {
                                 snapshot.data[index].data()['posted_on'],
                             "posted_by":
                                 snapshot.data[index].data()['posted_by'],
+                            "experience":
+                                snapshot.data[index].data()['experience'],
+                            "updated_on":
+                                snapshot.data[index].data()['updated_on'],
+                            "updated_by":
+                                snapshot.data[index].data()['updated_by'],
                           }),
                           print("Successful"),
 

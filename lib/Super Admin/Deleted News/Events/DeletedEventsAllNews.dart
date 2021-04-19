@@ -18,7 +18,10 @@ class _DeletedEventsState extends State<DeletedEvents> {
     var firestore = Firestore.instance;
     QuerySnapshot snap =
         // ignore: deprecated_member_use
-        await firestore.collection("DeletedEvents").orderBy("posted_on", descending: true).getDocuments();
+        await firestore
+            .collection("DeletedEvents")
+            .orderBy("posted_on", descending: true)
+            .getDocuments();
     // ignore: deprecated_member_use
     return snap.documents;
   }
@@ -96,6 +99,12 @@ class _DeletedEventsState extends State<DeletedEvents> {
                                 snapshot.data[index].data()['posted_on'],
                             "posted_by":
                                 snapshot.data[index].data()['posted_by'],
+                            "experience":
+                                snapshot.data[index].data()['experience'],
+                            "updated_on":
+                                snapshot.data[index].data()['updated_on'],
+                            "updated_by":
+                                snapshot.data[index].data()['updated_by'],
                           }),
                           print("Successful"),
 

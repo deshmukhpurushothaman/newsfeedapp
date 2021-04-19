@@ -4,6 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import './DeletedInternshipNews_Postdetails.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:async';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 class DeletedInternship extends StatefulWidget {
   DeletedInternship({Key key}) : super(key: key);
@@ -13,7 +14,9 @@ class DeletedInternship extends StatefulWidget {
 }
 
 class _DeletedInternshipState extends State<DeletedInternship> {
-  Future getAllPost() async {
+  String experience = "Both";
+  Future getAllPost(String experience) async {
+    this.experience = experience;
     // ignore: deprecated_member_use
     var firestore = Firestore.instance;
     QuerySnapshot snap =
@@ -21,15 +24,27 @@ class _DeletedInternshipState extends State<DeletedInternship> {
         await firestore
             .collection("DeletedInternship")
             .orderBy("posted_on", descending: true)
+            .where("experience", isEqualTo: experience)
             .getDocuments();
     // ignore: deprecated_member_use
     return snap.documents;
   }
 
+  String selectedRadioTile = "Both";
+
+  setSelectedRadioTile(String val) {
+    setState(() {
+      selectedRadioTile = val;
+      experience = val;
+    });
+    getAllPost(experience);
+  }
+
   Future<Null> onRefresh() async {
     await Future.delayed(Duration(seconds: 3));
     setState(() {
-      getAllPost();
+      experience = selectedRadioTile;
+      getAllPost(experience);
     });
   }
 
@@ -41,12 +56,83 @@ class _DeletedInternshipState extends State<DeletedInternship> {
           "Deleted Internship",
           style: TextStyle(color: Colors.black),
         ),
+        actions: [
+          IconButton(
+              icon: const Icon(EvaIcons.funnelOutline),
+              tooltip: 'Filter',
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return StatefulBuilder(
+                        builder: (context, setState) {
+                          return AlertDialog(
+                            title: const Text('Filter'),
+                            content: new Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                RadioListTile<String>(
+                                  value: "Experienced",
+                                  groupValue: selectedRadioTile,
+                                  title: Text("Experienced"),
+                                  onChanged: (val) {
+                                    print("Radio Tile pressed $val");
+                                    Navigator.pop(context);
+                                    setSelectedRadioTile(val);
+                                  },
+                                  activeColor: Colors.red,
+                                  //selected: false,
+                                ),
+                                RadioListTile<String>(
+                                  value: "Fresher",
+                                  groupValue: selectedRadioTile,
+                                  title: Text("Fresher"),
+                                  onChanged: (val) {
+                                    print("Radio Tile pressed $val");
+                                    Navigator.pop(context);
+                                    setSelectedRadioTile(val);
+                                  },
+                                  activeColor: Colors.red,
+                                  //selected: false,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(28.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      MaterialButton(
+                                        onPressed: () {
+                                          String reset = "Both";
+                                          print("Radio Tile pressed $reset");
+                                          Navigator.pop(context);
+                                          setSelectedRadioTile(reset);
+                                        },
+                                        color: Colors.blue,
+                                        height: 45,
+                                        child: Text("Reset",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 17,
+                                            )),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    });
+              })
+        ],
         backgroundColor: Colors.orange,
         iconTheme: new IconThemeData(color: Colors.black),
       ),
       backgroundColor: Colors.orange,
       body: FutureBuilder(
-        future: getAllPost(),
+        future: getAllPost(experience),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -99,6 +185,12 @@ class _DeletedInternshipState extends State<DeletedInternship> {
                                 snapshot.data[index].data()['posted_on'],
                             "posted_by":
                                 snapshot.data[index].data()['posted_by'],
+                            "experience":
+                                snapshot.data[index].data()['experience'],
+                            "updated_on":
+                                snapshot.data[index].data()['updated_on'],
+                            "updated_by":
+                                snapshot.data[index].data()['updated_by'],
                           }),
                           print("Successful"),
 

@@ -5,6 +5,7 @@ import './AdminScholarshipNews_Postdetails.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'updatescholarshippost.dart';
 import 'dart:async';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 class ScholarshipNews extends StatefulWidget {
   ScholarshipNews({Key key}) : super(key: key);
@@ -14,7 +15,9 @@ class ScholarshipNews extends StatefulWidget {
 }
 
 class _ScholarshipNewsState extends State<ScholarshipNews> {
+  String experience = "Both";
   Future getAllPost() async {
+    this.experience = experience;
     // ignore: deprecated_member_use
     var firestore = Firestore.instance;
     QuerySnapshot snap =
@@ -22,10 +25,21 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
         await firestore
             .collection("Scholarship")
             .orderBy("posted_on", descending: true)
+            .where("experience", isEqualTo: experience)
             .getDocuments();
     // ignore: deprecated_member_use
     return snap.documents;
   }
+
+  // String selectedRadioTile = "Both";
+
+  // setSelectedRadioTile(String val) {
+  //   setState(() {
+  //     selectedRadioTile = val;
+  //     experience = val;
+  //   });
+  //   getAllPost(experience);
+  // }
 
   Future<Null> onRefresh() async {
     await Future.delayed(Duration(seconds: 3));
@@ -103,6 +117,12 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
                                 snapshot.data[index].data()['posted_on'],
                             "posted_by":
                                 snapshot.data[index].data()['posted_by'],
+                            "experience":
+                                snapshot.data[index].data()['experience'],
+                            "updated_on":
+                                snapshot.data[index].data()['updated_on'],
+                            "updated_by":
+                                snapshot.data[index].data()['updated_by'],
                           }),
                           print("Successful"),
 

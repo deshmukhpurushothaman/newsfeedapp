@@ -19,6 +19,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'users.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:group_radio_button/group_radio_button.dart';
 
 class createpost extends StatefulWidget {
   @override
@@ -152,6 +153,54 @@ class _createpostState extends State<createpost> {
     );
   }
 
+  String _singleValue = "Both";
+
+  Widget _radiobuttonfield() {
+    return Container(
+      width: 150,
+      child: Row(
+        children: <Widget>[
+          Container(
+            child: Row(
+              children: [
+                RadioButton(
+                    description: "Both",
+                    value: "Both",
+                    groupValue: _singleValue,
+                    onChanged: (value) => {
+                          setState(
+                            () => _singleValue = value,
+                          ),
+                          print(_singleValue)
+                        }),
+                RadioButton(
+                    description: "Experienced",
+                    value: "Experienced",
+                    groupValue: _singleValue,
+                    onChanged: (value) => {
+                          setState(
+                            () => _singleValue = value,
+                          ),
+                          print(_singleValue)
+                        }),
+                RadioButton(
+                    description: "Fresher",
+                    value: "Fresher",
+                    groupValue: _singleValue,
+                    onChanged: (value) => {
+                          setState(
+                            () => _singleValue = value,
+                          ),
+                          print(_singleValue)
+                        }),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -204,6 +253,8 @@ class _createpostState extends State<createpost> {
             ),
             SizedBox(height: 10.0),
             _contenttextfield(),
+            SizedBox(height: 10.0),
+            _radiobuttonfield(),
             Container(
               padding: EdgeInsets.all(20.0),
               child: Column(
@@ -261,7 +312,8 @@ class _createpostState extends State<createpost> {
                         "image": imageurl,
                         "default": "${_categoryVal}1",
                         "posted_on": "${DateTime.now()}",
-                        "posted_by": "${user.email}"
+                        "posted_by": "${user.email}",
+                        "experience": "${_singleValue}"
                       });
 
                       Fluttertoast.showToast(

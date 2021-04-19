@@ -13,8 +13,25 @@ class EventsNews extends StatefulWidget {
 }
 
 class _EventsNewsState extends State<EventsNews> {
-  Future getAllPost() async {
+  String experience = "Both";
+  Future getAllPost(String experience) async {
+    this.experience = experience;
     // ignore: deprecated_member_use
+    var firestore = Firestore.instance;
+    QuerySnapshot snap =
+        // ignore: deprecated_member_use
+        await firestore
+            .collection("Events")
+            .orderBy("posted_on", descending: true)
+            .where("experience", isEqualTo: experience)
+            .getDocuments();
+    // ignore: deprecated_member_use
+    return snap.documents;
+  }
+
+  Future filterAllPost() async {
+    // ignore: deprecated_member_use
+
     var firestore = Firestore.instance;
     QuerySnapshot snap =
         // ignore: deprecated_member_use
@@ -29,7 +46,7 @@ class _EventsNewsState extends State<EventsNews> {
   Future<Null> onRefresh() async {
     await Future.delayed(Duration(seconds: 3));
     setState(() {
-      getAllPost();
+      getAllPost(experience);
     });
   }
 
@@ -46,7 +63,7 @@ class _EventsNewsState extends State<EventsNews> {
       ),
       backgroundColor: Colors.white,
       body: FutureBuilder(
-        future: getAllPost(),
+        future: getAllPost(experience),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(

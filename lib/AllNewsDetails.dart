@@ -72,9 +72,14 @@ class _AllNews_DetailsState extends State<AllNews_Details> {
                         SizedBox(
                           width: 6.0,
                         ),
-                        Text(
-                          widget.snapshot["title"],
-                          style: TextStyle(fontSize: 20.0, color: Colors.black),
+                        Flexible(
+                          child: Text(
+                            widget.snapshot["title"],
+                            maxLines: 3,
+                            overflow: TextOverflow.visible,
+                            style:
+                                TextStyle(fontSize: 20.0, color: Colors.black),
+                          ),
                         ),
                       ],
                     ),

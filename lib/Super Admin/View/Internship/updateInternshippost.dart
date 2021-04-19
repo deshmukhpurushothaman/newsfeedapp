@@ -9,6 +9,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:group_radio_button/group_radio_button.dart';
+
 //import 'users.dart';
 //import 'InternationalNews/InternationalAllNews.dart';
 
@@ -30,6 +33,8 @@ class _updateInternshippostState extends State<updateInternshippost> {
   String filename;
   bool _isloading = false;
   double _progress;
+  String _singleValue;
+  final User user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -37,6 +42,7 @@ class _updateInternshippostState extends State<updateInternshippost> {
     _titleController = TextEditingController(text: widget.snapshot['title']);
     _postcontentController =
         TextEditingController(text: widget.snapshot['content']);
+    _singleValue = widget.snapshot['experience'];
     //image = File(widget.snapshot['image']);
     imageurl = widget.snapshot['image'];
   }
@@ -149,6 +155,52 @@ class _updateInternshippostState extends State<updateInternshippost> {
     );
   }
 
+  Widget _radiobuttonfield() {
+    return Container(
+      width: 150,
+      child: Row(
+        children: <Widget>[
+          Container(
+            child: Row(
+              children: [
+                RadioButton(
+                    description: "Both",
+                    value: "Both",
+                    groupValue: _singleValue,
+                    onChanged: (value) => {
+                          setState(
+                            () => _singleValue = value,
+                          ),
+                          print(_singleValue)
+                        }),
+                RadioButton(
+                    description: "Experienced",
+                    value: "Experienced",
+                    groupValue: _singleValue,
+                    onChanged: (value) => {
+                          setState(
+                            () => _singleValue = value,
+                          ),
+                          print(_singleValue)
+                        }),
+                RadioButton(
+                    description: "Fresher",
+                    value: "Fresher",
+                    groupValue: _singleValue,
+                    onChanged: (value) => {
+                          setState(
+                            () => _singleValue = value,
+                          ),
+                          print(_singleValue)
+                        }),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -201,6 +253,8 @@ class _updateInternshippostState extends State<updateInternshippost> {
             ),
             SizedBox(height: 10.0),
             _contenttextfield(),
+            SizedBox(height: 10.0),
+            _radiobuttonfield(),
             Container(
               padding: EdgeInsets.all(20.0),
               child: Column(
@@ -258,7 +312,10 @@ class _updateInternshippostState extends State<updateInternshippost> {
                         "content": _postcontentController.text,
                         "title": _titleController.text,
                         "image": imageurl,
-                        "default": "${_categoryVal}1"
+                        "default": "${_categoryVal}1",
+                        "updated_on": "${DateTime.now()}",
+                        "updated_by": "${user.email}",
+                        "experience": "${_singleValue}"
                       });
 
                       Fluttertoast.showToast(

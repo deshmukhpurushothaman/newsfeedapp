@@ -25,7 +25,7 @@ final imagesList = [
 final colorList = [
   Colors.greenAccent.shade100,
   Colors.blueAccent.shade100,
-  Colors.yellowAccent.shade50,
+  Colors.yellowAccent.shade100,
   Colors.redAccent.shade100,
   Colors.blueAccent.shade100,
   Colors.amber.shade50

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import './updateWalkinpost.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 //import 'AdminWalkin_PostDetails.dart';
 import 'dart:async';
 
@@ -15,7 +16,9 @@ class Walkin extends StatefulWidget {
 }
 
 class _WalkinState extends State<Walkin> {
-  Future getAllPost() async {
+  String experience = "Both";
+  Future getAllPost(String experience) async {
+    this.experience = experience;
     // ignore: deprecated_member_use
     var firestore = Firestore.instance;
     QuerySnapshot snap =
@@ -23,15 +26,27 @@ class _WalkinState extends State<Walkin> {
         await firestore
             .collection("Walkin")
             .orderBy("posted_on", descending: true)
+            .where("experience", isEqualTo: experience)
             .getDocuments();
     // ignore: deprecated_member_use
     return snap.documents;
   }
 
+  String selectedRadioTile = "Both";
+
+  setSelectedRadioTile(String val) {
+    setState(() {
+      selectedRadioTile = val;
+      experience = val;
+    });
+    getAllPost(experience);
+  }
+
   Future<Null> onRefresh() async {
     await Future.delayed(Duration(seconds: 3));
     setState(() {
-      getAllPost();
+      experience = selectedRadioTile;
+      getAllPost(experience);
     });
   }
 
@@ -43,12 +58,83 @@ class _WalkinState extends State<Walkin> {
           "Walkin",
           style: TextStyle(color: Colors.black),
         ),
+        actions: [
+          IconButton(
+              icon: const Icon(EvaIcons.funnelOutline),
+              tooltip: 'Filter',
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return StatefulBuilder(
+                        builder: (context, setState) {
+                          return AlertDialog(
+                            title: const Text('Filter'),
+                            content: new Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                RadioListTile<String>(
+                                  value: "Experienced",
+                                  groupValue: selectedRadioTile,
+                                  title: Text("Experienced"),
+                                  onChanged: (val) {
+                                    print("Radio Tile pressed $val");
+                                    Navigator.pop(context);
+                                    setSelectedRadioTile(val);
+                                  },
+                                  activeColor: Colors.red,
+                                  //selected: false,
+                                ),
+                                RadioListTile<String>(
+                                  value: "Fresher",
+                                  groupValue: selectedRadioTile,
+                                  title: Text("Fresher"),
+                                  onChanged: (val) {
+                                    print("Radio Tile pressed $val");
+                                    Navigator.pop(context);
+                                    setSelectedRadioTile(val);
+                                  },
+                                  activeColor: Colors.red,
+                                  //selected: false,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(28.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      MaterialButton(
+                                        onPressed: () {
+                                          String reset = "Both";
+                                          print("Radio Tile pressed $reset");
+                                          Navigator.pop(context);
+                                          setSelectedRadioTile(reset);
+                                        },
+                                        color: Colors.blue,
+                                        height: 45,
+                                        child: Text("Reset",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 17,
+                                            )),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    });
+              })
+        ],
         backgroundColor: Colors.orange,
         iconTheme: new IconThemeData(color: Colors.black),
       ),
       backgroundColor: Colors.orange,
       body: FutureBuilder(
-        future: getAllPost(),
+        future: getAllPost(experience),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -108,6 +194,12 @@ class _WalkinState extends State<Walkin> {
                                 snapshot.data[index].data()['posted_on'],
                             "posted_by":
                                 snapshot.data[index].data()['posted_by'],
+                            "experience":
+                                snapshot.data[index].data()['experience'],
+                            "updated_on":
+                                snapshot.data[index].data()['updated_on'],
+                            "updated_by":
+                                snapshot.data[index].data()['updated_by'],
                           }),
                           print("Successful"),
 

@@ -13,7 +13,9 @@ class ScholarshipNews extends StatefulWidget {
 }
 
 class _ScholarshipNewsState extends State<ScholarshipNews> {
-  Future getAllPost() async {
+  String experience = "Both";
+  Future getAllPost(String experience) async {
+    this.experience = experience;
     // ignore: deprecated_member_use
     var firestore = Firestore.instance;
     QuerySnapshot snap =
@@ -21,6 +23,7 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
         await firestore
             .collection("Scholarship")
             .orderBy("posted_on", descending: true)
+            .where("experience", isEqualTo: experience)
             .getDocuments();
     // ignore: deprecated_member_use
     return snap.documents;
@@ -29,7 +32,7 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
   Future<Null> onRefresh() async {
     await Future.delayed(Duration(seconds: 3));
     setState(() {
-      getAllPost();
+      getAllPost(experience);
     });
   }
 
@@ -46,7 +49,7 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
       ),
       backgroundColor: Colors.white,
       body: FutureBuilder(
-        future: getAllPost(),
+        future: getAllPost(experience),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(

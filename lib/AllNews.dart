@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import './AllNewsDetails.dart';
+//import './modal.dart';
 import 'dart:async';
 
 class AllNews extends StatefulWidget {
@@ -15,24 +17,44 @@ class AllNews extends StatefulWidget {
 class _AllNewsState extends State<AllNews> {
   String title;
   _AllNewsState(this.title);
+  String experience = "Both";
 
-  Future getAllPost() async {
+  Future getAllPost(String experience) async {
     // ignore: deprecated_member_use
+
+    this.experience = experience;
+
     var firestore = Firestore.instance;
     QuerySnapshot snap =
         // ignore: deprecated_member_use
         await firestore
             .collection("$title")
             .orderBy("posted_on", descending: true)
+            .where("experience", isEqualTo: experience)
             .getDocuments();
     // ignore: deprecated_member_use
     return snap.documents;
   }
 
+  int selectedRadio = 0;
+  String selectedRadioTile = "Both";
+
+  //selectedRadio = 0;
+  //selectedRadioTile = 0;
+
+  setSelectedRadioTile(String val) {
+    setState(() {
+      selectedRadioTile = val;
+      experience = val;
+    });
+    getAllPost(experience);
+  }
+
   Future<Null> onRefresh() async {
     await Future.delayed(Duration(seconds: 3));
     setState(() {
-      getAllPost();
+      experience = selectedRadioTile;
+      getAllPost(experience);
     });
   }
 
@@ -44,12 +66,88 @@ class _AllNewsState extends State<AllNews> {
           "${title}",
           style: TextStyle(color: Colors.black),
         ),
+        actions: [
+          if ((title == "Government Job") ||
+              (title == "Non-Government Job") ||
+              (title == "Internship") ||
+              (title == "Walkin"))
+            IconButton(
+                icon: const Icon(EvaIcons.funnelOutline),
+                tooltip: 'Filter',
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return StatefulBuilder(
+                          builder: (context, setState) {
+                            return AlertDialog(
+                              title: const Text('Filter'),
+                              content: new Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  RadioListTile<String>(
+                                    value: "Experienced",
+                                    groupValue: selectedRadioTile,
+                                    title: Text("Experienced"),
+                                    onChanged: (val) {
+                                      print("Radio Tile pressed $val");
+                                      Navigator.pop(context);
+                                      setSelectedRadioTile(val);
+                                    },
+                                    activeColor: Colors.red,
+                                    //selected: false,
+                                  ),
+                                  RadioListTile<String>(
+                                    value: "Fresher",
+                                    groupValue: selectedRadioTile,
+                                    title: Text("Fresher"),
+                                    onChanged: (val) {
+                                      print("Radio Tile pressed $val");
+                                      Navigator.pop(context);
+                                      setSelectedRadioTile(val);
+                                    },
+                                    activeColor: Colors.red,
+                                    //selected: false,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(28.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        MaterialButton(
+                                          onPressed: () {
+                                            String reset = "Both";
+                                            print("Radio Tile pressed $reset");
+                                            Navigator.pop(context);
+                                            setSelectedRadioTile(reset);
+                                          },
+                                          color: Colors.blue,
+                                          height: 45,
+                                          child: Text("Reset",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 17,
+                                              )),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      });
+                })
+        ],
         backgroundColor: Colors.white,
         iconTheme: new IconThemeData(color: Colors.black),
       ),
       backgroundColor: Colors.white,
       body: FutureBuilder(
-        future: getAllPost(),
+        future: getAllPost(experience),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(

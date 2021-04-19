@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import './updateEventspost.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 //import 'AdminEvents_PostDetails.dart';
 import 'dart:async';
 
@@ -15,7 +16,9 @@ class Events extends StatefulWidget {
 }
 
 class _EventsState extends State<Events> {
+  String experience = "Both";
   Future getAllPost() async {
+    this.experience = experience;
     // ignore: deprecated_member_use
     var firestore = Firestore.instance;
     QuerySnapshot snap =
@@ -23,14 +26,26 @@ class _EventsState extends State<Events> {
         await firestore
             .collection("Events")
             .orderBy("posted_on", descending: true)
+            .where("experience", isEqualTo: experience)
             .getDocuments();
     // ignore: deprecated_member_use
     return snap.documents;
   }
 
+  // String selectedRadioTile = "Both";
+
+  // setSelectedRadioTile(String val) {
+  //   setState(() {
+  //     selectedRadioTile = val;
+  //     experience = val;
+  //   });
+  //   getAllPost(experience);
+  // }
+
   Future<Null> onRefresh() async {
     await Future.delayed(Duration(seconds: 3));
     setState(() {
+      //experience = selectedRadioTile;
       getAllPost();
     });
   }
@@ -108,6 +123,12 @@ class _EventsState extends State<Events> {
                                 snapshot.data[index].data()['posted_on'],
                             "posted_by":
                                 snapshot.data[index].data()['posted_by'],
+                            "experience":
+                                snapshot.data[index].data()['experience'],
+                            "updated_on":
+                                snapshot.data[index].data()['updated_on'],
+                            "updated_by":
+                                snapshot.data[index].data()['updated_by'],
                           }),
                           print("Successful"),
 
