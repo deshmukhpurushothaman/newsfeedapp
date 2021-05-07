@@ -25,9 +25,11 @@ class updateInternshippost extends StatefulWidget {
 class _updateInternshippostState extends State<updateInternshippost> {
   TextEditingController _titleController;
   TextEditingController _postcontentController;
+  TextEditingController _urlController;
 
   String _categoryVal;
   String _postType;
+  String _url;
   String imageurl;
   File image;
   String filename;
@@ -45,6 +47,7 @@ class _updateInternshippostState extends State<updateInternshippost> {
     _singleValue = widget.snapshot['experience'];
     //image = File(widget.snapshot['image']);
     imageurl = widget.snapshot['image'];
+    _urlController = TextEditingController(text: widget.snapshot['url']);
   }
 
   getImage(source) async {
@@ -155,6 +158,16 @@ class _updateInternshippostState extends State<updateInternshippost> {
     );
   }
 
+  Widget _urltextfield() {
+    return TextField(
+      controller: _urlController,
+      decoration: InputDecoration(
+          labelText: "Url",
+          hintText: "Enter or paste url here...",
+          border: OutlineInputBorder()),
+    );
+  }
+
   Widget _radiobuttonfield() {
     return Container(
       width: 150,
@@ -251,6 +264,8 @@ class _updateInternshippostState extends State<updateInternshippost> {
                 );
               },
             ),
+            SizedBox(height: 10.0),
+            _urltextfield(),
             SizedBox(height: 10.0),
             _contenttextfield(),
             SizedBox(height: 10.0),

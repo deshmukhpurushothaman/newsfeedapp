@@ -123,6 +123,7 @@ class _ScholarshipNewsState extends State<ScholarshipNews> {
                                 snapshot.data[index].data()['updated_on'],
                             "updated_by":
                                 snapshot.data[index].data()['updated_by'],
+                            "url": snapshot.data[index].data()['url'],
                           }),
                           print("Successful"),
 

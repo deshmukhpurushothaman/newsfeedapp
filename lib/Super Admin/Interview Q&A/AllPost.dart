@@ -1,46 +1,42 @@
-import './EventsNews_Postdetails.dart';
+//import './EventsNews_Postdetails.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import './updateEventspost.dart';
+import './updateInterviewpost.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 //import 'AdminEvents_PostDetails.dart';
 import 'dart:async';
+import 'AllPost_Details.dart';
 
-class Events extends StatefulWidget {
-  Events({Key key}) : super(key: key);
+class AllPost extends StatefulWidget {
+  final String title;
+  AllPost(this.title);
 
   @override
-  _EventsState createState() => _EventsState();
+  _AllPostState createState() => _AllPostState(title);
 }
 
-class _EventsState extends State<Events> {
-  String experience = "Both";
+class _AllPostState extends State<AllPost> {
+  String title;
+  _AllPostState(this.title);
+  //String experience = "Both";
   Future getAllPost() async {
-    this.experience = experience;
+    //this.experience = experience;
     // ignore: deprecated_member_use
-    var firestore = Firestore.instance;
+    print("React JS All Post");
+    var firestore = FirebaseFirestore.instance;
     QuerySnapshot snap =
         // ignore: deprecated_member_use
         await firestore
-            .collection("Events")
+            .collection("$title")
             .orderBy("posted_on", descending: true)
-            .where("experience", isEqualTo: experience)
-            .getDocuments();
+            //.where("experience", isEqualTo: experience)
+            .get();
     // ignore: deprecated_member_use
-    return snap.documents;
+    print(snap.docs);
+    return snap.docs;
   }
-
-  // String selectedRadioTile = "Both";
-
-  // setSelectedRadioTile(String val) {
-  //   setState(() {
-  //     selectedRadioTile = val;
-  //     experience = val;
-  //   });
-  //   getAllPost(experience);
-  // }
 
   Future<Null> onRefresh() async {
     await Future.delayed(Duration(seconds: 3));
@@ -55,13 +51,13 @@ class _EventsState extends State<Events> {
     return Scaffold(
       appBar: new AppBar(
         title: new Text(
-          "Events",
+          "Interview Q&A",
           style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.white,
         iconTheme: new IconThemeData(color: Colors.black),
       ),
-      backgroundColor: Colors.orange,
+      backgroundColor: Colors.white,
       body: FutureBuilder(
         future: getAllPost(),
         builder: (context, snapshot) {
@@ -109,33 +105,27 @@ class _EventsState extends State<Events> {
                           print("Entered"),
                           //Copy to new Deleted Collection
                           FirebaseFirestore.instance
-                              .collection("DeletedEvents")
+                              .collection("Deleted$title")
                               // ignore: deprecated_member_use
-                              .document()
+                              .doc()
                               // ignore: deprecated_member_use
-                              .setData({
-                            "content": snapshot.data[index].data()['content'],
-                            "title": snapshot.data[index].data()['title'],
-                            "image": snapshot.data[index].data()['image'],
-                            "categoryval": "Events",
-                            "default": "Events1",
+                              .set({
+                            "question": snapshot.data[index].data()['question'],
+                            "answer": snapshot.data[index].data()['answer'],
                             "posted_on":
                                 snapshot.data[index].data()['posted_on'],
                             "posted_by":
                                 snapshot.data[index].data()['posted_by'],
-                            "experience":
-                                snapshot.data[index].data()['experience'],
                             "updated_on":
                                 snapshot.data[index].data()['updated_on'],
                             "updated_by":
-                                snapshot.data[index].data()['updated_by'],
-                            "url": snapshot.data[index].data()['url'],
+                                snapshot.data[index].data()['updated_by']
                           }),
                           print("Successful"),
 
                           //Delete
                           FirebaseFirestore.instance
-                              .collection("Events")
+                              .collection("$title")
                               .doc(snapshot.data[index].documentID)
                               .delete(),
                           print("Successful"),
@@ -159,46 +149,47 @@ class _EventsState extends State<Events> {
                     //   child: SlidableDrawerDismissal(),
                     // ),
                     child: Container(
-                      height: 170.0,
+                      height: 100.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
-                        color: Color(0xFFffd280),
+                        color: Colors.blueAccent.shade100,
                       ),
                       margin: EdgeInsets.all(6.0),
                       child: Row(
                         children: <Widget>[
-                          InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(new MaterialPageRoute(
-                                  builder: (context) => Events_PostDetails(
-                                      snapshot.data[index])));
-                            },
-                            child: Container(
-                              width: 150.0,
-                              child: Container(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  // child: Image.network(
-                                  //   snapshot.data[index].data()["image"],
-                                  //   height: 170.0,
-                                  //   fit: BoxFit.cover,
-                                  // ),
-                                  child: FadeInImage.assetNetwork(
-                                    image: snapshot.data[index].data()["image"],
-                                    height: 170.0,
-                                    fit: BoxFit.cover,
-                                    placeholder:
-                                        'images/${snapshot.data[index].data()["default"]}.jpg',
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          new SizedBox(
-                            width: 5.0,
-                          ),
+                          // InkWell(
+                          //   // onTap: () {
+                          //   //   Navigator.of(context).push(new MaterialPageRoute(
+                          //   //       builder: (context) => Events_PostDetails(
+                          //   //           snapshot.data[index])));
+                          //   // },
+                          //   child: Container(
+                          //     width: 150.0,
+                          //     child: Container(
+                          //       child: ClipRRect(
+                          //         borderRadius: BorderRadius.circular(15.0),
+                          //         // child: Image.network(
+                          //         //   snapshot.data[index].data()["image"],
+                          //         //   height: 170.0,
+                          //         //   fit: BoxFit.cover,
+                          //         // ),
+                          //         child: FadeInImage.assetNetwork(
+                          //           image: snapshot.data[index].data()["image"],
+                          //           height: 170.0,
+                          //           fit: BoxFit.cover,
+                          //           placeholder:
+                          //               'images/${snapshot.data[index].data()["default"]}.jpg',
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+                          // new SizedBox(
+                          //   width: 5.0,
+                          // ),
+
                           Expanded(
-                            flex: 2,
+                            flex: 1,
                             child: Column(
                               children: [
                                 //First Container
@@ -208,7 +199,7 @@ class _EventsState extends State<Events> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        snapshot.data[index].data()["title"],
+                                        snapshot.data[index].data()["question"],
                                         maxLines: 1,
                                         style: TextStyle(
                                           fontSize: 20.0,
@@ -218,14 +209,14 @@ class _EventsState extends State<Events> {
                                       SizedBox(
                                         height: 5.0,
                                       ),
-                                      Text(
-                                        snapshot.data[index].data()["content"],
-                                        maxLines: 4,
-                                        style: TextStyle(
-                                          fontSize: 15.0,
-                                          color: Colors.black,
-                                        ),
-                                      )
+                                      // Text(
+                                      //   snapshot.data[index].data()["content"],
+                                      //   maxLines: 4,
+                                      //   style: TextStyle(
+                                      //     fontSize: 15.0,
+                                      //     color: Colors.black,
+                                      //   ),
+                                      // )
                                     ],
                                   ),
                                 ),
@@ -247,9 +238,8 @@ class _EventsState extends State<Events> {
                                           Navigator.of(context).push(
                                               new MaterialPageRoute(
                                                   builder: (context) =>
-                                                      Events_PostDetails(
-                                                          snapshot
-                                                              .data[index])));
+                                                      AllPost_Details(snapshot
+                                                          .data[index])));
                                         },
                                         child: Container(
                                           margin: EdgeInsets.only(
@@ -281,8 +271,9 @@ class _EventsState extends State<Events> {
                                           Navigator.of(context).push(
                                               new MaterialPageRoute(
                                                   builder: (context) =>
-                                                      updateEventspost(snapshot
-                                                          .data[index])));
+                                                      updateInterviewpost(
+                                                          snapshot
+                                                              .data[index])));
                                         },
                                         child: Container(
                                           margin: EdgeInsets.only(

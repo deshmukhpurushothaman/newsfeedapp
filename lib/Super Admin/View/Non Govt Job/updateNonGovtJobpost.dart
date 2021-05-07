@@ -25,9 +25,11 @@ class updateNonGovtJobpost extends StatefulWidget {
 class _updateNonGovtJobpostState extends State<updateNonGovtJobpost> {
   TextEditingController _titleController;
   TextEditingController _postcontentController;
+  TextEditingController _urlController;
 
   String _categoryVal;
   String _postType;
+  String _url;
   String imageurl;
   File image;
   String filename;
@@ -45,6 +47,7 @@ class _updateNonGovtJobpostState extends State<updateNonGovtJobpost> {
     _singleValue = widget.snapshot['experience'];
     //image = File(widget.snapshot['image']);
     imageurl = widget.snapshot['image'];
+    _urlController = TextEditingController(text: widget.snapshot['url']);
   }
 
   getImage(source) async {
@@ -155,6 +158,16 @@ class _updateNonGovtJobpostState extends State<updateNonGovtJobpost> {
     );
   }
 
+  Widget _urltextfield() {
+    return TextField(
+      controller: _urlController,
+      decoration: InputDecoration(
+          labelText: "Url",
+          hintText: "Enter or paste url here...",
+          border: OutlineInputBorder()),
+    );
+  }
+
   //String _singleValue = "Both";
 
   Widget _radiobuttonfield() {
@@ -233,7 +246,7 @@ class _updateNonGovtJobpostState extends State<updateNonGovtJobpost> {
               items: [
                 "Government Job",
                 "Internship",
-                "Non-Government Job",
+                "Private Job",
                 "Walkin",
                 "Scholarship",
                 "Events"
@@ -253,6 +266,8 @@ class _updateNonGovtJobpostState extends State<updateNonGovtJobpost> {
                 );
               },
             ),
+            SizedBox(height: 10.0),
+            _urltextfield(),
             SizedBox(height: 10.0),
             _contenttextfield(),
             SizedBox(

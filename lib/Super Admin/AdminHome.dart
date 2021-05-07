@@ -31,6 +31,8 @@ import 'Deleted News/LatestNews/DeletedLatestAllNews.dart';
 import 'dart:async';
 import './users.dart';
 import './AdminUsers.dart';
+import './interviewForm.dart';
+import './Interview Q&A/InterviewDashboard.dart';
 
 class AdminHome extends StatefulWidget {
   AdminHome({Key key}) : super(key: key);
@@ -95,13 +97,27 @@ class _AdminHomeState extends State<AdminHome> {
               ),
               new ListTile(
                 title: new Text(
-                  "Latest News",
+                  "Create Interview Q&A",
                   style: TextStyle(fontSize: 20.0, color: Colors.black),
                 ),
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (context) => LatestNews()));
+                      builder: (context) => interviewForm()));
+                },
+                leading:
+                    new Icon(Icons.next_week, color: Colors.black, size: 20.0),
+              ),
+
+              new ListTile(
+                title: new Text(
+                  "Interview Q&A",
+                  style: TextStyle(fontSize: 20.0, color: Colors.black),
+                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (context) => InterviewDashboard()));
                 },
                 leading:
                     new Icon(Icons.next_week, color: Colors.black, size: 20.0),
@@ -121,7 +137,7 @@ class _AdminHomeState extends State<AdminHome> {
               ),
               new ListTile(
                 title: new Text(
-                  "Non-Government Job",
+                  "Private Job",
                   style: TextStyle(fontSize: 20.0, color: Colors.black),
                 ),
                 onTap: () {
@@ -286,7 +302,7 @@ class _AdminHomeState extends State<AdminHome> {
               ),
               new ListTile(
                 title: new Text(
-                  "Deleted Non-Government Job",
+                  "Deleted Private Job",
                   style: TextStyle(fontSize: 20.0, color: Colors.black),
                 ),
                 onTap: () {
@@ -496,7 +512,7 @@ class _AdminHomeState extends State<AdminHome> {
                                         builder: (context) => NonGovtJob()));
                               },
                               child: Text(
-                                "Non Govt Job",
+                                "Private Job",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 19.0,

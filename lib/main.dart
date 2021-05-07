@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 //import 'package:fl_fire_auth/Admin/admin_home.dart';
 import 'package:fl_fire_auth/Admin/createEventspost.dart';
 import 'package:fl_fire_auth/Admin/createpost.dart';
 import 'package:fl_fire_auth/Admin/createlatestpost.dart';
 import 'package:fl_fire_auth/Admin/createscholarshippost.dart';
-import './Admin/createGovtJobpost.dart';
-import './Admin/createWalkinpost.dart';
-import './Admin/createInternshippost.dart';
-import './Admin/createNonGovtJobpost.dart';
+import 'Admin/createGovtJobpost.dart';
+import 'Admin/createWalkinpost.dart';
+import 'Admin/createInternshippost.dart';
+import 'Admin/createNonGovtJobpost.dart';
 import 'Start.dart';
 import 'package:flutter/cupertino.dart';
 //import 'Admin/admin_home.dart';
@@ -19,16 +20,64 @@ import 'Authentication/auth_helper.dart';
 import 'Authentication/signup.dart';
 import 'package:flutter/material.dart';
 import 'Authentication/login.dart';
-import './carousal.dart';
+import 'carousal.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  print("Main.dart");
+  String token123;
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  @override
+  void initState() {
+    print("Main.dart initstate");
+    _firebaseMessaging.getToken().then((token) =>
+        {token123 = token, print("Firebase Messaging token: $token")});
+    //super.initState();
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
+  }
+
   runApp(MyApp());
 }
 
+//final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  // @override
+  String token123;
+  void initState() {
+    //super.initState();
+    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+    _firebaseMessaging.getToken().then((token) =>
+        {token123 = token, print("Firebase Messaging token: $token")});
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -59,6 +108,24 @@ class MainScreen extends StatelessWidget {
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<DocumentSnapshot> snapshot) {
+                final FirebaseMessaging _firebaseMessaging =
+                    FirebaseMessaging();
+                _firebaseMessaging.getToken().then(
+                    (token) => {print("Firebase Messaging token: $token")});
+                _firebaseMessaging.configure(
+                  onMessage: (Map<String, dynamic> message) async {
+                    print("onMessage: $message");
+                  },
+                  onLaunch: (Map<String, dynamic> message) async {
+                    print("onLaunch: $message");
+                  },
+                  onResume: (Map<String, dynamic> message) async {
+                    print("onResume: $message");
+                  },
+                );
+                _firebaseMessaging.requestNotificationPermissions(
+                    const IosNotificationSettings(
+                        sound: true, badge: true, alert: true));
                 if (snapshot.hasData && snapshot.data != null) {
                   final userDoc = snapshot.data;
                   final user = userDoc.data();

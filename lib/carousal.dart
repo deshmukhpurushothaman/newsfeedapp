@@ -12,9 +12,11 @@ import "View/Events/EventsAllNews.dart";
 import 'contactUs.dart';
 import 'AllNews.dart';
 import 'Authentication/auth_helper.dart';
+import './InterviewDashboard.dart';
 
 final imagesList = [
-  "images/campus drive.jpg",
+  "images/interview q&a.jpg",
+  "images/campus drive.png",
   "images/off campus drive.png",
   "images/internship.png",
   "images/walkin.png",
@@ -23,8 +25,9 @@ final imagesList = [
 ];
 
 final colorList = [
-  Colors.greenAccent.shade100,
+  Colors.tealAccent.shade100,
   Colors.blueAccent.shade100,
+  Colors.greenAccent.shade100,
   Colors.yellowAccent.shade100,
   Colors.redAccent.shade100,
   Colors.blueAccent.shade100,
@@ -130,18 +133,18 @@ class _CityExplorerPageState extends State<CityExplorerPage> {
               //leading: Icon(EvaIcons.edit2Outline),
               leading: new Icon(Icons.grade_outlined, size: 20.0),
               onTap: () {
-                Navigator.of(context).push(
-                    new MaterialPageRoute(builder: (context) => GovtJobNews()));
+                Navigator.of(context).push(new MaterialPageRoute(
+                    builder: (context) => AllNews("Government Job")));
               },
             ),
             SizedBox(height: 10),
             ListTile(
-              title: Text("Non-Government Job"),
+              title: Text("Private Job"),
               //leading: Icon(EvaIcons.edit2Outline),
               leading: new Icon(Icons.local_post_office_outlined, size: 20.0),
               onTap: () {
                 Navigator.of(context).push(new MaterialPageRoute(
-                    builder: (context) => NonGovtJobNews()));
+                    builder: (context) => AllNews("Private Job")));
               },
             ),
             SizedBox(height: 10),
@@ -151,7 +154,7 @@ class _CityExplorerPageState extends State<CityExplorerPage> {
               leading: new Icon(Icons.work_outline, size: 20.0),
               onTap: () {
                 Navigator.of(context).push(new MaterialPageRoute(
-                    builder: (context) => InternshipNews()));
+                    builder: (context) => AllNews("Internship")));
               },
             ),
             SizedBox(height: 10),
@@ -160,8 +163,8 @@ class _CityExplorerPageState extends State<CityExplorerPage> {
               //leading: Icon(EvaIcons.edit2Outline),
               leading: new Icon(Icons.directions_walk_outlined, size: 20.0),
               onTap: () {
-                Navigator.of(context).push(
-                    new MaterialPageRoute(builder: (context) => WalkinNews()));
+                Navigator.of(context).push(new MaterialPageRoute(
+                    builder: (context) => AllNews("Walkin")));
               },
             ),
             SizedBox(height: 10),
@@ -171,7 +174,7 @@ class _CityExplorerPageState extends State<CityExplorerPage> {
               leading: new Icon(Icons.school_outlined, size: 20.0),
               onTap: () {
                 Navigator.of(context).push(new MaterialPageRoute(
-                    builder: (context) => ScholarshipNews()));
+                    builder: (context) => AllNews("Scholarship")));
               },
             ),
             SizedBox(height: 10),
@@ -180,8 +183,8 @@ class _CityExplorerPageState extends State<CityExplorerPage> {
               //leading: Icon(EvaIcons.edit2Outline),
               leading: new Icon(Icons.event_available_outlined, size: 20.0),
               onTap: () {
-                Navigator.of(context).push(
-                    new MaterialPageRoute(builder: (context) => EventsNews()));
+                Navigator.of(context).push(new MaterialPageRoute(
+                    builder: (context) => AllNews("Events")));
               },
             ),
             SizedBox(height: 10),
@@ -226,7 +229,7 @@ class _CityExplorerPageState extends State<CityExplorerPage> {
                   controller: _pageController,
                   pageSnapping: true,
                   onPageChanged: _onPageChanged,
-                  itemCount: 6,
+                  itemCount: 7,
                   physics: ClampingScrollPhysics(),
                 ),
               ),
@@ -286,9 +289,14 @@ class _CityExplorerPageState extends State<CityExplorerPage> {
                             fontSize: 18.0, fontWeight: FontWeight.w900),
                       ),
                       onPressed: () {
-                        Navigator.of(context).push(new MaterialPageRoute(
-                            builder: (context) =>
-                                AllNews(detailsList[index].title)));
+                        if (detailsList[index].title == 'Interview Q&A') {
+                          Navigator.of(context).push(new MaterialPageRoute(
+                              builder: (context) => InterviewDashboard()));
+                        } else {
+                          Navigator.of(context).push(new MaterialPageRoute(
+                              builder: (context) =>
+                                  AllNews(detailsList[index].title)));
+                        }
                       },
                     ),
                   ],
@@ -355,8 +363,13 @@ class _CityExplorerPageState extends State<CityExplorerPage> {
                 ),
               ),
               onTap: () {
-                Navigator.of(context).push(new MaterialPageRoute(
-                    builder: (context) => AllNews(detailsList[index].title)));
+                if (detailsList[index].title == 'Interview Q&A') {
+                  Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (context) => InterviewDashboard()));
+                } else {
+                  Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (context) => AllNews(detailsList[index].title)));
+                }
               },
             ),
           ),

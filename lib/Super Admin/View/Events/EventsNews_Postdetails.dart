@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Events_PostDetails extends StatefulWidget {
   //Loc_PostDetails({Key key}) : super(key: key);
@@ -91,6 +93,28 @@ class _Events_PostDetailsState extends State<Events_PostDetails> {
                     child: Text(
                       widget.snapshot["content"],
                       style: TextStyle(fontSize: 18.0, color: Colors.black),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(6.0),
+                    child: new GestureDetector(
+                      onTap: () async {
+                        String texturl = widget.snapshot["url"];
+                        print(texturl);
+
+                        if (await canLaunch(texturl)) {
+                          await launch(texturl);
+                        } else {
+                          throw 'Could not launch $texturl';
+                          Fluttertoast.showToast(
+                              msg: 'Could not launch $texturl');
+                          return;
+                        }
+                      },
+                      child: new Text(
+                        widget.snapshot["url"],
+                        style: TextStyle(fontSize: 18.0, color: Colors.blue),
+                      ),
                     ),
                   ),
                 ],

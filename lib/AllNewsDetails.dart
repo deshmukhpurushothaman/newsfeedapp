@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AllNews_Details extends StatefulWidget {
   //AllNews_Details({Key key}) : super(key: key);
@@ -18,6 +20,7 @@ class _AllNews_DetailsState extends State<AllNews_Details> {
     String title = widget.snapshot["default"];
     int length = title.length;
     String titleBar = title.substring(0, length - 1);
+    String url = widget.snapshot["url"];
     return Scaffold(
       appBar: AppBar(title: Text("${titleBar}"), backgroundColor: Colors.white),
       backgroundColor: Colors.white,
@@ -97,6 +100,29 @@ class _AllNews_DetailsState extends State<AllNews_Details> {
                       style: TextStyle(fontSize: 18.0, color: Colors.black),
                     ),
                   ),
+                  
+                    Container(
+                      margin: EdgeInsets.all(6.0),
+                      child: new GestureDetector(
+                        onTap: () async {
+                          String texturl = widget.snapshot["url"];
+                          print(texturl);
+
+                          if (await canLaunch(texturl)) {
+                            await launch(texturl);
+                          } else {
+                            throw 'Could not launch $texturl';
+                            Fluttertoast.showToast(
+                                msg: 'Could not launch $texturl');
+                            return;
+                          }
+                        },
+                        child: new Text(
+                          widget.snapshot["url"],
+                          style: TextStyle(fontSize: 18.0, color: Colors.blue),
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),

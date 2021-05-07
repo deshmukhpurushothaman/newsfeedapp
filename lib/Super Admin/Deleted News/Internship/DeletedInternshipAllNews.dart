@@ -18,19 +18,35 @@ class _DeletedInternshipState extends State<DeletedInternship> {
   Future getAllPost(String experience) async {
     this.experience = experience;
     // ignore: deprecated_member_use
-    var firestore = Firestore.instance;
-    QuerySnapshot snap =
-        // ignore: deprecated_member_use
-        await firestore
-            .collection("DeletedInternship")
-            .orderBy("posted_on", descending: true)
-            .where("experience", isEqualTo: experience)
-            .getDocuments();
-    // ignore: deprecated_member_use
-    return snap.documents;
+    if ((experience == 'Experienced') ||
+        (experience == 'Fresher') ||
+        (experience == 'Both')) {
+      //print("Experience askbkabfkbfasdf");
+      var firestore = Firestore.instance;
+      QuerySnapshot snap =
+          // ignore: deprecated_member_use
+          await firestore
+              .collection("DeletedInternship")
+              .orderBy("posted_on", descending: true)
+              .where("experience", isEqualTo: experience)
+              .getDocuments();
+      // ignore: deprecated_member_use
+      return snap.documents;
+    } else {
+      var firestore = Firestore.instance;
+      QuerySnapshot snap =
+          // ignore: deprecated_member_use
+          await firestore
+              .collection("DeletedInternship")
+              .orderBy("posted_on", descending: true)
+              //.where("experience", isEqualTo: experience)
+              .getDocuments();
+      // ignore: deprecated_member_use
+      return snap.documents;
+    }
   }
 
-  String selectedRadioTile = "Both";
+  String selectedRadioTile = "Nil";
 
   setSelectedRadioTile(String val) {
     setState(() {
@@ -96,6 +112,18 @@ class _DeletedInternshipState extends State<DeletedInternship> {
                                   activeColor: Colors.red,
                                   //selected: false,
                                 ),
+                                RadioListTile<String>(
+                                  value: "Both",
+                                  groupValue: selectedRadioTile,
+                                  title: Text("Both"),
+                                  onChanged: (val) {
+                                    print("Radio Tile pressed $val");
+                                    Navigator.pop(context);
+                                    setSelectedRadioTile(val);
+                                  },
+                                  activeColor: Colors.red,
+                                  //selected: false,
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.all(28.0),
                                   child: Row(
@@ -103,7 +131,7 @@ class _DeletedInternshipState extends State<DeletedInternship> {
                                     children: [
                                       MaterialButton(
                                         onPressed: () {
-                                          String reset = "Both";
+                                          String reset = "Nil";
                                           print("Radio Tile pressed $reset");
                                           Navigator.pop(context);
                                           setSelectedRadioTile(reset);
@@ -191,6 +219,7 @@ class _DeletedInternshipState extends State<DeletedInternship> {
                                 snapshot.data[index].data()['updated_on'],
                             "updated_by":
                                 snapshot.data[index].data()['updated_by'],
+                            "url": snapshot.data[index].data()['url'],
                           }),
                           print("Successful"),
 

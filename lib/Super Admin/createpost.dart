@@ -29,9 +29,12 @@ class createpost extends StatefulWidget {
 class _createpostState extends State<createpost> {
   TextEditingController _titleController;
   TextEditingController _postcontentController;
+  TextEditingController _urlController;
 
   String _categoryVal;
   String _postType;
+  String _url;
+
   String imageurl;
   File image;
   String filename;
@@ -43,6 +46,7 @@ class _createpostState extends State<createpost> {
     super.initState();
     _titleController = TextEditingController(text: "");
     _postcontentController = TextEditingController(text: "");
+    _urlController = TextEditingController(text: "");
   }
 
   getImage(source) async {
@@ -153,6 +157,16 @@ class _createpostState extends State<createpost> {
     );
   }
 
+  Widget _urltextfield() {
+    return TextField(
+      controller: _urlController,
+      decoration: InputDecoration(
+          labelText: "Url",
+          hintText: "Enter or paste url here...",
+          border: OutlineInputBorder()),
+    );
+  }
+
   String _singleValue = "Both";
 
   Widget _radiobuttonfield() {
@@ -231,7 +245,7 @@ class _createpostState extends State<createpost> {
               items: [
                 "Government Job",
                 "Internship",
-                "Non-Government Job",
+                "Private Job",
                 "Walkin",
                 "Scholarship",
                 "Events"
@@ -251,6 +265,8 @@ class _createpostState extends State<createpost> {
                 );
               },
             ),
+            SizedBox(height: 10.0),
+            _urltextfield(),
             SizedBox(height: 10.0),
             _contenttextfield(),
             SizedBox(height: 10.0),
@@ -293,6 +309,11 @@ class _createpostState extends State<createpost> {
                           msg: "Please select post category!!");
                       return;
                     }
+                    if (_urlController.text.isEmpty) {
+                      Fluttertoast.showToast(
+                          msg: "Please enter or paste url!!");
+                      return;
+                    }
                     if (_postcontentController.text.isEmpty) {
                       Fluttertoast.showToast(
                           msg: "Please enter post content!!");
@@ -309,6 +330,7 @@ class _createpostState extends State<createpost> {
                           .setData({
                         "content": _postcontentController.text,
                         "title": _titleController.text,
+                        "url": _urlController.text,
                         "image": imageurl,
                         "default": "${_categoryVal}1",
                         "posted_on": "${DateTime.now()}",

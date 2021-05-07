@@ -17,27 +17,43 @@ class AllNews extends StatefulWidget {
 class _AllNewsState extends State<AllNews> {
   String title;
   _AllNewsState(this.title);
-  String experience = "Both";
+  String experience = "Nil";
 
   Future getAllPost(String experience) async {
     // ignore: deprecated_member_use
 
     this.experience = experience;
 
-    var firestore = Firestore.instance;
-    QuerySnapshot snap =
-        // ignore: deprecated_member_use
-        await firestore
-            .collection("$title")
-            .orderBy("posted_on", descending: true)
-            .where("experience", isEqualTo: experience)
-            .getDocuments();
-    // ignore: deprecated_member_use
-    return snap.documents;
+    if ((experience == 'Experienced') ||
+        (experience == 'Fresher') ||
+        (experience == 'Both')) {
+      //print("Experience askbkabfkbfasdf");
+      var firestore = Firestore.instance;
+      QuerySnapshot snap =
+          // ignore: deprecated_member_use
+          await firestore
+              .collection("$title")
+              .orderBy("posted_on", descending: true)
+              .where("experience", isEqualTo: experience)
+              .getDocuments();
+      // ignore: deprecated_member_use
+      return snap.documents;
+    } else {
+      var firestore = Firestore.instance;
+      QuerySnapshot snap =
+          // ignore: deprecated_member_use
+          await firestore
+              .collection("$title")
+              .orderBy("posted_on", descending: true)
+              //.where("experience", isEqualTo: experience)
+              .getDocuments();
+      // ignore: deprecated_member_use
+      return snap.documents;
+    }
   }
 
   int selectedRadio = 0;
-  String selectedRadioTile = "Both";
+  String selectedRadioTile = "Nil";
 
   //selectedRadio = 0;
   //selectedRadioTile = 0;
@@ -68,7 +84,7 @@ class _AllNewsState extends State<AllNews> {
         ),
         actions: [
           if ((title == "Government Job") ||
-              (title == "Non-Government Job") ||
+              (title == "Private Job") ||
               (title == "Internship") ||
               (title == "Walkin"))
             IconButton(
@@ -110,6 +126,18 @@ class _AllNewsState extends State<AllNews> {
                                     activeColor: Colors.red,
                                     //selected: false,
                                   ),
+                                  RadioListTile<String>(
+                                    value: "Both",
+                                    groupValue: selectedRadioTile,
+                                    title: Text("Both"),
+                                    onChanged: (val) {
+                                      print("Radio Tile pressed $val");
+                                      Navigator.pop(context);
+                                      setSelectedRadioTile(val);
+                                    },
+                                    activeColor: Colors.red,
+                                    //selected: false,
+                                  ),
                                   Padding(
                                     padding: const EdgeInsets.all(28.0),
                                     child: Row(
@@ -118,7 +146,7 @@ class _AllNewsState extends State<AllNews> {
                                       children: [
                                         MaterialButton(
                                           onPressed: () {
-                                            String reset = "Both";
+                                            String reset = "Nil";
                                             print("Radio Tile pressed $reset");
                                             Navigator.pop(context);
                                             setSelectedRadioTile(reset);
