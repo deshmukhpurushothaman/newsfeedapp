@@ -21,6 +21,7 @@ import 'Authentication/signup.dart';
 import 'package:flutter/material.dart';
 import 'Authentication/login.dart';
 import 'carousal.dart';
+import 'NewPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -149,7 +150,7 @@ class MainScreen extends StatelessWidget {
                   } else if (user['role'] == '9') {
                     return createEventspost();
                   } else {
-                    return CityExplorerPage();
+                    return NewPage();
                   }
                 } else {
                   return Material(

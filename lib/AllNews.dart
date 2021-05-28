@@ -220,7 +220,8 @@ class _AllNewsState extends State<AllNews> {
                       height: 170.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
-                        color: Color(0xFFffd280),
+                        //color: Color(0xFFffd280),
+                        color: Colors.blue.shade100,
                       ),
                       margin: EdgeInsets.all(6.0),
                       child: Row(

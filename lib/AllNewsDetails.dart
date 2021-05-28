@@ -28,7 +28,7 @@ class _AllNews_DetailsState extends State<AllNews_Details> {
         children: [
           //First Container
           new Container(
-            height: 250.0,
+            height: 350.0,
             margin: EdgeInsets.all(6.0),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(10.0),
@@ -47,17 +47,19 @@ class _AllNews_DetailsState extends State<AllNews_Details> {
 
           SizedBox(height: 7.0),
           Container(
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery.of(context).size.height * 2.0,
             margin: EdgeInsets.all(6.0),
             decoration: BoxDecoration(
-              color: Color(0xFFffd280),
+              //color: Color(0xFFffd280),
+              color: Colors.blue.shade100,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20.0),
                 topRight: Radius.circular(20.0),
               ),
             ),
             child: Card(
-              color: Color(0xFFffd280),
+              //color: Color(0xFFffd280),
+              color: Colors.blue.shade100,
               elevation: 10.0,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,29 +102,28 @@ class _AllNews_DetailsState extends State<AllNews_Details> {
                       style: TextStyle(fontSize: 18.0, color: Colors.black),
                     ),
                   ),
-                  
-                    Container(
-                      margin: EdgeInsets.all(6.0),
-                      child: new GestureDetector(
-                        onTap: () async {
-                          String texturl = widget.snapshot["url"];
-                          print(texturl);
+                  Container(
+                    margin: EdgeInsets.all(6.0),
+                    child: new GestureDetector(
+                      onTap: () async {
+                        String texturl = widget.snapshot["url"];
+                        print(texturl);
 
-                          if (await canLaunch(texturl)) {
-                            await launch(texturl);
-                          } else {
-                            throw 'Could not launch $texturl';
-                            Fluttertoast.showToast(
-                                msg: 'Could not launch $texturl');
-                            return;
-                          }
-                        },
-                        child: new Text(
-                          widget.snapshot["url"],
-                          style: TextStyle(fontSize: 18.0, color: Colors.blue),
-                        ),
+                        if (await canLaunch(texturl)) {
+                          await launch(texturl);
+                        } else {
+                          throw 'Could not launch $texturl';
+                          Fluttertoast.showToast(
+                              msg: 'Could not launch $texturl');
+                          return;
+                        }
+                      },
+                      child: new Text(
+                        widget.snapshot["url"],
+                        style: TextStyle(fontSize: 18.0, color: Colors.blue),
                       ),
                     ),
+                  ),
                 ],
               ),
             ),

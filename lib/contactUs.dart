@@ -20,14 +20,15 @@ class _contactusState extends State<contactus> {
       appBar: new AppBar(
         title: new Text(
           "Contact Us",
-          style: TextStyle(color: Colors.grey[800]),
+          style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.orange,
-        iconTheme: new IconThemeData(color: Colors.grey[800]),
+        backgroundColor: Colors.white,
+        iconTheme: new IconThemeData(color: Colors.black),
       ),
       body: Builder(
           builder: (context) => Container(
-                  child: Column(
+              color: Colors.blue.shade100,
+              child: Column(
                 children: [
                   SizedBox(height: 20.0),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [

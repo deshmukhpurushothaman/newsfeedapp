@@ -13,6 +13,8 @@ import 'contactUs.dart';
 import 'AllNews.dart';
 import 'Authentication/auth_helper.dart';
 import './InterviewDashboard.dart';
+import 'Application.dart';
+import 'NewPage.dart';
 
 final imagesList = [
   "images/interview q&a.jpg",
@@ -126,6 +128,26 @@ class _CityExplorerPageState extends State<CityExplorerPage> {
               //   Navigator.of(context)
               //       .push(new MaterialPageRoute(builder: (context) => Home()));
               // },
+            ),
+            SizedBox(height: 10),
+            ListTile(
+              title: Text("Need Internship?"),
+              //leading: Icon(EvaIcons.edit2Outline),
+              leading: new Icon(Icons.grade_outlined, size: 20.0),
+              onTap: () {
+                Navigator.of(context).push(
+                    new MaterialPageRoute(builder: (context) => Application()));
+              },
+            ),
+            SizedBox(height: 10),
+            ListTile(
+              title: Text("New Page"),
+              //leading: Icon(EvaIcons.edit2Outline),
+              leading: new Icon(Icons.grade_outlined, size: 20.0),
+              onTap: () {
+                Navigator.of(context).push(
+                    new MaterialPageRoute(builder: (context) => NewPage()));
+              },
             ),
             SizedBox(height: 10),
             ListTile(
